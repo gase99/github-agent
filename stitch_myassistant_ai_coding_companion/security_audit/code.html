@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Space+Grotesk:wght@600;700&amp;family=Vazirmatn:wght@400;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#11131c;}body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "tertiary": "#f5f6ff", "surface-dim": "#11131c", "on-secondary-fixed": "#2e004e", "surface-variant": "#32343e", "surface-bright": "#373943", "secondary-fixed": "#f2daff", "on-error-container": "#ffdad6", "primary": "#d7fff3", "on-background": "#e1e1ef", "on-tertiary": "#002e69", "outline": "#83948f", "outline-variant": "#3a4a46", "on-secondary-container": "#d7a4ff", "surface": "#11131c", "on-secondary-fixed-variant": "#6a0baa", "surface-container-highest": "#32343e", "on-primary-container": "#006c5c", "on-error": "#690005", "tertiary-fixed-dim": "#adc6ff", "error": "#ffb4ab", "inverse-on-surface": "#2e303a", "secondary-fixed-dim": "#e0b6ff", "primary-fixed-dim": "#00dfc1", "error-container": "#93000a", "on-tertiary-fixed-variant": "#004494", "surface-container-lowest": "#0c0e17", "secondary-container": "#6d11ad", "tertiary-container": "#cbdaff", "on-primary": "#00382f", "on-secondary": "#4c007d", "surface-container-high": "#282933", "secondary": "#e0b6ff", "surface-container-low": "#191b24", "background": "#11131c", "surface-container": "#1d1f29", "on-tertiary-container": "#005bc3", "primary-container": "#00f5d4", "on-primary-fixed-variant": "#005144", "inverse-primary": "#006b5b", "on-tertiary-fixed": "#001a41", "inverse-surface": "#e1e1ef", "primary-fixed": "#26fedc", "surface-tint": "#00dfc1", "on-surface": "#e1e1ef", "tertiary-fixed": "#d8e2ff", "on-surface-variant": "#b9cac4", "on-primary-fixed": "#00201a" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-sm": "0.5rem", "gutter-tablet": "1.5rem", "margin": "1rem", "space-md": "1rem", "margin-desktop": "3rem", "margin-tablet": "2rem", "space-xl": "2rem", "space-xs": "0.25rem", "gutter": "1rem", "space-lg": "1.5rem" }, fontFamily: { "body-md": ["Inter"], "label-sm": ["JetBrains Mono"], "body-sm": ["Inter"], "label-md": ["JetBrains Mono"], "code-inline": ["JetBrains Mono"], "headline-lg": ["Space Grotesk"], "headline-sm": ["Space Grotesk"], "headline-xl-mobile": ["Space Grotesk"], "headline-xl": ["Space Grotesk"], "body-lg": ["Inter"], "headline-md": ["Space Grotesk"], "code-block": ["JetBrains Mono"] }, fontSize: { "body-md": ["14px", { "lineHeight": "22px", "fontWeight": "400" }], "label-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.06em", "fontWeight": "600" }], "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500" }], "code-inline": ["13px", { "lineHeight": "18px", "fontWeight": "500" }], "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "headline-sm": ["16px", { "lineHeight": "24px", "fontWeight": "600" }], "headline-xl-mobile": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "headline-xl": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "body-lg": ["16px", { "lineHeight": "26px", "fontWeight": "400" }], "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }], "code-block": ["12px", { "lineHeight": "20px", "fontWeight": "400" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface text-on-surface font-body-md text-body-md min-h-screen flex flex-col antialiased selection:bg-primary-container selection:text-on-primary-container"><header class="fixed top-0 inset-x-0 z-50 bg-surface/85 backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.35)] pt-safe"><div class="h-20 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0 flex-1"><img alt="My Assistant App Logo" class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1UFNDLP7gpX166jDhKHXjITVilhMJ99ZIw7ioNuB1AvhCjmJ7aFZnPm8k9BMFDcl5_p6x6vWsZ74YG5kObEB0Ki1SthxOE0CIicmavFCpa_vJ8kVPW0EoWS5wgkXQMmeAXJo3A79UZzX-026MiCo6GjhmxtmyKw-8Z-UWvPxcEOWfm33X-7wh5McM6rZGRQi2HkAcAH4aefy9aiPK3eCj_F1O6hs7zflJIRdq5s6XAtNGEa9GEkxMp_3w"/><div class="flex flex-col min-w-0"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight truncate">دستیار من</span><span class="text-outline-variant font-body-sm text-body-sm">|</span><span class="font-headline-sm text-headline-sm text-primary-fixed-dim font-bold tracking-tight truncate">My Assistant</span></div><div class="flex items-center gap-space-xs mt-0.5"><span class="font-label-sm text-label-sm text-on-surface-variant truncate uppercase">Security And Vulnerability Audit</span><span class="inline-block w-1.5 h-1.5 rounded-full bg-primary-fixed-dim animate-pulse"></span></div></div></div><div class="flex items-center gap-space-xs flex-shrink-0"><div class="hidden sm:flex items-center gap-space-xs px-2 py-1 rounded-full bg-surface-container-high"><span class="material-symbols-outlined text-[14px] text-primary-container">auto_awesome</span><span class="font-label-sm text-label-sm text-on-surface-variant">Gemini</span><span class="w-1 h-1 rounded-full bg-outline-variant"></span><span class="material-symbols-outlined text-[14px] text-secondary">terminal</span><span class="font-label-sm text-label-sm text-on-surface-variant">Git</span></div><button class="min-w-[44px] min-h-[44px] px-2 py-1 rounded-lg bg-surface-container flex items-center justify-center gap-1 active:scale-95 transition-all text-on-surface-variant hover:text-primary" title="Toggle Language / تغییر زبان" type="button"><span class="material-symbols-outlined text-[16px]">translate</span><span class="font-label-sm text-label-sm font-semibold text-primary-container">FA/EN</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-20 pb-24 bg-surface min-h-screen"><div class="flex flex-col w-full text-on-surface select-none pb-12" dir="rtl">
+<!-- Subtle Ambient Glow Orbs -->
+<div class="relative w-full overflow-hidden px-margin">
+<div class="absolute -top-24 -right-16 w-64 h-64 bg-secondary-container/20 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute top-48 -left-20 w-72 h-72 bg-primary-container/10 rounded-full blur-3xl pointer-events-none"></div>
+<!-- 1. Target Repository & Scan Telemetry Section -->
+<section class="mt-space-md bg-surface-container-low/90 backdrop-blur-xl p-space-md rounded-xl shadow-lg relative z-10">
+<div class="flex items-start justify-between gap-space-sm mb-space-sm">
+<div class="flex items-center gap-space-xs min-w-0">
+<div class="w-9 h-9 rounded-lg bg-surface-container-high flex items-center justify-center text-primary-fixed-dim shrink-0 shadow-inner">
+<span class="material-symbols-outlined text-[20px]">arrow_forward_ios</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5" dir="ltr">
+<span class="font-headline-sm text-headline-sm text-primary-fixed truncate">developer_pro</span>
+<span class="text-outline-variant font-label-sm">/</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">kotlin-ai-agent</span>
+</div>
+<div class="flex items-center gap-2 mt-0.5" dir="ltr">
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[12px] text-secondary">alt_route</span>
+                main
+              </span>
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[12px] text-outline">commit</span>
+                7f8c2b1
+              </span>
+</div>
+</div>
+</div>
+<button class="min-w-[44px] min-h-[44px] px-3 py-1.5 bg-surface-container-high active:bg-surface-bright rounded-lg flex items-center gap-1.5 text-primary-container transition-all active:scale-95 shadow-sm" id="rescan-btn" type="button">
+<span class="material-symbols-outlined text-[18px]" id="rescan-icon">sync</span>
+<span class="font-label-sm text-label-sm font-semibold">اسکن مجدد</span>
+</button>
+</div>
+<!-- Telemetry Info Row -->
+<div class="flex flex-wrap items-center justify-between gap-space-xs pt-space-xs mt-space-xs border-t-0 bg-surface-container-lowest/60 p-2.5 rounded-lg">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1 text-on-surface-variant font-body-sm text-body-sm">
+<span class="w-2 h-2 rounded-full bg-primary-fixed-dim animate-ping"></span>
+            اسکن زنده / Just now
+          </span>
+</div>
+<div class="flex items-center gap-1.5">
+<div class="flex items-center gap-1 px-2 py-0.5 rounded-full bg-secondary-container/40 text-on-secondary-container font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[13px] text-secondary">psychology</span>
+<span>Gemini 1.5 Sentinel Pro</span>
+</div>
+<button class="p-1 rounded text-on-surface-variant hover:text-on-surface active:scale-90 transition-all flex items-center" title="Export SARIF" type="button">
+<span class="material-symbols-outlined text-[18px]">file_download</span>
+</button>
+</div>
+</div>
+</section>
+<!-- 2. Security Health Score & Severity Overview Matrix -->
+<section class="mt-space-md grid grid-cols-1 gap-space-sm">
+<!-- High Impact Metric Card -->
+<div class="bg-surface-container-low/90 backdrop-blur-xl p-space-md rounded-xl shadow-lg relative overflow-hidden">
+<div class="flex items-center justify-between gap-space-md">
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-label-sm text-on-surface-variant tracking-wider uppercase">امتیاز سلامت کد امنیتی</span>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="font-headline-xl text-headline-xl text-primary font-bold tracking-tight">۷۸</span>
+<span class="font-headline-sm text-headline-sm text-outline">/ ۱۰۰</span>
+</div>
+<div class="flex items-center gap-1.5 mt-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">verified_user</span>
+<span class="font-body-sm text-body-sm font-medium text-secondary">ریسک متوسط • نیازمند ۱ اصلاح بحرانی</span>
+</div>
+</div>
+<!-- Circular Radial Progress -->
+<div class="relative w-20 h-20 shrink-0 flex items-center justify-center">
+<svg class="w-full h-full -rotate-90" viewbox="0 0 72 72">
+<circle class="stroke-surface-container-highest" cx="36" cy="36" fill="transparent" r="30" stroke-width="6"></circle>
+<circle class="stroke-primary-container" cx="36" cy="36" fill="transparent" r="30" stroke-dasharray="188.4" stroke-dashoffset="41.4" stroke-linecap="round" stroke-width="6"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="material-symbols-outlined text-[20px] text-primary-container">shield_with_heart</span>
+</div>
+</div>
+</div>
+<!-- 4-Column Severity Counters -->
+<div class="grid grid-cols-4 gap-2 mt-space-md pt-space-sm bg-surface-container-lowest/80 p-space-sm rounded-lg">
+<!-- Critical -->
+<div class="flex flex-col items-center justify-center p-2 rounded-lg bg-surface-container text-center">
+<div class="flex items-center gap-1 mb-1">
+<span class="w-1.5 h-1.5 rounded-full bg-error animate-pulse"></span>
+<span class="font-label-sm text-label-sm text-error font-bold">بحرانی</span>
+</div>
+<span class="font-headline-md text-headline-md text-error font-bold">۱</span>
+<span class="font-label-sm text-[9px] text-on-surface-variant" dir="ltr">Critical</span>
+</div>
+<!-- High -->
+<div class="flex flex-col items-center justify-center p-2 rounded-lg bg-surface-container text-center">
+<div class="flex items-center gap-1 mb-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span class="font-label-sm text-label-sm text-secondary font-bold">بالا</span>
+</div>
+<span class="font-headline-md text-headline-md text-secondary font-bold">۲</span>
+<span class="font-label-sm text-[9px] text-on-surface-variant" dir="ltr">High</span>
+</div>
+<!-- Medium -->
+<div class="flex flex-col items-center justify-center p-2 rounded-lg bg-surface-container text-center">
+<div class="flex items-center gap-1 mb-1">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed-dim"></span>
+<span class="font-label-sm text-label-sm text-tertiary-fixed-dim font-bold">متوسط</span>
+</div>
+<span class="font-headline-md text-headline-md text-tertiary-fixed-dim font-bold">۴</span>
+<span class="font-label-sm text-[9px] text-on-surface-variant" dir="ltr">Medium</span>
+</div>
+<!-- Low / Info -->
+<div class="flex flex-col items-center justify-center p-2 rounded-lg bg-surface-container text-center">
+<div class="flex items-center gap-1 mb-1">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+<span class="font-label-sm text-label-sm text-outline font-bold">بهینگی</span>
+</div>
+<span class="font-headline-md text-headline-md text-on-surface font-bold">۷</span>
+<span class="font-label-sm text-[9px] text-on-surface-variant" dir="ltr">Info</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 3. Compliance & Standards Micro Strip -->
+<section class="mt-space-sm flex items-center justify-between gap-1 overflow-x-auto py-1 text-on-surface-variant">
+<div class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-surface-container-low shrink-0 text-on-surface">
+<span class="material-symbols-outlined text-[14px] text-primary-fixed-dim">gpp_good</span>
+<span class="font-label-sm text-label-sm">OWASP Mobile: <strong class="text-primary-fixed font-bold">۸۵٪</strong></span>
+</div>
+<div class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-surface-container-low shrink-0 text-on-surface">
+<span class="material-symbols-outlined text-[14px] text-primary-container">task_alt</span>
+<span class="font-label-sm text-label-sm">CWE/SANS 25: <span class="text-primary-fixed font-bold">پاس شد</span></span>
+</div>
+<div class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-surface-container-low shrink-0 text-on-surface">
+<span class="material-symbols-outlined text-[14px] text-secondary">verified</span>
+<span class="font-label-sm text-label-sm">Google Play: <span class="text-secondary font-bold">تأیید</span></span>
+</div>
+</section>
+<!-- 4. Interactive Filter Tabs -->
+<section class="mt-space-md">
+<div class="flex items-center gap-2 overflow-x-auto pb-1" id="filter-tabs">
+<button class="filter-tab min-h-[40px] px-3.5 py-1.5 rounded-full bg-primary-container text-on-primary-container font-label-md text-label-md font-semibold shrink-0 shadow-sm active:scale-95 transition-all" data-filter="all" type="button">
+          همه / All (۱۴)
+        </button>
+<button class="filter-tab min-h-[40px] px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md shrink-0 active:scale-95 transition-all" data-filter="secrets" type="button">
+          اسرار و کلیدها / Secrets (۱)
+        </button>
+<button class="filter-tab min-h-[40px] px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md shrink-0 active:scale-95 transition-all" data-filter="dependencies" type="button">
+          وابستگی‌ها / Deps (۳)
+        </button>
+<button class="filter-tab min-h-[40px] px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md shrink-0 active:scale-95 transition-all" data-filter="sast" type="button">
+          کد SAST (۱۰)
+        </button>
+</div>
+</section>
+<!-- 5. Detailed Vulnerability Cards Stack -->
+<section class="mt-space-md flex flex-col gap-space-md">
+<!-- CARD 1: CRITICAL SECRET LEAK -->
+<article class="vuln-card bg-surface-container-low/95 p-space-md rounded-xl shadow-xl relative overflow-hidden transition-all duration-200 hover:bg-surface-container-high/60" data-category="secrets">
+<!-- Accent Critical Glow line -->
+<div class="absolute top-0 right-0 left-0 h-1 bg-gradient-to-l from-error via-error-container to-transparent"></div>
+<div class="flex items-start justify-between gap-space-sm mb-2">
+<div class="flex flex-wrap items-center gap-2">
+<span class="px-2 py-0.5 rounded-full bg-error-container text-error font-label-sm text-label-sm font-bold tracking-wide uppercase flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px]">dangerous</span>
+              بحرانی • CVSS 9.2
+            </span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-code-inline text-label-sm">
+              CWE-798
+            </span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant" dir="ltr">#SEC-01</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold leading-snug">
+          Hardcoded Google API Key detected in BuildConfig
+        </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+          نشت کلید سخت‌افزاری: توکن دسترسی به سرور هوش مصنوعی به صورت مستقیم در تنظیمات پروژه قرار گرفته و در مخزن عمومی افشا شده است.
+        </p>
+<!-- Code Block Snippet (RTL frame, LTR code) -->
+<div class="mt-space-sm rounded-lg bg-surface-container-lowest p- space-sm overflow-hidden" dir="ltr">
+<div class="flex items-center justify-between pb-1.5 mb-2 bg-surface-container/30 px-2.5 py-1 rounded">
+<div class="flex items-center gap-1.5 text-on-surface-variant font-code-inline text-label-sm">
+<span class="material-symbols-outlined text-[14px] text-error">code_blocks</span>
+<span>app/build.gradle.kts:24</span>
+</div>
+<span class="font-label-sm text-[9px] text-outline uppercase">Kotlin DSL</span>
+</div>
+<pre class="font-code-block text-code-block text-on-surface overflow-x-auto p-2 leading-relaxed"><code><span class="text-outline">23 |</span> buildConfigField(<span class="text-primary">"String"</span>, <span class="text-secondary">"GEMINI_KEY"</span>,
+<span class="text-outline">24 |</span>   <span class="text-error bg-error-container/30 px-1 rounded font-semibold">"\"AIzaSyDz89K...qP1m09xL\""</span>) <span class="text-error text-body-sm">← Leaked!</span></code></pre>
+</div>
+<!-- AI Remediation Box -->
+<div class="mt-space-sm p-3 rounded-lg bg-secondary-container/20 flex flex-col gap-1.5">
+<div class="flex items-center gap-1.5 text-on-secondary-container font-label-md text-label-md font-semibold">
+<span class="material-symbols-outlined text-[16px] text-secondary">smart_toy</span>
+<span>پیشنهاد هوش مصنوعی Gemini Sentinel</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-secondary-container">
+            انتقال فوری کلید به <code class="font-code-inline text-primary-fixed bg-surface-container-lowest px-1 rounded">local.properties</code> و دریافت مقدار از طریق <code class="font-code-inline text-primary-fixed bg-surface-container-lowest px-1 rounded">secrets-gradle-plugin</code> جهت جلوگیری از نشت در گیت.
+          </p>
+</div>
+<!-- Action Row -->
+<div class="mt-space-md flex flex-wrap items-center justify-between gap-space-xs pt-space-xs">
+<button class="action-fix-btn min-h-[44px] px-4 py-2 rounded-lg bg-primary-container text-on-primary-container font-headline-sm text-body-md font-bold flex items-center gap-2 active:scale-95 transition-all shadow-md" type="button">
+<span class="material-symbols-outlined text-[18px]">auto_fix_high</span>
+<span>اصلاح خودکار با هوش مصنوعی (Auto-Fix)</span>
+</button>
+<button class="min-h-[44px] px-3 py-2 rounded-lg bg-surface-container hover:bg-surface-bright text-on-surface-variant font-body-sm text-body-sm active:scale-95 transition-all" type="button">
+            چشم‌پوشی امن
+          </button>
+</div>
+</article>
+<!-- CARD 2: VULNERABLE DEPENDENCY (CVE) -->
+<article class="vuln-card bg-surface-container-low/95 p-space-md rounded-xl shadow-xl relative overflow-hidden transition-all duration-200 hover:bg-surface-container-high/60" data-category="dependencies">
+<div class="absolute top-0 right-0 left-0 h-1 bg-gradient-to-l from-secondary via-secondary-container to-transparent"></div>
+<div class="flex items-start justify-between gap-space-sm mb-2">
+<div class="flex flex-wrap items-center gap-2">
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold tracking-wide uppercase flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+              بالا • CVE-2024-38108
+            </span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-code-inline text-label-sm">
+              DoS Vector
+            </span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant" dir="ltr">#SEC-02</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold leading-snug">
+          CVE-2024-38108: OkHttp v4.9.1 Denial of Service
+        </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+          کتابخانه ارتباطی OkHttp حاوی نقص امنیتی کنترل نشده در فرایند TLS Handshake بوده که امکان مسدودسازی رشته اصلی (ANR) را مهیا می‌سازد.
+        </p>
+<!-- Component Bump Diff -->
+<div class="mt-space-sm p-3 rounded-lg bg-surface-container-lowest" dir="ltr">
+<div class="flex items-center justify-between text-body-sm">
+<div class="flex flex-col">
+<span class="text-outline font-label-sm">CURRENT VULNERABLE</span>
+<span class="font-code-block text-error">com.squareup.okhttp3:okhttp:4.9.1</span>
+</div>
+<span class="material-symbols-outlined text-[20px] text-primary-fixed-dim">trending_flat</span>
+<div class="flex flex-col text-right">
+<span class="text-outline font-label-sm">RECOMMENDED TARGET</span>
+<span class="font-code-block text-primary-fixed">okhttp:4.12.0</span>
+</div>
+</div>
+</div>
+<!-- Action Row -->
+<div class="mt-space-md flex flex-wrap items-center justify-between gap-space-xs">
+<button class="min-h-[44px] px-4 py-2 rounded-lg bg-surface-container-high hover:bg-surface-bright text-secondary font-headline-sm text-body-md font-semibold flex items-center gap-2 active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">merge_type</span>
+<span>ارسال خودکار PR برای آپگرید (Bump &amp; PR)</span>
+</button>
+<button class="min-h-[44px] px-3 py-2 rounded-lg text-outline hover:text-on-surface font-body-sm text-body-sm flex items-center gap-1 active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">menu_book</span>
+            مشاهده گزارش CVE
+          </button>
+</div>
+</article>
+<!-- CARD 3: SAST / CODE INJECTION -->
+<article class="vuln-card bg-surface-container-low/95 p-space-md rounded-xl shadow-xl relative overflow-hidden transition-all duration-200 hover:bg-surface-container-high/60" data-category="sast">
+<div class="absolute top-0 right-0 left-0 h-1 bg-gradient-to-l from-tertiary-fixed-dim via-surface-variant to-transparent"></div>
+<div class="flex items-start justify-between gap-space-sm mb-2">
+<div class="flex flex-wrap items-center gap-2">
+<span class="px-2 py-0.5 rounded-full bg-surface-container-highest text-tertiary-fixed-dim font-label-sm text-label-sm font-bold tracking-wide uppercase flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">info</span>
+              متوسط • CWE-20
+            </span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-code-inline text-label-sm">
+              Prompt Injection
+            </span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant" dir="ltr">#SEC-03</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold leading-snug">
+          Unsanitized Prompt Input in GeminiClient
+        </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+          ورودی پیام کاربر قبل از ارسال به مدل بررسی نشده و امکان دستکاری سیستم پرامپت (Jailbreak / System Override) وجود دارد.
+        </p>
+<!-- Code Snippet -->
+<div class="mt-space-sm rounded-lg bg-surface-container-lowest p-space-sm overflow-hidden" dir="ltr">
+<div class="flex items-center justify-between pb-1.5 mb-1.5 text-on-surface-variant font-code-inline text-label-sm">
+<span>core/network/GeminiClient.kt:58</span>
+<span class="text-tertiary-fixed-dim">Kotlin Coroutine</span>
+</div>
+<pre class="font-code-block text-code-block text-on-surface overflow-x-auto p-1 leading-relaxed"><code><span class="text-outline">57 |</span> suspend fun generate(rawUserPrompt: String) =
+<span class="text-outline">58 |</span>   model.generateContent(<span class="text-tertiary-fixed-dim">rawUserPrompt</span>) <span class="text-outline">// Missing sanitizer</span></code></pre>
+</div>
+<!-- Action Row -->
+<div class="mt-space-md flex flex-wrap items-center gap-space-xs">
+<button class="min-h-[44px] px-3.5 py-2 rounded-lg bg-surface-container-high hover:bg-surface-bright text-on-surface font-body-sm text-body-sm font-medium flex items-center gap-1.5 active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[16px] text-primary-container">difference</span>
+<span>مشاهده در دیف (View Diff)</span>
+</button>
+<button class="min-h-[44px] px-3.5 py-2 rounded-lg bg-surface-container hover:bg-surface-bright text-on-surface-variant font-body-sm text-body-sm flex items-center gap-1.5 active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">add_task</span>
+<span>ایجاد تست اعتبارسنجی</span>
+</button>
+</div>
+</article>
+</section>
+<!-- 6. Floating Quick Fix Bar -->
+<aside class="sticky bottom-3 mt-space-lg z-20 w-full">
+<div class="p-space-sm rounded-xl bg-surface-container-high/95 backdrop-blur-2xl shadow-2xl flex items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs min-w-0 pr-1">
+<div class="w-8 h-8 rounded-full bg-primary-container/20 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px] text-primary-container animate-spin" style="animation-duration: 4s;">auto_fix_high</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-sm text-body-md text-on-surface font-semibold truncate">۱ آسیب‌پذیری بحرانی آماده رفع</span>
+<span class="font-label-sm text-label-sm text-primary-fixed-dim truncate">پیش‌نویس پچ امنیتی توسط هوش مصنوعی آماده است</span>
+</div>
+</div>
+<button class="min-h-[44px] px-4 py-2 rounded-lg bg-primary-container hover:bg-primary-fixed text-on-primary-container font-headline-sm text-body-md font-bold shrink-0 flex items-center gap-1.5 shadow-lg active:scale-95 transition-all" id="floating-patch-btn" type="button">
+<span>اعمال پچ</span>
+<span class="material-symbols-outlined text-[18px]">bolt</span>
+</button>
+</div>
+</aside>
+<!-- Success Feedback Toast (Interactive state) -->
+<div class="fixed bottom-20 left-4 right-4 bg-surface-container-highest text-on-surface p-space-md rounded-xl shadow-2xl flex items-center gap-space-sm transition-all duration-300 opacity-0 pointer-events-none translate-y-4 z-50" id="toast-notify">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container shrink-0">
+<span class="material-symbols-outlined text-[18px]">task_alt</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-sm text-body-md font-semibold text-primary">پچ امنیتی با موفقیت آماده شد</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">پول‌ریکوئست هوشمند در مخزن ایجاد و کلیدها محرمانه شدند.</span>
+</div>
+</div>
+</div>
+</div>
+<script>
+  (function initSecurityScreen() {
+    // Interactive Tab Filtering
+    const tabs = document.querySelectorAll('.filter-tab');
+    const cards = document.querySelectorAll('.vuln-card');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        // Reset state
+        tabs.forEach(t => {
+          t.classList.remove('bg-primary-container', 'text-on-primary-container', 'font-semibold');
+          t.classList.add('bg-surface-container', 'text-on-surface-variant');
+        });
+        tab.classList.add('bg-primary-container', 'text-on-primary-container', 'font-semibold');
+        tab.classList.remove('bg-surface-container', 'text-on-surface-variant');
+
+        const filter = tab.getAttribute('data-filter');
+        cards.forEach(card => {
+          if (filter === 'all' || card.getAttribute('data-category') === filter) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Rescan Animation Simulation
+    const rescanBtn = document.getElementById('rescan-btn');
+    const rescanIcon = document.getElementById('rescan-icon');
+    if (rescanBtn && rescanIcon) {
+      rescanBtn.addEventListener('click', () => {
+        rescanIcon.classList.add('animate-spin');
+        setTimeout(() => {
+          rescanIcon.classList.remove('animate-spin');
+          showToast('بروزرسانی گزارش', 'اسکن مخزن مجدداً انجام شد و نتایج همگام شدند.');
+        }, 1200);
+      });
+    }
+
+    // Auto-fix micro-interactions
+    const toast = document.getElementById('toast-notify');
+    function showToast(title, msg) {
+      if (!toast) return;
+      if (title) toast.querySelector('.text-primary').textContent = title;
+      if (msg) toast.querySelector('.font-body-sm').textContent = msg;
+
+      toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+      toast.classList.add('opacity-100', 'translate-y-0');
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+        toast.classList.remove('opacity-100', 'translate-y-0');
+      }, 3500);
+    }
+
+    const floatingBtn = document.getElementById('floating-patch-btn');
+    if (floatingBtn) {
+      floatingBtn.addEventListener('click', () => {
+        showToast('اعمال خودکار پچ', 'کلید API به فایل local.properties منتقل و branch جدید ایجاد شد.');
+      });
+    }
+
+    document.querySelectorAll('.action-fix-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        showToast('اصلاح خودکار با Gemini', 'فایل build.gradle.kts پالایش شد و secrets plugin فعال گردید.');
+      });
+    });
+  })();
+</script></main><nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-surface-container-lowest/85 backdrop-blur-2xl shadow-[0_-8px_32px_rgba(0,0,0,0.45)]" data-active-classes="text-primary-container font-semibold"><div class="flex justify-around items-center h-16 px-space-xs max-w-lg mx-auto"><a class="min-w-[44px] min-h-[44px] flex-1 flex flex-col items-center justify-center gap-0.5 text-on-surface-variant hover:text-on-surface active:scale-95 transition-all" data-path="pull-request-review" href="../pr_pull_request_review/code.html"><span class="material-symbols-outlined text-[20px]">rate_review</span><span class="font-label-sm text-[9px] tracking-tight">تحلیل PR</span></a><a aria-current="page" class="min-w-[44px] min-h-[44px] flex-1 flex flex-col items-center justify-center gap-0.5 active:scale-95 transition-all text-primary-container font-semibold" data-path="security-and-vulnerability-audit" href="code.html"><span class="material-symbols-outlined text-[20px]">security</span><span class="font-label-sm text-[9px] tracking-tight">امنیت</span></a><a class="min-w-[44px] min-h-[44px] flex-1 flex flex-col items-center justify-center gap-0.5 text-on-surface-variant hover:text-on-surface active:scale-95 transition-all" data-path="chat-assistant" href="../ai_chat/code.html"><span class="material-symbols-outlined text-[20px]">smart_toy</span><span class="font-label-sm text-[9px] tracking-tight">دستیار AI</span></a><a class="min-w-[44px] min-h-[44px] flex-1 flex flex-col items-center justify-center gap-0.5 text-on-surface-variant hover:text-on-surface active:scale-95 transition-all" data-path="code-snippets" href="../code_snippets/code.html"><span class="material-symbols-outlined text-[20px]">data_object</span><span class="font-label-sm text-[9px] tracking-tight">تکه‌کدها</span></a><a class="min-w-[44px] min-h-[44px] flex-1 flex flex-col items-center justify-center gap-0.5 text-on-surface-variant hover:text-on-surface active:scale-95 transition-all" data-path="repositories" href="../repositories/code.html"><span class="material-symbols-outlined text-[20px]">folder_code</span><span class="font-label-sm text-[9px] tracking-tight">مخازن</span></a><a class="min-w-[44px] min-h-[44px] flex-1 flex flex-col items-center justify-center gap-0.5 text-on-surface-variant hover:text-on-surface active:scale-95 transition-all" data-path="settings-and-api" href="../api_settings/code.html"><span class="material-symbols-outlined text-[20px]">tune</span><span class="font-label-sm text-[9px] tracking-tight">تنظیمات</span></a></div></nav></body></html>
