@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Space+Grotesk:wght@600;700&amp;family=Vazirmatn:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#11131c;}body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "tertiary": "#f5f6ff", "surface-dim": "#11131c", "on-secondary-fixed": "#2e004e", "surface-variant": "#32343e", "surface-bright": "#373943", "secondary-fixed": "#f2daff", "on-error-container": "#ffdad6", "primary": "#d7fff3", "on-background": "#e1e1ef", "on-tertiary": "#002e69", "outline": "#83948f", "outline-variant": "#3a4a46", "on-secondary-container": "#d7a4ff", "surface": "#11131c", "on-secondary-fixed-variant": "#6a0baa", "surface-container-highest": "#32343e", "on-primary-container": "#006c5c", "on-error": "#690005", "tertiary-fixed-dim": "#adc6ff", "error": "#ffb4ab", "inverse-on-surface": "#2e303a", "secondary-fixed-dim": "#e0b6ff", "primary-fixed-dim": "#00dfc1", "error-container": "#93000a", "on-tertiary-fixed-variant": "#004494", "surface-container-lowest": "#0c0e17", "secondary-container": "#6d11ad", "tertiary-container": "#cbdaff", "on-primary": "#00382f", "on-secondary": "#4c007d", "surface-container-high": "#282933", "secondary": "#e0b6ff", "surface-container-low": "#191b24", "background": "#11131c", "surface-container": "#1d1f29", "on-tertiary-container": "#005bc3", "primary-container": "#00f5d4", "on-primary-fixed-variant": "#005144", "inverse-primary": "#006b5b", "on-tertiary-fixed": "#001a41", "inverse-surface": "#e1e1ef", "primary-fixed": "#26fedc", "surface-tint": "#00dfc1", "on-surface": "#e1e1ef", "tertiary-fixed": "#d8e2ff", "on-surface-variant": "#b9cac4", "on-primary-fixed": "#00201a" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-sm": "0.5rem", "gutter-tablet": "1.5rem", "margin": "1rem", "space-md": "1rem", "margin-desktop": "3rem", "margin-tablet": "2rem", "space-xl": "2rem", "space-xs": "0.25rem", "gutter": "1rem", "space-lg": "1.5rem" }, fontFamily: { "body-md": ["Inter"], "label-sm": ["JetBrains Mono"], "body-sm": ["Inter"], "label-md": ["JetBrains Mono"], "code-inline": ["JetBrains Mono"], "headline-lg": ["Space Grotesk"], "headline-sm": ["Space Grotesk"], "headline-xl-mobile": ["Space Grotesk"], "headline-xl": ["Space Grotesk"], "body-lg": ["Inter"], "headline-md": ["Space Grotesk"], "code-block": ["JetBrains Mono"] }, fontSize: { "body-md": ["14px", { "lineHeight": "22px", "fontWeight": "400" }], "label-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.06em", "fontWeight": "600" }], "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500" }], "code-inline": ["13px", { "lineHeight": "18px", "fontWeight": "500" }], "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "headline-sm": ["16px", { "lineHeight": "24px", "fontWeight": "600" }], "headline-xl-mobile": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "headline-xl": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "body-lg": ["16px", { "lineHeight": "26px", "fontWeight": "400" }], "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }], "code-block": ["12px", { "lineHeight": "20px", "fontWeight": "400" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface text-on-surface font-body-md text-body-md min-h-screen flex flex-col antialiased selection:bg-primary-container selection:text-on-primary-container"><header class="fixed top-0 inset-x-0 z-50 bg-surface/85 backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.35)] pt-safe"><div class="h-20 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0 flex-1"><img alt="My Assistant App Logo" class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1UFNDLP7gpX166jDhKHXjITVilhMJ99ZIw7ioNuB1AvhCjmJ7aFZnPm8k9BMFDcl5_p6x6vWsZ74YG5kObEB0Ki1SthxOE0CIicmavFCpa_vJ8kVPW0EoWS5wgkXQMmeAXJo3A79UZzX-026MiCo6GjhmxtmyKw-8Z-UWvPxcEOWfm33X-7wh5McM6rZGRQi2HkAcAH4aefy9aiPK3eCj_F1O6hs7zflJIRdq5s6XAtNGEa9GEkxMp_3w"/><div class="flex flex-col min-w-0"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight truncate">دستیار من</span><span class="text-outline-variant font-body-sm text-body-sm">|</span><span class="font-headline-sm text-headline-sm text-primary-fixed-dim font-bold tracking-tight truncate">My Assistant</span></div><div class="flex items-center gap-space-xs mt-0.5"><span class="font-label-sm text-label-sm text-on-surface-variant truncate uppercase">Chat Assistant</span><span class="inline-block w-1.5 h-1.5 rounded-full bg-primary-fixed-dim animate-pulse"></span></div></div></div><div class="flex items-center gap-space-xs flex-shrink-0"><div class="hidden sm:flex items-center gap-space-xs px-2 py-1 rounded-full bg-surface-container-high"><span class="material-symbols-outlined text-[14px] text-primary-container">auto_awesome</span><span class="font-label-sm text-label-sm text-on-surface-variant">Gemini</span><span class="w-1 h-1 rounded-full bg-outline-variant"></span><span class="material-symbols-outlined text-[14px] text-secondary">terminal</span><span class="font-label-sm text-label-sm text-on-surface-variant">Git</span></div><button class="min-w-[44px] min-h-[44px] px-2 py-1 rounded-lg bg-surface-container flex items-center justify-center gap-1 active:scale-95 transition-all text-on-surface-variant hover:text-primary" title="Toggle Language / تغییر زبان" type="button"><span class="material-symbols-outlined text-[16px]">translate</span><span class="font-label-sm text-label-sm font-semibold text-primary-container">FA/EN</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-20 pb-24 bg-surface min-h-screen"><div class="flex flex-col w-full relative select-none">
+<!-- Subtle Ambient Glow -->
+<div class="pointer-events-none fixed inset-x-0 top-20 h-40 bg-gradient-to-b from-primary-container/10 via-secondary-container/5 to-transparent blur-3xl z-0"></div>
+<!-- Telemetry & Model Status Header Strip -->
+<div class="relative z-10 px-margin pt-3 pb-2 flex flex-col gap-2">
+<div class="flex items-center justify-between bg-surface-container/90 backdrop-blur-md rounded-xl p-2.5 shadow-md">
+<!-- Active Model with Live Telemetry -->
+<div class="flex items-center gap-2">
+<div class="relative flex items-center justify-center w-7 h-7 rounded-lg bg-surface-container-high text-primary-fixed-dim">
+<span class="material-symbols-outlined text-[18px]">neurology</span>
+<span class="absolute -top-0.5 -right-0.5 flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-fixed opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary-container"></span>
+</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold tracking-tight">Gemini 1.5 Pro</span>
+<span class="px-1.5 py-0.5 rounded-full bg-secondary-container/60 text-secondary text-[9px] font-label-sm uppercase font-bold tracking-wider">v2.4-Dev</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span>Latency: 48ms</span>
+<span>•</span>
+<span class="text-primary-fixed-dim">Context Ready</span>
+</span>
+</div>
+</div>
+<!-- Token Quota & Language Switch Pill -->
+<div class="flex items-center gap-2">
+<div class="flex flex-col items-end">
+<div class="flex items-center gap-1 text-on-surface">
+<span class="material-symbols-outlined text-[13px] text-primary-fixed">token</span>
+<span class="font-label-md text-label-md font-semibold text-primary">184.2k</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline">/ 2M tok</span>
+</div>
+<button class="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-surface-container-high hover:bg-surface-bright active:scale-95 transition-all" id="lang-switch-btn" type="button">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+<span class="font-label-sm text-label-sm font-semibold text-primary-container tracking-wider">فا</span>
+<span class="text-outline text-label-sm">/</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant tracking-wider">EN</span>
+</button>
+</div>
+</div>
+<!-- Quick Action / Preset Prompts Carousel -->
+<div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 text-nowrap">
+<button class="preset-chip flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-high hover:bg-surface-bright text-on-surface active:scale-95 transition-all text-left shadow-sm" type="button">
+<span class="material-symbols-outlined text-[15px] text-primary-container">bug_report</span>
+<span class="font-label-sm text-label-sm font-medium">بررسی باگ <span class="text-outline font-normal">| Debug</span></span>
+</button>
+<button class="preset-chip flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-high hover:bg-surface-bright text-on-surface active:scale-95 transition-all text-left shadow-sm" type="button">
+<span class="material-symbols-outlined text-[15px] text-secondary">psychology</span>
+<span class="font-label-sm text-label-sm font-medium">توضیح کد <span class="text-outline font-normal">| Explain</span></span>
+</button>
+<button class="preset-chip flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-high hover:bg-surface-bright text-on-surface active:scale-95 transition-all text-left shadow-sm" type="button">
+<span class="material-symbols-outlined text-[15px] text-primary-fixed-dim">speed</span>
+<span class="font-label-sm text-label-sm font-medium">بهینه‌سازی <span class="text-outline font-normal">| Refactor</span></span>
+</button>
+<button class="preset-chip flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-high hover:bg-surface-bright text-on-surface active:scale-95 transition-all text-left shadow-sm" type="button">
+<span class="material-symbols-outlined text-[15px] text-secondary-fixed">checklist</span>
+<span class="font-label-sm text-label-sm font-medium">ساخت تست <span class="text-outline font-normal">| Unit Tests</span></span>
+</button>
+</div>
+</div>
+<!-- Chat History Stream -->
+<div class="flex flex-col gap-4 px-margin py-3 relative z-10">
+<!-- User Message Bubble -->
+<div class="flex flex-col items-end gap-1.5 ml-6">
+<div class="flex items-center gap-1.5 text-on-surface-variant font-label-sm text-label-sm">
+<span class="font-medium text-on-surface">You (DevLead)</span>
+<span>•</span>
+<span>14:02</span>
+</div>
+<div class="relative bg-secondary-container text-on-secondary-container rounded-2xl rounded-tr-xs p-3.5 shadow-lg max-w-full">
+<p class="font-body-md text-body-md leading-relaxed text-right dir-rtl" dir="rtl">
+          چطور می‌تونم با <span class="font-code-inline text-code-inline font-semibold px-1 rounded bg-black/25 text-primary">Retrofit</span> در کاتلین به API گیت‌هاب ریکوئست بفرستم و لیست مخازن رو بگیرم؟
+        </p>
+<div class="mt-2 pt-2 bg-black/15 -mx-3.5 -mb-3.5 px-3.5 py-1.5 rounded-b-2xl flex items-center justify-between text-secondary-fixed">
+<span class="font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">translate</span>
+            How to fetch GitHub repos using Retrofit in Kotlin?
+          </span>
+<span class="material-symbols-outlined text-[14px] text-primary">done_all</span>
+</div>
+</div>
+</div>
+<!-- AI Response Bubble -->
+<div class="flex flex-col items-start gap-1.5 mr-2">
+<!-- Assistant Header / Model Badge -->
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-lg bg-surface-container-high flex items-center justify-center text-primary-container shadow-inner">
+<span class="material-symbols-outlined text-[15px]">auto_awesome</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="font-headline-sm text-headline-sm text-primary font-semibold">Gemini Code Assistant</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-container-highest text-outline text-[10px] font-label-sm">2.4s</span>
+</div>
+</div>
+<!-- AI Content Pane -->
+<div class="w-full bg-surface-container rounded-2xl rounded-tl-xs p-4 shadow-xl flex flex-col gap-3.5">
+<!-- Persian Conversational Explanation -->
+<div class="flex flex-col gap-2 text-right dir-rtl" dir="rtl">
+<p class="font-body-md text-body-md text-on-surface leading-relaxed">
+            سلام! برای اتصال به API گیت‌هاب با استفاده از <span class="font-code-inline text-code-inline text-primary-fixed-dim bg-surface-container-highest px-1.5 py-0.5 rounded">Retrofit 2</span> و کاتلین، بهترین الگو استفاده از <span class="font-code-inline text-code-inline text-secondary bg-surface-container-highest px-1.5 py-0.5 rounded">Coroutines</span> و کتابخانه همگام‌ساز <span class="font-code-inline text-code-inline text-primary-fixed-dim bg-surface-container-highest px-1.5 py-0.5 rounded">Kotlinx Serialization</span> یا Moshi است.
+          </p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            در نمونه پیاده‌سازی زیر، مدل داده، اینترفیس API و کلاینت سینگلتون را برای فراخوانی اندپوینت <code class="font-code-inline text-code-inline text-tertiary-fixed-dim">/users/{user}/repos</code> آماده کرده‌ام:
+          </p>
+</div>
+<!-- Code Block Container (Strictly LTR Monospace Terminal) -->
+<div class="w-full rounded-xl bg-surface-container-lowest overflow-hidden shadow-2xl" dir="ltr">
+<!-- Code Block Header -->
+<div class="bg-surface-container-high px-3 py-2 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-error"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-secondary-container"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-primary-container"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant ml-2 font-mono flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-primary-fixed">code</span>
+                GitHubService.kt
+              </span>
+</div>
+<div class="flex items-center gap-1.5">
+<button class="copy-btn px-2.5 py-1 rounded bg-surface-container-highest hover:bg-surface-bright active:scale-95 text-on-surface flex items-center gap-1 transition-all" type="button">
+<span class="material-symbols-outlined text-[13px] text-primary-fixed-dim">content_copy</span>
+<span class="font-label-sm text-label-sm">کپی کد</span>
+</button>
+<button class="px-2 py-1 rounded bg-primary-container/15 text-primary-container hover:bg-primary-container/25 active:scale-95 flex items-center gap-1 transition-all" type="button">
+<span class="material-symbols-outlined text-[13px]">play_arrow</span>
+<span class="font-label-sm text-label-sm">Sandbox</span>
+</button>
+</div>
+</div>
+<!-- Code Snippet Display -->
+<div class="p-3 text-code-block font-code-block overflow-x-auto leading-relaxed">
+<div class="grid grid-cols-[24px_1fr] gap-2 select-text">
+<!-- Line 1 -->
+<span class="text-outline text-right font-label-sm select-none">1</span>
+<span class="text-outline-variant font-medium">// Data model for GitHub repository entity</span>
+<!-- Line 2 -->
+<span class="text-outline text-right font-label-sm select-none">2</span>
+<span><span class="text-secondary font-semibold">data class</span> <span class="text-primary-fixed-dim font-semibold">GitHubRepo</span>(</span>
+<!-- Line 3 -->
+<span class="text-outline text-right font-label-sm select-none">3</span>
+<span class="pl-4"><span class="text-secondary font-semibold">val</span> id: <span class="text-secondary-fixed">Long</span>,</span>
+<!-- Line 4 -->
+<span class="text-outline text-right font-label-sm select-none">4</span>
+<span class="pl-4"><span class="text-secondary font-semibold">val</span> name: <span class="text-secondary-fixed">String</span>,</span>
+<!-- Line 5 -->
+<span class="text-outline text-right font-label-sm select-none">5</span>
+<span class="pl-4"><span class="text-secondary font-semibold">val</span> stargazersCount: <span class="text-secondary-fixed">Int</span> = <span class="text-tertiary-fixed-dim">0</span></span>
+<!-- Line 6 -->
+<span class="text-outline text-right font-label-sm select-none">6</span>
+<span>)</span>
+<!-- Line 7 -->
+<span class="text-outline text-right font-label-sm select-none">7</span>
+<span></span>
+<!-- Line 8 -->
+<span class="text-outline text-right font-label-sm select-none">8</span>
+<span><span class="text-secondary font-semibold">interface</span> <span class="text-primary-fixed-dim font-semibold">GitHubApiService</span> {</span>
+<!-- Line 9 -->
+<span class="text-outline text-right font-label-sm select-none">9</span>
+<span class="pl-4"><span class="text-secondary-fixed">@GET</span>(<span class="text-primary-container">"users/{username}/repos"</span>)</span>
+<!-- Line 10 -->
+<span class="text-outline text-right font-label-sm select-none">10</span>
+<span class="pl-4"><span class="text-secondary font-semibold">suspend fun</span> <span class="text-primary font-semibold">getUserRepositories</span>(</span>
+<!-- Line 11 -->
+<span class="text-outline text-right font-label-sm select-none">11</span>
+<span class="pl-8"><span class="text-secondary-fixed">@Path</span>(<span class="text-primary-container">"username"</span>) user: <span class="text-secondary-fixed">String</span></span>
+<!-- Line 12 -->
+<span class="text-outline text-right font-label-sm select-none">12</span>
+<span class="pl-4">): <span class="text-secondary-fixed">Response</span>&lt;<span class="text-secondary-fixed">List</span>&lt;<span class="text-primary-fixed-dim">GitHubRepo</span>&gt;&gt;</span>
+<!-- Line 13 -->
+<span class="text-outline text-right font-label-sm select-none">13</span>
+<span>}</span>
+</div>
+</div>
+<!-- Quick Tip Bar -->
+<div class="px-3 py-1.5 bg-surface-container-high/60 flex items-center justify-between text-outline">
+<span class="font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-primary-fixed-dim">info</span>
+              Target SDK: 34 • Kotlin 1.9.22 • Retrofit 2.11.0
+            </span>
+<span class="font-label-sm text-label-sm text-primary-container">Validated ✓</span>
+</div>
+</div>
+<!-- Post Action Quick Buttons -->
+<div class="flex flex-wrap items-center gap-2 pt-1">
+<button class="flex-1 min-w-[140px] py-2 px-3 rounded-lg bg-surface-container-high hover:bg-surface-bright active:scale-95 text-on-surface flex items-center justify-center gap-1.5 transition-all shadow-sm" type="button">
+<span class="material-symbols-outlined text-[16px] text-primary-container">bookmark_add</span>
+<span class="font-label-sm text-label-sm font-semibold">ذخیره در تکه‌کدها (Snippets)</span>
+</button>
+<button class="flex-1 min-w-[140px] py-2 px-3 rounded-lg bg-surface-container-high hover:bg-surface-bright active:scale-95 text-on-surface flex items-center justify-center gap-1.5 transition-all shadow-sm" type="button">
+<span class="material-symbols-outlined text-[16px] text-secondary">fork_right</span>
+<span class="font-label-sm text-label-sm font-semibold">ارسال به مخزن (Export)</span>
+</button>
+</div>
+</div>
+<!-- Reaction feedback pill -->
+<div class="flex items-center gap-1 px-1 mt-0.5">
+<button class="w-7 h-7 rounded-full bg-surface-container-high flex items-center justify-center text-outline hover:text-on-surface active:scale-90 transition-all" type="button">
+<span class="material-symbols-outlined text-[14px]">thumb_up</span>
+</button>
+<button class="w-7 h-7 rounded-full bg-surface-container-high flex items-center justify-center text-outline hover:text-on-surface active:scale-90 transition-all" type="button">
+<span class="material-symbols-outlined text-[14px]">thumb_down</span>
+</button>
+<button class="w-7 h-7 rounded-full bg-surface-container-high flex items-center justify-center text-outline hover:text-on-surface active:scale-90 transition-all" type="button">
+<span class="material-symbols-outlined text-[14px]">share</span>
+</button>
+<span class="font-label-sm text-label-sm text-outline ml-2">Gemini Pro API v1</span>
+</div>
+</div>
+</div>
+<!-- Floating Sticky Bottom Input Bar -->
+<div class="sticky bottom-16 inset-x-0 z-30 p-margin bg-gradient-to-t from-surface via-surface/95 to-transparent">
+<div class="relative bg-surface-container-high rounded-2xl p-1.5 shadow-2xl flex items-end gap-1.5 focus-within:shadow-[0_0_24px_rgba(0,245,212,0.15)] transition-all">
+<!-- Code Mode / Attachment Trigger -->
+<button class="w-10 h-10 rounded-xl bg-surface-container-highest hover:bg-surface-bright text-on-surface flex items-center justify-center active:scale-95 transition-all flex-shrink-0" title="Attach file or code snippet" type="button">
+<span class="material-symbols-outlined text-[20px] text-primary-fixed-dim">data_object</span>
+</button>
+<!-- Bilingual Dynamic Input Area -->
+<div class="flex-1 py-1 px-2 min-w-0">
+<textarea class="w-full bg-transparent resize-none outline-none text-on-surface font-body-md text-body-md placeholder:text-outline-variant max-h-24 overflow-y-auto leading-relaxed" id="chat-textarea" placeholder="سوالی بپرسید یا کد وارد کنید... / Ask code logic" rows="1" style="field-sizing: content;"></textarea>
+</div>
+<!-- Voice Command Trigger -->
+<button class="w-10 h-10 rounded-xl bg-surface-container-highest hover:bg-surface-bright text-outline hover:text-on-surface flex items-center justify-center active:scale-95 transition-all flex-shrink-0" title="Voice query" type="button">
+<span class="material-symbols-outlined text-[20px]">mic</span>
+</button>
+<!-- Neon Primary Send Action -->
+<button class="w-10 h-10 rounded-xl bg-primary-container text-on-primary-container flex items-center justify-center font-bold active:scale-90 shadow-[0_0_14px_rgba(0,245,212,0.4)] transition-all flex-shrink-0" type="button">
+<span class="material-symbols-outlined text-[20px]">send</span>
+</button>
+</div>
+<!-- Keyboard accessory mini-pill (Quick syntaxes) -->
+<div class="flex items-center justify-between px-2 pt-1.5 text-outline">
+<div class="flex items-center gap-1.5 font-label-sm text-label-sm">
+<span class="cursor-pointer hover:text-primary transition-colors">@repo:android-core</span>
+<span>•</span>
+<span class="cursor-pointer hover:text-secondary transition-colors">#kotlin</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline">Shift + ↵ for newline</span>
+</div>
+</div>
+</div>
+<script>
+  // Dynamic text input language alignment auto-detector
+  const textarea = document.getElementById('chat-textarea');
+  if (textarea) {
+    textarea.addEventListener('input', function() {
+      const val = this.value.trim();
+      if (!val) {
+        this.dir = 'auto';
+        return;
+      }
+      const firstChar = val.charAt(0);
+      const isRTL = /[\u0600-\u06FF\u0750-\u077F\u0590-\u05FF\uFE70-\uFEFF]/.test(firstChar);
+      this.dir = isRTL ? 'rtl' : 'ltr';
+    });
+  }
+
+  // Quick Language Toggle Feedback
+  const langBtn = document.getElementById('lang-switch-btn');
+  if (langBtn) {
+    let currentLang = 'fa';
+    langBtn.addEventListener('click', () => {
+      currentLang = currentLang === 'fa' ? 'en' : 'fa';
+      if (currentLang === 'en') {
+        langBtn.innerHTML = `
+          <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+          <span class="font-label-sm text-label-sm text-on-surface-variant tracking-wider">فا</span>
+          <span class="text-outline text-label-sm">/</span>
+          <span class="font-label-sm text-label-sm font-semibold text-secondary tracking-wider">EN</span>
+        `;
+      } else {
+        langBtn.innerHTML = `
+          <span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+          <span class="font-label-sm text-label-sm font-semibold text-primary-container tracking-wider">فا</span>
+          <span class="text-outline text-label-sm">/</span>
+          <span class="font-label-sm text-label-sm text-on-surface-variant tracking-wider">EN</span>
+        `;
+      }
+    });
+  }
+
+  // Microcopy button effect
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const orig = this.innerHTML;
+      this.innerHTML = `
+        <span class="material-symbols-outlined text-[13px] text-primary-fixed">check</span>
+        <span class="font-label-sm text-label-sm text-primary-fixed">کپی شد!</span>
+      `;
+      setTimeout(() => {
+        this.innerHTML = orig;
+      }, 2000);
+    });
+  });
+
+  // Preset chips auto-fill input
+  document.querySelectorAll('.preset-chip').forEach(chip => {
+    chip.addEventListener('click', function() {
+      if (textarea) {
+        const text = this.innerText.trim();
+        textarea.value = text + ': ';
+        textarea.focus();
+        textarea.dispatchEvent(new Event('input'));
+      }
+    });
+  });
+</script></main><nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-surface-container-lowest/85 backdrop-blur-2xl shadow-[0_-8px_32px_rgba(0,0,0,0.45)]" data-active-classes="text-primary-container font-semibold"><div class="flex justify-around items-center h-16 px-space-xs max-w-md mx-auto"><a aria-current="page" class="min-w-[44px] min-h-[44px] flex-1 flex flex-col items-center justify-center gap-0.5 active:scale-95 transition-all text-primary-container font-semibold" data-path="chat-assistant" href="code.html"><span class="material-symbols-outlined text-[22px]">smart_toy</span><span class="font-label-sm text-label-sm tracking-tight">دستیار AI</span></a><a class="min-w-[44px] min-h-[44px] flex-1 flex flex-col items-center justify-center gap-0.5 text-on-surface-variant hover:text-on-surface active:scale-95 transition-all" data-path="repositories" href="../repositories/code.html"><span class="material-symbols-outlined text-[22px]">folder_code</span><span class="font-label-sm text-label-sm tracking-tight">مخازن</span></a><a class="min-w-[44px] min-h-[44px] flex-1 flex flex-col items-center justify-center gap-0.5 text-on-surface-variant hover:text-on-surface active:scale-95 transition-all" data-path="code-snippets" href="../code_snippets/code.html"><span class="material-symbols-outlined text-[22px]">data_object</span><span class="font-label-sm text-label-sm tracking-tight">تکه‌کدها</span></a><a class="min-w-[44px] min-h-[44px] flex-1 flex flex-col items-center justify-center gap-0.5 text-on-surface-variant hover:text-on-surface active:scale-95 transition-all" data-path="settings-and-api" href="../api_settings/code.html"><span class="material-symbols-outlined text-[22px]">tune</span><span class="font-label-sm text-label-sm tracking-tight">تنظیمات</span></a></div></nav></body></html>
