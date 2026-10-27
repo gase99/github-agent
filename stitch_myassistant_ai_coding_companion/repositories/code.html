@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Space+Grotesk:wght@600;700&amp;family=Vazirmatn:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#11131c;}body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "tertiary": "#f5f6ff", "surface-dim": "#11131c", "on-secondary-fixed": "#2e004e", "surface-variant": "#32343e", "surface-bright": "#373943", "secondary-fixed": "#f2daff", "on-error-container": "#ffdad6", "primary": "#d7fff3", "on-background": "#e1e1ef", "on-tertiary": "#002e69", "outline": "#83948f", "outline-variant": "#3a4a46", "on-secondary-container": "#d7a4ff", "surface": "#11131c", "on-secondary-fixed-variant": "#6a0baa", "surface-container-highest": "#32343e", "on-primary-container": "#006c5c", "on-error": "#690005", "tertiary-fixed-dim": "#adc6ff", "error": "#ffb4ab", "inverse-on-surface": "#2e303a", "secondary-fixed-dim": "#e0b6ff", "primary-fixed-dim": "#00dfc1", "error-container": "#93000a", "on-tertiary-fixed-variant": "#004494", "surface-container-lowest": "#0c0e17", "secondary-container": "#6d11ad", "tertiary-container": "#cbdaff", "on-primary": "#00382f", "on-secondary": "#4c007d", "surface-container-high": "#282933", "secondary": "#e0b6ff", "surface-container-low": "#191b24", "background": "#11131c", "surface-container": "#1d1f29", "on-tertiary-container": "#005bc3", "primary-container": "#00f5d4", "on-primary-fixed-variant": "#005144", "inverse-primary": "#006b5b", "on-tertiary-fixed": "#001a41", "inverse-surface": "#e1e1ef", "primary-fixed": "#26fedc", "surface-tint": "#00dfc1", "on-surface": "#e1e1ef", "tertiary-fixed": "#d8e2ff", "on-surface-variant": "#b9cac4", "on-primary-fixed": "#00201a" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-sm": "0.5rem", "gutter-tablet": "1.5rem", "margin": "1rem", "space-md": "1rem", "margin-desktop": "3rem", "margin-tablet": "2rem", "space-xl": "2rem", "space-xs": "0.25rem", "gutter": "1rem", "space-lg": "1.5rem" }, fontFamily: { "body-md": ["Inter"], "label-sm": ["JetBrains Mono"], "body-sm": ["Inter"], "label-md": ["JetBrains Mono"], "code-inline": ["JetBrains Mono"], "headline-lg": ["Space Grotesk"], "headline-sm": ["Space Grotesk"], "headline-xl-mobile": ["Space Grotesk"], "headline-xl": ["Space Grotesk"], "body-lg": ["Inter"], "headline-md": ["Space Grotesk"], "code-block": ["JetBrains Mono"] }, fontSize: { "body-md": ["14px", { "lineHeight": "22px", "fontWeight": "400" }], "label-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.06em", "fontWeight": "600" }], "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500" }], "code-inline": ["13px", { "lineHeight": "18px", "fontWeight": "500" }], "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "headline-sm": ["16px", { "lineHeight": "24px", "fontWeight": "600" }], "headline-xl-mobile": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "headline-xl": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "body-lg": ["16px", { "lineHeight": "26px", "fontWeight": "400" }], "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }], "code-block": ["12px", { "lineHeight": "20px", "fontWeight": "400" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface text-on-surface font-body-md text-body-md min-h-screen flex flex-col antialiased selection:bg-primary-container selection:text-on-primary-container"><header class="fixed top-0 inset-x-0 z-50 bg-surface/85 backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.35)] pt-safe"><div class="h-20 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0 flex-1"><img alt="My Assistant App Logo" class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1UFNDLP7gpX166jDhKHXjITVilhMJ99ZIw7ioNuB1AvhCjmJ7aFZnPm8k9BMFDcl5_p6x6vWsZ74YG5kObEB0Ki1SthxOE0CIicmavFCpa_vJ8kVPW0EoWS5wgkXQMmeAXJo3A79UZzX-026MiCo6GjhmxtmyKw-8Z-UWvPxcEOWfm33X-7wh5McM6rZGRQi2HkAcAH4aefy9aiPK3eCj_F1O6hs7zflJIRdq5s6XAtNGEa9GEkxMp_3w"/><div class="flex flex-col min-w-0"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight truncate">دستیار من</span><span class="text-outline-variant font-body-sm text-body-sm">|</span><span class="font-headline-sm text-headline-sm text-primary-fixed-dim font-bold tracking-tight truncate">My Assistant</span></div><div class="flex items-center gap-space-xs mt-0.5"><span class="font-label-sm text-label-sm text-on-surface-variant truncate uppercase">Repositories</span><span class="inline-block w-1.5 h-1.5 rounded-full bg-primary-fixed-dim animate-pulse"></span></div></div></div><div class="flex items-center gap-space-xs flex-shrink-0"><div class="hidden sm:flex items-center gap-space-xs px-2 py-1 rounded-full bg-surface-container-high"><span class="material-symbols-outlined text-[14px] text-primary-container">auto_awesome</span><span class="font-label-sm text-label-sm text-on-surface-variant">Gemini</span><span class="w-1 h-1 rounded-full bg-outline-variant"></span><span class="material-symbols-outlined text-[14px] text-secondary">terminal</span><span class="font-label-sm text-label-sm text-on-surface-variant">Git</span></div><button class="min-w-[44px] min-h-[44px] px-2 py-1 rounded-lg bg-surface-container flex items-center justify-center gap-1 active:scale-95 transition-all text-on-surface-variant hover:text-primary" title="Toggle Language / تغییر زبان" type="button"><span class="material-symbols-outlined text-[16px]">translate</span><span class="font-label-sm text-label-sm font-semibold text-primary-container">FA/EN</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-20 pb-24 bg-surface min-h-screen"><div class="flex flex-col w-full px-margin space-y-space-md">
+<!-- Ambient AI Sync Status Banner -->
+<div class="w-full rounded-xl bg-surface-container p-space-sm shadow-md flex items-center justify-between gap-space-sm relative overflow-hidden">
+<div class="absolute -right-10 -bottom-10 w-28 h-28 rounded-full bg-primary-container/10 blur-xl pointer-events-none"></div>
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-9 h-9 rounded-lg bg-surface-container-high flex items-center justify-center flex-shrink-0 text-primary-fixed-dim shadow-sm">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5 flex-wrap">
+<span class="font-body-sm text-body-sm text-on-surface font-semibold truncate">@developer_pro</span>
+<span class="font-label-sm text-label-sm text-primary-fixed-dim bg-primary/10 px-1.5 py-0.5 rounded-full">TOKEN ACTIVE</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">
+          متصل به GitHub <span class="text-outline">·</span> Connected &amp; Synced
+        </p>
+</div>
+</div>
+<button class="w-8 h-8 rounded-lg bg-surface-container-high hover:bg-surface-variant active:scale-90 transition-all flex items-center justify-center text-on-surface-variant" id="refresh-sync-btn" title="بروزرسانی داده‌ها" type="button">
+<span class="material-symbols-outlined text-[18px]">sync</span>
+</button>
+</div>
+<!-- Search & Primary Filter Section -->
+<div class="w-full space-y-space-sm">
+<div class="relative w-full">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="w-full pl-10 pr-10 py-2.5 rounded-xl bg-surface-container text-on-surface placeholder:text-outline font-body-sm text-body-sm outline-none shadow-sm focus:bg-surface-container-high transition-all" id="repo-search" placeholder="جستجوی مخزن یا فایل... / Search repositories..." type="text"/>
+<div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+<button class="text-on-surface-variant hover:text-primary-container p-1 rounded-md active:scale-95" title="پاکسازی / Clear" type="button">
+<span class="material-symbols-outlined text-[16px]">tune</span>
+</button>
+</div>
+</div>
+<!-- Filter Pills Horizontal Bar -->
+<div class="flex items-center gap-space-xs overflow-x-auto no-scrollbar py-1">
+<button class="filter-chip px-3 py-1.5 rounded-full bg-primary-container text-on-primary-container font-label-md text-label-md flex items-center gap-1.5 flex-shrink-0 shadow-sm active:scale-95 transition-all" type="button">
+<span>همه</span>
+<span class="opacity-75 text-[10px]">(All)</span>
+<span class="w-4 h-4 rounded-full bg-on-primary-container/20 text-on-primary-container text-[10px] flex items-center justify-center font-bold">14</span>
+</button>
+<button class="filter-chip px-3 py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:text-on-surface font-label-md text-label-md flex items-center gap-1.5 flex-shrink-0 active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+<span>خصوصی</span>
+<span class="opacity-60 text-[10px]">(Private)</span>
+</button>
+<button class="filter-chip px-3 py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:text-on-surface font-label-md text-label-md flex items-center gap-1.5 flex-shrink-0 active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[14px]">public</span>
+<span>عمومی</span>
+<span class="opacity-60 text-[10px]">(Public)</span>
+</button>
+<button class="filter-chip px-3 py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:text-on-surface font-label-md text-label-md flex items-center gap-1.5 flex-shrink-0 active:scale-95 transition-all" type="button">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span>دارای باگ</span>
+<span class="opacity-60 text-[10px]">(Needs Review)</span>
+</button>
+</div>
+</div>
+<!-- Visual Insight Mini Banner (Bento Micro-Card) -->
+<div class="w-full rounded-xl bg-gradient-to-r from-surface-container via-surface-container-high to-surface-container p-space-sm flex items-center justify-between shadow-md">
+<div class="flex items-center gap-2.5">
+<div class="w-7 h-7 rounded-lg bg-secondary-container/50 text-secondary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[16px]">smart_toy</span>
+</div>
+<div>
+<p class="font-headline-sm text-headline-sm text-on-surface font-semibold">Gemini Code Sentinel</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">۳ مخزن آماده تحلیل خودکار کد</p>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-primary-fixed-dim bg-surface-dim px-2 py-1 rounded-md uppercase font-code-inline">v2.5 Pro</span>
+</div>
+<!-- Repository Cards Flow -->
+<div class="flex flex-col w-full space-y-space-md" id="repo-card-stream">
+<!-- Card 1: kotlin-ai-agent -->
+<article class="repo-card w-full rounded-xl bg-surface-container p-space-md shadow-md flex flex-col space-y-space-sm relative overflow-hidden transition-all hover:bg-surface-container-high">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-start gap-space-xs min-w-0">
+<div class="w-8 h-8 rounded-lg bg-surface-container-lowest text-primary-fixed-dim flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[20px]">folder</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5 flex-wrap">
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-bold truncate">kotlin-ai-agent</h2>
+<span class="font-label-sm text-label-sm px-1.5 py-0.2 rounded bg-surface-container-highest text-primary-fixed-dim uppercase">Public</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">دستیار کاتلین برای معماری ابری • Autonomous Jetpack AI runtime</p>
+</div>
+</div>
+<button class="p-1 rounded-lg text-on-surface-variant hover:text-primary active:scale-95" title="نشان کردن مخزن" type="button">
+<span class="material-symbols-outlined text-[20px]">star_border</span>
+</button>
+</div>
+<!-- Tech Stack, Branch & Metrics -->
+<div class="flex items-center flex-wrap gap-2 text-on-surface-variant font-label-sm text-label-sm">
+<span class="flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container-lowest text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-fixed-dim"></span>
+          Kotlin
+        </span>
+<span class="flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container-lowest">
+<span class="material-symbols-outlined text-[13px] text-secondary">alt_route</span>
+<span class="font-code-inline">main</span>
+</span>
+<span class="flex items-center gap-1 px-1.5 py-0.5 rounded-md text-on-surface">
+<span class="material-symbols-outlined text-[14px] text-primary-fixed-dim">star</span>
+          142
+        </span>
+<span class="flex items-center gap-1 px-1.5 py-0.5 rounded-md">
+<span class="material-symbols-outlined text-[14px]">fork_right</span>
+          28
+        </span>
+<span class="flex items-center gap-1 text-outline ml-auto">
+<span class="material-symbols-outlined text-[12px]">schedule</span>
+          ۲ دقیقه پیش
+        </span>
+</div>
+<!-- Sync Status & Primary AI Action -->
+<div class="pt-space-xs flex items-center justify-between gap-space-xs">
+<div class="flex items-center gap-1.5 text-primary-fixed-dim font-label-sm text-label-sm">
+<span class="w-2 h-2 rounded-full bg-primary-fixed-dim animate-pulse"></span>
+<span>همگام (Sync Active)</span>
+</div>
+<button class="px-3 py-1.5 rounded-lg bg-primary-container text-on-primary-container font-headline-sm text-headline-sm text-[13px] flex items-center gap-1.5 shadow-sm active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">auto_awesome</span>
+<span>Analyze with Gemini</span>
+</button>
+</div>
+</article>
+<!-- Card 2: ecommerce-backend-api -->
+<article class="repo-card w-full rounded-xl bg-surface-container p-space-md shadow-md flex flex-col space-y-space-sm relative overflow-hidden transition-all hover:bg-surface-container-high">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-start gap-space-xs min-w-0">
+<div class="w-8 h-8 rounded-lg bg-surface-container-lowest text-secondary flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[20px]">lock</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5 flex-wrap">
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-bold truncate">ecommerce-backend-api</h2>
+<span class="font-label-sm text-label-sm px-1.5 py-0.2 rounded bg-secondary-container/60 text-secondary-fixed uppercase">Private</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">سرویس فروشگاهی با فریمورک Gin • Core payment API</p>
+</div>
+</div>
+<div class="px-2 py-0.5 rounded-full bg-secondary-container text-secondary-fixed font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">merge</span>
+<span>PR #47</span>
+</div>
+</div>
+<!-- Tech Stack, Branch & Metrics -->
+<div class="flex items-center flex-wrap gap-2 text-on-surface-variant font-label-sm text-label-sm">
+<span class="flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container-lowest text-secondary">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+          Go / Gin
+        </span>
+<span class="flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container-lowest">
+<span class="material-symbols-outlined text-[13px] text-secondary">alt_route</span>
+<span class="font-code-inline">main</span>
+</span>
+<span class="flex items-center gap-1 px-1.5 py-0.5 rounded-md text-on-surface">
+<span class="material-symbols-outlined text-[14px] text-primary-fixed-dim">star</span>
+          12
+        </span>
+<span class="flex items-center gap-1 text-outline ml-auto">
+<span class="material-symbols-outlined text-[12px]">schedule</span>
+          ۱ ساعت پیش
+        </span>
+</div>
+<!-- PR Alert Box & AI Code Review CTA -->
+<div class="w-full rounded-lg bg-surface-container-lowest p-2 flex items-center justify-between gap-space-xs">
+<div class="flex items-center gap-1.5 text-secondary font-label-sm text-label-sm min-w-0">
+<span class="material-symbols-outlined text-[16px] flex-shrink-0">pending_actions</span>
+<span class="truncate">Pull Request آماده ارزیابی</span>
+</div>
+<button class="px-3 py-1.5 rounded-lg bg-secondary-container text-secondary-fixed font-headline-sm text-headline-sm text-[13px] flex items-center gap-1.5 active:scale-95 transition-all shadow-sm" type="button">
+<span class="material-symbols-outlined text-[16px]">rate_review</span>
+<span>AI Code Review</span>
+</button>
+</div>
+</article>
+<!-- Card 3: react-native-dashboard -->
+<article class="repo-card w-full rounded-xl bg-surface-container p-space-md shadow-md flex flex-col space-y-space-sm relative overflow-hidden transition-all hover:bg-surface-container-high">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-start gap-space-xs min-w-0">
+<div class="w-8 h-8 rounded-lg bg-surface-container-lowest text-primary-fixed-dim flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[20px]">laptop_chromebook</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5 flex-wrap">
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-bold truncate">react-native-dashboard</h2>
+<span class="font-label-sm text-label-sm px-1.5 py-0.2 rounded bg-surface-container-highest text-primary-fixed-dim uppercase">Public</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">داشبورد آماری موبایل • Analytics client portal</p>
+</div>
+</div>
+<button class="p-1 rounded-lg text-on-surface-variant hover:text-primary active:scale-95" title="نشان کردن مخزن" type="button">
+<span class="material-symbols-outlined text-[20px]">star_border</span>
+</button>
+</div>
+<!-- Tech Stack, Branch & Metrics -->
+<div class="flex items-center flex-wrap gap-2 text-on-surface-variant font-label-sm text-label-sm">
+<span class="flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container-lowest text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-fixed-dim"></span>
+          TypeScript
+        </span>
+<span class="flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container-lowest">
+<span class="material-symbols-outlined text-[13px] text-secondary">alt_route</span>
+<span class="font-code-inline">main</span>
+</span>
+<span class="flex items-center gap-1 px-1.5 py-0.5 rounded-md text-on-surface">
+<span class="material-symbols-outlined text-[14px] text-primary-fixed-dim">star</span>
+          89
+        </span>
+<span class="flex items-center gap-1 text-outline ml-auto">
+<span class="material-symbols-outlined text-[12px]">schedule</span>
+          دیروز
+        </span>
+</div>
+<!-- Security Status Badge & Quick Exploration -->
+<div class="pt-space-xs flex items-center justify-between gap-space-xs">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/10 text-primary-fixed-dim font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">verified_user</span>
+<span>Security Check Passed</span>
+</div>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-highest hover:bg-surface-variant text-on-surface font-headline-sm text-headline-sm text-[13px] flex items-center gap-1 active:scale-95 transition-all" type="button">
+<span>مشاهده فایل‌ها</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</article>
+</div>
+<!-- Floating Sticky Action Button (New Repo) -->
+<div class="sticky bottom-4 z-20 flex justify-end w-full pointer-events-none pt-2">
+<button class="pointer-events-auto h-12 px-4 rounded-xl bg-primary-container text-on-primary-container font-headline-sm text-headline-sm flex items-center gap-2 shadow-xl active:scale-95 transition-all transform hover:-translate-y-0.5" id="new-repo-fab" type="button">
+<span class="material-symbols-outlined text-[22px]">add_circle</span>
+<span>مخزن جدید</span>
+<span class="opacity-70 font-body-sm text-body-sm">(New Repo)</span>
+</button>
+</div>
+</div>
+<script>
+  // Simple interactive filter & micro-feedback behavior
+  const filterChips = document.querySelectorAll('.filter-chip');
+  filterChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      filterChips.forEach(c => {
+        c.classList.remove('bg-primary-container', 'text-on-primary-container');
+        c.classList.add('bg-surface-container', 'text-on-surface-variant');
+      });
+      chip.classList.remove('bg-surface-container', 'text-on-surface-variant');
+      chip.classList.add('bg-primary-container', 'text-on-primary-container');
+    });
+  });
+
+  const refreshBtn = document.getElementById('refresh-sync-btn');
+  if (refreshBtn) {
+    refreshBtn.addEventListener('click', () => {
+      const icon = refreshBtn.querySelector('.material-symbols-outlined');
+      if (icon) {
+        icon.classList.add('animate-spin');
+        setTimeout(() => icon.classList.remove('animate-spin'), 900);
+      }
+    });
+  }
+</script></main><nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-surface-container-lowest/85 backdrop-blur-2xl shadow-[0_-8px_32px_rgba(0,0,0,0.45)]" data-active-classes="text-primary-container font-semibold"><div class="flex justify-around items-center h-16 px-space-xs max-w-md mx-auto"><a class="min-w-[44px] min-h-[44px] flex-1 flex flex-col items-center justify-center gap-0.5 text-on-surface-variant hover:text-on-surface active:scale-95 transition-all" data-path="chat-assistant" href="../ai_chat/code.html"><span class="material-symbols-outlined text-[22px]">smart_toy</span><span class="font-label-sm text-label-sm tracking-tight">دستیار AI</span></a><a aria-current="page" class="min-w-[44px] min-h-[44px] flex-1 flex flex-col items-center justify-center gap-0.5 active:scale-95 transition-all text-primary-container font-semibold" data-path="repositories" href="code.html"><span class="material-symbols-outlined text-[22px]">folder_code</span><span class="font-label-sm text-label-sm tracking-tight">مخازن</span></a><a class="min-w-[44px] min-h-[44px] flex-1 flex flex-col items-center justify-center gap-0.5 text-on-surface-variant hover:text-on-surface active:scale-95 transition-all" data-path="code-snippets" href="../code_snippets/code.html"><span class="material-symbols-outlined text-[22px]">data_object</span><span class="font-label-sm text-label-sm tracking-tight">تکه‌کدها</span></a><a class="min-w-[44px] min-h-[44px] flex-1 flex flex-col items-center justify-center gap-0.5 text-on-surface-variant hover:text-on-surface active:scale-95 transition-all" data-path="settings-and-api" href="../api_settings/code.html"><span class="material-symbols-outlined text-[22px]">tune</span><span class="font-label-sm text-label-sm tracking-tight">تنظیمات</span></a></div></nav></body></html>
