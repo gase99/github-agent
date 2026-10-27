@@ -13,6 +13,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   language: 'fa',
   geminiApiKey: '',
   geminiModel: 'gemini-2.5-flash',
+  temperature: 0.3,
   githubToken: '',
   githubUsername: 'gase99',
   autoCopyCode: false,
