@@ -66,7 +66,7 @@ function detectLanguageFromPath(path: string): string {
   return map[ext] || 'text';
 }
 
-function decodeBase64Utf8(b64: string): string {
+export function decodeBase64Utf8(b64: string): string {
   const cleaned = b64.replace(/\s/g, '');
   const binary = atob(cleaned);
   const bytes = Uint8Array.from(binary, (c) => c.charCodeAt(0));
@@ -300,7 +300,7 @@ export async function fetchGithubRepoCommits(
   }));
 }
 
-function parseUnifiedPatch(patch?: string): DiffLine[] {
+export function parseUnifiedPatch(patch?: string): DiffLine[] {
   if (!patch) {
     return [
       {
