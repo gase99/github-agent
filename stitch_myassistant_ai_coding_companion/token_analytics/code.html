@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+
+<html class="dark" dir="rtl" lang="fa"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Space+Grotesk:wght@600;700&amp;family=Vazirmatn:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#11131c;}body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "tertiary": "#f5f6ff", "surface-dim": "#11131c", "on-secondary-fixed": "#2e004e", "surface-variant": "#32343e", "surface-bright": "#373943", "secondary-fixed": "#f2daff", "on-error-container": "#ffdad6", "primary": "#d7fff3", "on-background": "#e1e1ef", "on-tertiary": "#002e69", "outline": "#83948f", "outline-variant": "#3a4a46", "on-secondary-container": "#d7a4ff", "surface": "#11131c", "on-secondary-fixed-variant": "#6a0baa", "surface-container-highest": "#32343e", "on-primary-container": "#006c5c", "on-error": "#690005", "tertiary-fixed-dim": "#adc6ff", "error": "#ffb4ab", "inverse-on-surface": "#2e303a", "secondary-fixed-dim": "#e0b6ff", "primary-fixed-dim": "#00dfc1", "error-container": "#93000a", "on-tertiary-fixed-variant": "#004494", "surface-container-lowest": "#0c0e17", "secondary-container": "#6d11ad", "tertiary-container": "#cbdaff", "on-primary": "#00382f", "on-secondary": "#4c007d", "surface-container-high": "#282933", "secondary": "#e0b6ff", "surface-container-low": "#191b24", "background": "#11131c", "surface-container": "#1d1f29", "on-tertiary-container": "#005bc3", "primary-container": "#00f5d4", "on-primary-fixed-variant": "#005144", "inverse-primary": "#006b5b", "on-tertiary-fixed": "#001a41", "inverse-surface": "#e1e1ef", "primary-fixed": "#26fedc", "surface-tint": "#00dfc1", "on-surface": "#e1e1ef", "tertiary-fixed": "#d8e2ff", "on-surface-variant": "#b9cac4", "on-primary-fixed": "#00201a" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-sm": "0.5rem", "gutter-tablet": "1.5rem", "margin": "1rem", "space-md": "1rem", "margin-desktop": "3rem", "margin-tablet": "2rem", "space-xl": "2rem", "space-xs": "0.25rem", "gutter": "1rem", "space-lg": "1.5rem" }, fontFamily: { "body-md": ["Inter", "Vazirmatn"], "label-sm": ["JetBrains Mono"], "body-sm": ["Inter", "Vazirmatn"], "label-md": ["JetBrains Mono"], "code-inline": ["JetBrains Mono"], "headline-lg": ["Space Grotesk", "Vazirmatn"], "headline-sm": ["Space Grotesk", "Vazirmatn"], "headline-xl-mobile": ["Space Grotesk", "Vazirmatn"], "headline-xl": ["Space Grotesk", "Vazirmatn"], "body-lg": ["Inter", "Vazirmatn"], "headline-md": ["Space Grotesk", "Vazirmatn"], "code-block": ["JetBrains Mono"] }, fontSize: { "body-md": ["14px", { "lineHeight": "22px", "fontWeight": "400" }], "label-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.06em", "fontWeight": "600" }], "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500" }], "code-inline": ["13px", { "lineHeight": "18px", "fontWeight": "500" }], "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "headline-sm": ["16px", { "lineHeight": "24px", "fontWeight": "600" }], "headline-xl-mobile": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "headline-xl": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "body-lg": ["16px", { "lineHeight": "26px", "fontWeight": "400" }], "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }], "code-block": ["12px", { "lineHeight": "20px", "fontWeight": "400" }] } } } };</script><style>body { min-height: max(884px, 100dvh); }</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface text-on-surface font-body-md text-body-md min-h-screen flex flex-col antialiased selection:bg-primary-container selection:text-on-primary-container"><header class="fixed top-0 inset-x-0 z-50 bg-surface/85 backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.35)] pt-safe"><div class="h-20 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0 flex-1"><img alt="My Assistant App Logo" class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1UFNDLP7gpX166jDhKHXjITVilhMJ99ZIw7ioNuB1AvhCjmJ7aFZnPm8k9BMFDcl5_p6x6vWsZ74YG5kObEB0Ki1SthxOE0CIicmavFCpa_vJ8kVPW0EoWS5wgkXQMmeAXJo3A79UZzX-026MiCo6GjhmxtmyKw-8Z-UWvPxcEOWfm33X-7wh5McM6rZGRQi2HkAcAH4aefy9aiPK3eCj_F1O6hs7zflJIRdq5s6XAtNGEa9GEkxMp_3w"/><div class="flex flex-col min-w-0"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight truncate">دستیار من</span><span class="text-outline-variant font-body-sm text-body-sm">|</span><span class="font-headline-sm text-headline-sm text-primary-fixed-dim font-bold tracking-tight truncate" dir="ltr">My Assistant</span></div><div class="flex items-center gap-space-xs mt-0.5"><span class="font-label-sm text-label-sm text-on-surface-variant truncate uppercase" dir="auto">مانیتورینگ توکن و هزینه‌ها | Token Analytics</span><span class="inline-block w-1.5 h-1.5 rounded-full bg-primary-fixed-dim animate-pulse"></span></div></div></div><div class="flex items-center gap-space-xs flex-shrink-0"><div class="hidden sm:flex items-center gap-space-xs px-2 py-1 rounded-full bg-surface-container-high"><span class="material-symbols-outlined text-[14px] text-primary-container">auto_awesome</span><span class="font-label-sm text-label-sm text-on-surface-variant">Gemini</span><span class="w-1 h-1 rounded-full bg-outline-variant"></span><span class="material-symbols-outlined text-[14px] text-secondary">terminal</span><span class="font-label-sm text-label-sm text-on-surface-variant">Git</span></div><button class="min-w-[44px] min-h-[44px] px-2 py-1 rounded-lg bg-surface-container flex items-center justify-center gap-1 active:scale-95 transition-all text-on-surface-variant hover:text-primary" title="تغییر زبان / Toggle Language" type="button"><span class="material-symbols-outlined text-[16px]">translate</span><span class="font-label-sm text-label-sm font-semibold text-primary-container">FA/EN</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-20 pb-24 bg-surface min-h-screen"><div class="flex flex-col w-full text-on-surface select-none pb-12">
+<!-- Top Ambient Luminous Glow (Visual Framing) -->
+<div class="relative w-full overflow-hidden pointer-events-none -mb-28 h-32">
+<div class="absolute -top-16 right-1/4 w-72 h-36 bg-primary-container/10 rounded-full blur-3xl"></div>
+<div class="absolute -top-12 left-1/4 w-60 h-32 bg-secondary-container/20 rounded-full blur-3xl"></div>
+</div>
+<!-- Main Content Stack -->
+<div class="flex flex-col gap-space-md px-margin relative z-10">
+<!-- 1. Header & Live Indicator & Quick Tools -->
+<div class="flex flex-col gap-space-xs mt-1">
+<div class="flex items-center justify-between gap-space-sm">
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs flex-wrap">
+<h1 class="font-headline-sm text-headline-sm text-on-surface font-bold">تحلیل مصرف و سهمیه API</h1>
+<span class="font-label-sm text-label-sm text-outline px-1.5 py-0.5 rounded bg-surface-container font-mono" dir="ltr">Token &amp; Quota</span>
+</div>
+<div class="flex items-center gap-1.5 mt-0.5">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-container opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary-fixed-dim"></span>
+</span>
+<span class="font-label-sm text-label-sm text-primary-container">همگام‌سازی ابری زنده (Gemini &amp; GitHub)</span>
+</div>
+</div>
+<!-- Utility Buttons -->
+<div class="flex items-center gap-1.5 flex-shrink-0">
+<button class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-primary active:scale-90 transition-all shadow-sm" id="refreshBtn" title="به‌روزرسانی داده‌ها" type="button">
+<span class="material-symbols-outlined text-[18px]">sync</span>
+</button>
+<button class="h-9 px-2.5 rounded-lg bg-surface-container flex items-center justify-center gap-1 text-on-surface-variant hover:text-primary active:scale-95 transition-all shadow-sm" title="دریافت گزارش CSV / JSON" type="button">
+<span class="material-symbols-outlined text-[16px]">file_download</span>
+<span class="font-label-sm text-label-sm font-semibold">خروجی</span>
+</button>
+</div>
+</div>
+<!-- Time Filter Chips (Horizontal Scrollable) -->
+<div class="flex items-center gap-2 overflow-x-auto pb-1 mt-1 scrollbar-none" dir="rtl">
+<button class="time-filter-btn flex-shrink-0 px-3 py-1.5 rounded-full bg-surface-container text-on-surface-variant text-label-md font-label-md hover:bg-surface-container-high transition-colors" type="button">
+          امروز <span class="font-mono text-[10px] text-outline">Today</span>
+</button>
+<button class="time-filter-btn flex-shrink-0 px-3 py-1.5 rounded-full bg-primary-container text-on-primary-container text-label-md font-label-md font-semibold shadow-[0_0_12px_rgba(0,245,212,0.35)] transition-all" type="button">
+          ۷ روز اخیر <span class="font-mono text-[10px] opacity-80">7 Days</span>
+</button>
+<button class="time-filter-btn flex-shrink-0 px-3 py-1.5 rounded-full bg-surface-container text-on-surface-variant text-label-md font-label-md hover:bg-surface-container-high transition-colors" type="button">
+          ۳۰ روز اخیر <span class="font-mono text-[10px] text-outline">30 Days</span>
+</button>
+<button class="time-filter-btn flex-shrink-0 px-3 py-1.5 rounded-full bg-surface-container text-on-surface-variant text-label-md font-label-md hover:bg-surface-container-high transition-colors" type="button">
+          چرخه صورت‌حساب <span class="font-mono text-[10px] text-outline">Billing</span>
+</button>
+</div>
+</div>
+<!-- 2. Quota Overview & Health Gauge Card -->
+<div class="relative rounded-xl bg-surface-container-low p-4 shadow-xl overflow-hidden">
+<!-- Glow ambient gradient -->
+<div class="absolute -top-10 -right-10 w-44 h-44 bg-primary-container/10 rounded-full blur-2xl pointer-events-none"></div>
+<!-- Top Row: Title & Badge -->
+<div class="flex items-center justify-between mb-3 relative z-10">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-container text-[20px]">auto_awesome</span>
+</div>
+<div>
+<div class="font-headline-sm text-headline-sm font-bold text-on-surface leading-tight">سهمیه کل جمینای</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant font-mono" dir="ltr">Gemini 1.5 Pro &amp; Flash</div>
+</div>
+</div>
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-high shadow-sm">
+<span class="w-2 h-2 rounded-full bg-primary-fixed-dim shadow-[0_0_6px_#00dfc1]"></span>
+<span class="font-label-sm text-label-sm text-primary-container font-semibold">جریان بهینه</span>
+</div>
+</div>
+<!-- Main Gauge & Stats Row -->
+<div class="grid grid-cols-12 gap-3 items-center relative z-10">
+<!-- Circular Progress Ring (SVG) -->
+<div class="col-span-5 flex flex-col items-center justify-center">
+<div class="relative w-28 h-28 flex items-center justify-center">
+<svg class="w-full h-full -rotate-90 transform" viewbox="0 0 100 100">
+<!-- Background Ring -->
+<circle cx="50" cy="50" fill="transparent" r="40" stroke="#1d1f29" stroke-width="8"></circle>
+<!-- Progress Arc 71% (circumference ~ 251.3, dashoffset = 251.3 * (1 - 0.71) = 72.88) -->
+<circle cx="50" cy="50" fill="transparent" r="40" stroke="#00f5d4" stroke-dasharray="251.3" stroke-dashoffset="72.88" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+<span class="font-headline-lg text-headline-lg font-bold text-on-surface font-mono">71%</span>
+<span class="font-label-sm text-[9px] text-on-surface-variant">استفاده شده</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-outline mt-1 font-mono" dir="ltr">580k tok Left</span>
+</div>
+<!-- Right Metrics Block -->
+<div class="col-span-7 flex flex-col gap-2.5">
+<div class="bg-surface-container p-2.5 rounded-lg flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">توکن‌های مصرف‌شده / سقف کل</span>
+<div class="flex items-baseline gap-1 mt-0.5" dir="ltr">
+<span class="font-headline-md text-headline-md font-bold text-primary font-mono">1.42M</span>
+<span class="font-label-md text-label-md text-outline font-mono">/ 2.00M</span>
+</div>
+</div>
+<div class="bg-surface-container p-2.5 rounded-lg flex flex-col">
+<div class="flex justify-between items-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant">برآورد هزینه جاری</span>
+<span class="font-label-sm text-label-sm text-secondary font-mono">21.3%</span>
+</div>
+<div class="flex items-baseline gap-1 mt-0.5" dir="ltr">
+<span class="font-headline-sm text-headline-sm font-bold text-secondary font-mono">$4.26</span>
+<span class="font-label-sm text-label-sm text-outline font-mono">/ $20.00 Max</span>
+</div>
+<!-- Progress Bar -->
+<div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden mt-1.5">
+<div class="bg-secondary h-full rounded-full" style="width: 21.3%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Rate Limit Micro Gauges (RPM / TPM) -->
+<div class="grid grid-cols-2 gap-2 mt-3 pt-3 bg-surface-container/60 p-2.5 rounded-lg relative z-10">
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-mono" dir="ltr">RPM (Req/min)</span>
+<span class="font-label-sm text-label-sm text-primary-container font-mono">12 / 15</span>
+</div>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full rounded-full" style="width: 80%"></div>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-mono" dir="ltr">TPM (Tok/min)</span>
+<span class="font-label-sm text-label-sm text-secondary font-mono">420k / 1M</span>
+</div>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 42%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- 3. Interactive Visual Consumption Chart / Timeline -->
+<div class="rounded-xl bg-surface-container-low p-4 shadow-xl flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div>
+<div class="font-headline-sm text-headline-sm font-bold text-on-surface">روند هفتگی مصرف توکن</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">تفکیک ورودی (Prompt) و خروجی (Completion)</div>
+</div>
+<!-- Legend -->
+<div class="flex items-center gap-2 font-mono text-[10px]" dir="ltr">
+<div class="flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="text-on-surface-variant">Input</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="text-on-surface-variant">Output</span>
+</div>
+</div>
+</div>
+<!-- Weekly Bar Chart -->
+<div class="flex items-end justify-between gap-1.5 h-36 pt-4 px-1 pb-1 bg-surface-container-lowest/60 rounded-lg relative">
+<!-- Peak badge callout on Wednesday (چهارشنبه) -->
+<div class="absolute -top-2 left-[48%] -translate-x-1/2 px-2 py-0.5 rounded bg-secondary-container text-on-secondary text-label-sm font-label-sm shadow-md flex items-center gap-1 z-20">
+<span class="material-symbols-outlined text-[12px]">bolt</span>
+<span>پیک: بازبینی PR</span>
+</div>
+<!-- Saturday -->
+<div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end group">
+<div class="w-full max-w-[28px] flex flex-col gap-0.5 items-center justify-end h-full">
+<div class="w-full rounded-t-sm bg-secondary transition-all" style="height: 18%"></div>
+<div class="w-full rounded-b-sm bg-primary-container transition-all" style="height: 32%"></div>
+</div>
+<span class="font-label-sm text-[10px] text-outline group-hover:text-on-surface">ش</span>
+</div>
+<!-- Sunday -->
+<div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end group">
+<div class="w-full max-w-[28px] flex flex-col gap-0.5 items-center justify-end h-full">
+<div class="w-full rounded-t-sm bg-secondary transition-all" style="height: 14%"></div>
+<div class="w-full rounded-b-sm bg-primary-container transition-all" style="height: 25%"></div>
+</div>
+<span class="font-label-sm text-[10px] text-outline group-hover:text-on-surface">ی</span>
+</div>
+<!-- Monday -->
+<div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end group">
+<div class="w-full max-w-[28px] flex flex-col gap-0.5 items-center justify-end h-full">
+<div class="w-full rounded-t-sm bg-secondary transition-all" style="height: 22%"></div>
+<div class="w-full rounded-b-sm bg-primary-container transition-all" style="height: 40%"></div>
+</div>
+<span class="font-label-sm text-[10px] text-outline group-hover:text-on-surface">د</span>
+</div>
+<!-- Tuesday -->
+<div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end group">
+<div class="w-full max-w-[28px] flex flex-col gap-0.5 items-center justify-end h-full">
+<div class="w-full rounded-t-sm bg-secondary transition-all" style="height: 26%"></div>
+<div class="w-full rounded-b-sm bg-primary-container transition-all" style="height: 48%"></div>
+</div>
+<span class="font-label-sm text-[10px] text-outline group-hover:text-on-surface">س</span>
+</div>
+<!-- Wednesday (Peak) -->
+<div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end group">
+<div class="w-full max-w-[28px] flex flex-col gap-0.5 items-center justify-end h-full relative">
+<div class="w-full rounded-t-sm bg-secondary shadow-[0_0_10px_rgba(224,182,255,0.4)]" style="height: 38%"></div>
+<div class="w-full rounded-b-sm bg-primary-container shadow-[0_0_10px_rgba(0,245,212,0.4)]" style="height: 52%"></div>
+</div>
+<span class="font-label-sm text-[10px] text-primary-container font-bold group-hover:text-on-surface">چ</span>
+</div>
+<!-- Thursday -->
+<div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end group">
+<div class="w-full max-w-[28px] flex flex-col gap-0.5 items-center justify-end h-full">
+<div class="w-full rounded-t-sm bg-secondary transition-all" style="height: 20%"></div>
+<div class="w-full rounded-b-sm bg-primary-container transition-all" style="height: 34%"></div>
+</div>
+<span class="font-label-sm text-[10px] text-outline group-hover:text-on-surface">پ</span>
+</div>
+<!-- Friday -->
+<div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end group">
+<div class="w-full max-w-[28px] flex flex-col gap-0.5 items-center justify-end h-full">
+<div class="w-full rounded-t-sm bg-secondary transition-all" style="height: 12%"></div>
+<div class="w-full rounded-b-sm bg-primary-container transition-all" style="height: 18%"></div>
+</div>
+<span class="font-label-sm text-[10px] text-outline group-hover:text-on-surface">ج</span>
+</div>
+</div>
+<!-- Quick insight caption -->
+<div class="flex items-center justify-between text-on-surface-variant font-body-sm text-body-sm pt-1">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-primary-container text-[14px]">insights</span>
+          میانگین روزانه: ۲۰۲,۸۵۰ توکن
+        </span>
+<span class="font-label-sm text-label-sm text-outline font-mono" dir="ltr">~ 1:2.4 Out/In Ratio</span>
+</div>
+</div>
+<!-- 4. Token Breakdown by Capability / Feature -->
+<div class="rounded-xl bg-surface-container-low p-4 shadow-xl flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="font-headline-sm text-headline-sm font-bold text-on-surface">سهم ماژول‌ها از مصرف</div>
+<span class="font-label-sm text-label-sm text-outline font-mono">Capabilities</span>
+</div>
+<div class="flex flex-col gap-3">
+<!-- Feature 1: PR Review -->
+<div class="bg-surface-container p-3 rounded-lg flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-md bg-primary-container/20 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[16px]">rate_review</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-semibold text-on-surface leading-tight">بازبینی کد و بررسی PR</span>
+<span class="font-label-sm text-[10px] text-on-surface-variant font-mono" dir="ltr">Pull Request Review</span>
+</div>
+</div>
+<div class="text-left" dir="ltr">
+<span class="font-label-md text-label-md font-bold text-primary font-mono">580k tok</span>
+<span class="font-label-sm text-label-sm text-outline block font-mono">$1.74 (41%)</span>
+</div>
+</div>
+<!-- Bar -->
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full rounded-full shadow-[0_0_8px_rgba(0,245,212,0.4)]" style="width: 41%"></div>
+</div>
+</div>
+<!-- Feature 2: AI Chat & Debug -->
+<div class="bg-surface-container p-3 rounded-lg flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-md bg-secondary-container/30 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[16px]">smart_toy</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-semibold text-on-surface leading-tight">دستیار چت هوش مصنوعی</span>
+<span class="font-label-sm text-[10px] text-on-surface-variant font-mono" dir="ltr">AI Chat &amp; Debugging</span>
+</div>
+</div>
+<div class="text-left" dir="ltr">
+<span class="font-label-md text-label-md font-bold text-secondary font-mono">420k tok</span>
+<span class="font-label-sm text-label-sm text-outline block font-mono">$1.26 (30%)</span>
+</div>
+</div>
+<!-- Bar -->
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full shadow-[0_0_8px_rgba(224,182,255,0.4)]" style="width: 30%"></div>
+</div>
+</div>
+<!-- Feature 3: Security Audit -->
+<div class="bg-surface-container p-3 rounded-lg flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-md bg-error-container/40 flex items-center justify-center text-error">
+<span class="material-symbols-outlined text-[16px]">security</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-semibold text-on-surface leading-tight">اسکن امنیتی و ممیزی</span>
+<span class="font-label-sm text-[10px] text-on-surface-variant font-mono" dir="ltr">Security &amp; Vulnerability Audit</span>
+</div>
+</div>
+<div class="text-left" dir="ltr">
+<span class="font-label-md text-label-md font-bold text-error font-mono">280k tok</span>
+<span class="font-label-sm text-label-sm text-outline block font-mono">$0.84 (20%)</span>
+</div>
+</div>
+<!-- Bar -->
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-error h-full rounded-full" style="width: 20%"></div>
+</div>
+</div>
+<!-- Feature 4: Snippets & Generation -->
+<div class="bg-surface-container p-3 rounded-lg flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-md bg-tertiary-container/30 flex items-center justify-center text-on-tertiary-container">
+<span class="material-symbols-outlined text-[16px]">code</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-semibold text-on-surface leading-tight">تولید و بهینه‌سازی تکه‌کدها</span>
+<span class="font-label-sm text-[10px] text-on-surface-variant font-mono" dir="ltr">Snippet Generation</span>
+</div>
+</div>
+<div class="text-left" dir="ltr">
+<span class="font-label-md text-label-md font-bold text-tertiary-fixed-dim font-mono">140k tok</span>
+<span class="font-label-sm text-label-sm text-outline block font-mono">$0.42 (9%)</span>
+</div>
+</div>
+<!-- Bar -->
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-tertiary-fixed-dim h-full rounded-full" style="width: 9%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- 5. GitHub API Quota & Rate Limit Widget -->
+<div class="rounded-xl bg-surface-container-low p-4 shadow-xl flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px] text-on-surface">terminal</span>
+</div>
+<div>
+<div class="font-headline-sm text-headline-sm font-bold text-on-surface">سهمیه ابری GitHub API</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant font-mono" dir="ltr">REST &amp; GraphQL Quotas</div>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-primary-fixed-dim bg-surface-container px-2 py-0.5 rounded font-mono" dir="ltr">Reset in 28m</span>
+</div>
+<!-- Micro metrics grid -->
+<div class="grid grid-cols-3 gap-2 pt-1">
+<div class="bg-surface-container p-2.5 rounded-lg flex flex-col">
+<span class="font-label-sm text-[10px] text-on-surface-variant">Core REST API</span>
+<span class="font-headline-sm text-headline-sm font-bold text-primary font-mono mt-1" dir="ltr">4,120</span>
+<span class="font-label-sm text-[9px] text-outline font-mono" dir="ltr">/ 5,000 req</span>
+<div class="w-full bg-surface-container-high h-1 rounded-full overflow-hidden mt-1.5">
+<div class="bg-primary-container h-full rounded-full" style="width: 82.4%"></div>
+</div>
+</div>
+<div class="bg-surface-container p-2.5 rounded-lg flex flex-col">
+<span class="font-label-sm text-[10px] text-on-surface-variant">Search API</span>
+<span class="font-headline-sm text-headline-sm font-bold text-secondary font-mono mt-1" dir="ltr">26</span>
+<span class="font-label-sm text-[9px] text-outline font-mono" dir="ltr">/ 30 req/min</span>
+<div class="w-full bg-surface-container-high h-1 rounded-full overflow-hidden mt-1.5">
+<div class="bg-secondary h-full rounded-full" style="width: 86.6%"></div>
+</div>
+</div>
+<div class="bg-surface-container p-2.5 rounded-lg flex flex-col">
+<span class="font-label-sm text-[10px] text-on-surface-variant">Webhooks</span>
+<span class="font-headline-sm text-headline-sm font-bold text-tertiary font-mono mt-1" dir="ltr">84</span>
+<span class="font-label-sm text-[9px] text-outline font-mono">امروز (Dispatched)</span>
+<div class="w-full bg-surface-container-high h-1 rounded-full overflow-hidden mt-1.5">
+<div class="bg-tertiary-fixed-dim h-full rounded-full" style="width: 100%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- 6. Cost Optimization & Gemini AI Smart Advisor -->
+<div class="rounded-xl bg-gradient-to-br from-surface-container-low via-surface-container to-secondary-container/20 p-4 shadow-xl flex flex-col gap-3 relative overflow-hidden">
+<!-- Ambient spark light -->
+<div class="absolute -bottom-8 -left-8 w-32 h-32 bg-secondary/15 rounded-full blur-2xl pointer-events-none"></div>
+<div class="flex items-start gap-2.5 relative z-10">
+<div class="w-8 h-8 rounded-lg bg-secondary-container text-on-secondary flex items-center justify-center flex-shrink-0 shadow-[0_0_12px_rgba(109,17,173,0.6)]">
+<span class="material-symbols-outlined text-[20px]">psychology</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="font-headline-sm text-headline-sm font-bold text-secondary-fixed">پیشنهاد هوشمند جمینای</span>
+<span class="px-1.5 py-0.5 rounded bg-secondary-container text-on-secondary text-label-sm font-label-sm font-mono" dir="ltr">Smart Cache</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 leading-relaxed">
+            با فعال‌سازی <span class="text-primary-container font-mono font-semibold">Context Caching</span> برای پرامپت‌های ممیزی سیستم و قوانین معماری، می‌توانید تا <span class="text-secondary font-bold font-mono">۳۸٪</span> در مصرف توکن‌های ورودی صرفه‌جویی کنید.
+          </p>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col sm:flex-row items-center gap-2 pt-1 relative z-10">
+<button class="w-full flex-1 py-2 px-3 rounded-lg bg-primary-container text-on-primary-container font-headline-sm text-headline-sm font-bold flex items-center justify-center gap-1.5 shadow-[0_0_14px_rgba(0,245,212,0.4)] active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">bolt</span>
+<span>فعال‌سازی کش هوشمند</span>
+</button>
+<button class="w-full sm:w-auto py-2 px-3 rounded-lg bg-surface-container-high text-on-surface-variant font-label-md text-label-md hover:text-on-surface flex items-center justify-center gap-1 active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">tune</span>
+<span>سقف هشدار مصرف</span>
+</button>
+</div>
+</div>
+<!-- 7. Recent High-Consumption Events Log -->
+<div class="rounded-xl bg-surface-container-low p-4 shadow-xl flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-outline text-[18px]">receipt_long</span>
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">رویدادهای پرمصرف اخیر</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline font-mono" dir="ltr">Heavy Requests</span>
+</div>
+<div class="flex flex-col gap-2">
+<!-- Event 1 -->
+<div class="bg-surface-container p-3 rounded-lg flex items-center justify-between gap-2 hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-2.5 min-w-0">
+<div class="w-8 h-8 rounded-lg bg-primary-container/10 flex items-center justify-center text-primary-container flex-shrink-0">
+<span class="material-symbols-outlined text-[18px]">difference</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5 min-w-0">
+<span class="font-body-md text-body-md font-semibold text-on-surface truncate font-mono" dir="ltr">PR #47 Diff Analysis</span>
+<span class="font-label-sm text-[9px] px-1 rounded bg-surface-container-highest text-primary font-mono" dir="ltr">Gemini 1.5 Pro</span>
+</div>
+<div class="flex items-center gap-2 font-label-sm text-label-sm text-on-surface-variant mt-0.5" dir="ltr">
+<span>4s ago</span>
+<span>•</span>
+<span class="text-primary-fixed-dim">142ms</span>
+</div>
+</div>
+</div>
+<div class="text-left flex-shrink-0" dir="ltr">
+<span class="font-label-md text-label-md font-bold text-primary font-mono block">42,850 tok</span>
+<span class="font-label-sm text-label-sm text-outline font-mono">~$0.128</span>
+</div>
+</div>
+<!-- Event 2 -->
+<div class="bg-surface-container p-3 rounded-lg flex items-center justify-between gap-2 hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-2.5 min-w-0">
+<div class="w-8 h-8 rounded-lg bg-error-container/20 flex items-center justify-center text-error flex-shrink-0">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5 min-w-0">
+<span class="font-body-md text-body-md font-semibold text-on-surface truncate font-mono" dir="ltr">Full Repo Security Audit</span>
+<span class="font-label-sm text-[9px] px-1 rounded bg-surface-container-highest text-error font-mono" dir="ltr">Sentinel</span>
+</div>
+<div class="flex items-center gap-2 font-label-sm text-label-sm text-on-surface-variant mt-0.5" dir="ltr">
+<span>2h ago</span>
+<span>•</span>
+<span class="text-outline">1.8s</span>
+</div>
+</div>
+</div>
+<div class="text-left flex-shrink-0" dir="ltr">
+<span class="font-label-md text-label-md font-bold text-error font-mono block">89,120 tok</span>
+<span class="font-label-sm text-label-sm text-outline font-mono">~$0.267</span>
+</div>
+</div>
+<!-- Event 3 -->
+<div class="bg-surface-container p-3 rounded-lg flex items-center justify-between gap-2 hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-2.5 min-w-0">
+<div class="w-8 h-8 rounded-lg bg-secondary-container/20 flex items-center justify-center text-secondary flex-shrink-0">
+<span class="material-symbols-outlined text-[18px]">terminal</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5 min-w-0">
+<span class="font-body-md text-body-md font-semibold text-on-surface truncate font-mono" dir="ltr">Kotlin Sandbox Test Gen</span>
+<span class="font-label-sm text-[9px] px-1 rounded bg-surface-container-highest text-secondary font-mono" dir="ltr">Flash</span>
+</div>
+<div class="flex items-center gap-2 font-label-sm text-label-sm text-on-surface-variant mt-0.5" dir="ltr">
+<span>4h ago</span>
+<span>•</span>
+<span class="text-primary-fixed-dim">310ms</span>
+</div>
+</div>
+</div>
+<div class="text-left flex-shrink-0" dir="ltr">
+<span class="font-label-md text-label-md font-bold text-secondary font-mono block">12,400 tok</span>
+<span class="font-label-sm text-label-sm text-outline font-mono">~$0.018</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Simple interactive filter toggle & sync animation
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterButtons = document.querySelectorAll('.time-filter-btn');
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterButtons.forEach(b => {
+          b.className = 'time-filter-btn flex-shrink-0 px-3 py-1.5 rounded-full bg-surface-container text-on-surface-variant text-label-md font-label-md hover:bg-surface-container-high transition-colors';
+        });
+        btn.className = 'time-filter-btn flex-shrink-0 px-3 py-1.5 rounded-full bg-primary-container text-on-primary-container text-label-md font-label-md font-semibold shadow-[0_0_12px_rgba(0,245,212,0.35)] transition-all';
+      });
+    });
+
+    const refreshBtn = document.getElementById('refreshBtn');
+    if (refreshBtn) {
+      refreshBtn.addEventListener('click', () => {
+        const icon = refreshBtn.querySelector('.material-symbols-outlined');
+        if (icon) {
+          icon.classList.add('animate-spin');
+          setTimeout(() => {
+            icon.classList.remove('animate-spin');
+          }, 800);
+        }
+      });
+    }
+  });
+</script></main><nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-surface-container-lowest/85 backdrop-blur-2xl shadow-[0_-8px_32px_rgba(0,0,0,0.45)]" data-active-classes="text-primary-container font-semibold"><div class="flex justify-around items-center h-16 px-space-xs max-w-lg mx-auto"><a class="min-w-[44px] min-h-[44px] flex-1 flex flex-col items-center justify-center gap-0.5 text-on-surface-variant hover:text-on-surface active:scale-95 transition-all" data-path="chat-assistant" href="../ai_chat/code.html"><span class="material-symbols-outlined text-[20px]">smart_toy</span><span class="font-label-sm text-[9px] tracking-tight">دستیار AI</span></a><a class="min-w-[44px] min-h-[44px] flex-1 flex flex-col items-center justify-center gap-0.5 text-on-surface-variant hover:text-on-surface active:scale-95 transition-all" data-path="security-and-vulnerability-audit" href="../security_audit/code.html"><span class="material-symbols-outlined text-[20px]">security</span><span class="font-label-sm text-[9px] tracking-tight">امنیت</span></a><a class="min-w-[44px] min-h-[44px] flex-1 flex flex-col items-center justify-center gap-0.5 text-on-surface-variant hover:text-on-surface active:scale-95 transition-all" data-path="pull-request-review" href="../pr_pull_request_review/code.html"><span class="material-symbols-outlined text-[20px]">rate_review</span><span class="font-label-sm text-[9px] tracking-tight">تحلیل PR</span></a><a class="min-w-[44px] min-h-[44px] flex-1 flex flex-col items-center justify-center gap-0.5 text-on-surface-variant hover:text-on-surface active:scale-95 transition-all" data-path="token-analytics" href="code.html"><span class="material-symbols-outlined text-[20px]">data_usage</span><span class="font-label-sm text-[9px] tracking-tight">توکن و هزینه</span></a><a class="min-w-[44px] min-h-[44px] flex-1 flex flex-col items-center justify-center gap-0.5 text-on-surface-variant hover:text-on-surface active:scale-95 transition-all" data-path="repositories" href="../repositories/code.html"><span class="material-symbols-outlined text-[20px]">folder_code</span><span class="font-label-sm text-[9px] tracking-tight">مخازن</span></a><a class="min-w-[44px] min-h-[44px] flex-1 flex flex-col items-center justify-center gap-0.5 text-on-surface-variant hover:text-on-surface active:scale-95 transition-all" data-path="settings-and-api" href="../api_settings/code.html"><span class="material-symbols-outlined text-[20px]">tune</span><span class="font-label-sm text-[9px] tracking-tight">تنظیمات</span></a></div></nav></body></html>
