@@ -10,7 +10,7 @@ The UI uses inline JavaScript and loads Tailwind CSS, icons, and fonts from publ
 
 ## Hosting
 
-This repository is private and the connected GitHub account uses the Free plan, so GitHub Pages cannot publish this project from the current setup. The source remains private. To view the prototype now, open `index.html` in a browser; GitHub Pages can be configured if the repository visibility or account plan changes.
+The static site is published at <https://gase99.github.io/github-agent/> from the root of the `main` branch. New commits to `main` are published through GitHub Pages.
 
 ## Security
 
