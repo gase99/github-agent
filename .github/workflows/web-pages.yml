@@ -20,6 +20,7 @@ concurrency:
 
 jobs:
   build-web:
+    name: Test & Build Vite Web App
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -31,9 +32,10 @@ jobs:
           node-version: '22'
           cache: 'npm'
 
-      - name: Install Dependencies & Build Web App
+      - name: Install Dependencies, Run Vitest & Build Web Bundle
         run: |
           npm ci
+          npm test
           npm run build
           cp -r stitch_myassistant_ai_coding_companion dist/stitch_myassistant_ai_coding_companion
 
@@ -44,7 +46,8 @@ jobs:
           path: ./dist
 
   deploy-pages:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    name: Deploy to GitHub Pages
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     needs: build-web
     runs-on: ubuntu-latest
     environment:

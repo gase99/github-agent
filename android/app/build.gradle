@@ -1,9 +1,9 @@
 apply plugin: 'com.android.application'
 
-def keystorePath = System.getenv("ANDROID_KEYSTORE_PATH")
-def keystorePassword = System.getenv("ANDROID_KEYSTORE_PASSWORD")
-def keyAliasName = System.getenv("ANDROID_KEY_ALIAS")
-def keyPasswordValue = System.getenv("ANDROID_KEY_PASSWORD")
+def keystorePath = System.getenv("KEYSTORE_PATH")
+def keystorePassword = System.getenv("KEYSTORE_PASSWORD")
+def keyAliasName = System.getenv("KEY_ALIAS")
+def keyPasswordValue = System.getenv("KEY_PASSWORD")
 def hasReleaseKeystore = keystorePath && file(keystorePath).exists() && keystorePassword && keyAliasName && keyPasswordValue
 
 android {

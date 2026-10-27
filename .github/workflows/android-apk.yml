@@ -5,19 +5,17 @@ on:
     branches:
       - main
       - 'arena/**'
-    tags:
-      - 'v*'
   pull_request:
     branches:
       - main
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   build-android-apk:
-    name: Build Debug & Signed Release APK
+    name: Build Android APK (Debug & Signed Release)
     runs-on: ubuntu-latest
 
     steps:
@@ -30,85 +28,61 @@ jobs:
           node-version: '22'
           cache: 'npm'
 
-      - name: Install Web & Capacitor Dependencies
-        run: npm ci
-
-      - name: Build Production Web Bundle & Sync Capacitor Android
-        run: |
-          npm run build
-          npx cap sync android
-
-      - name: Setup Java JDK 21 (Required by Capacitor 8)
+      - name: Setup Java JDK 21 & Gradle Cache
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '21'
           cache: 'gradle'
 
-      - name: Accept Android SDK Licenses
-        run: |
-          yes | "${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
+      - name: Setup Android SDK 36
+        uses: android-actions/setup-android@v3
 
-      - name: Prepare Release Keystore (Secrets or Self-Signed CI Keystore)
+      - name: Install Android SDK Platform 36 & Build-Tools
+        run: |
+          yes | sdkmanager --licenses > /dev/null || true
+          sdkmanager "platforms;android-36" "build-tools;36.0.0"
+
+      - name: Install Dependencies & Run Unit Tests
+        run: |
+          npm ci
+          npm test
+
+      - name: Build Android Web Bundle & Sync Capacitor
+        run: |
+          npm run build:android
+          npx cap sync android
+
+      - name: Build APK with Gradle (Debug + Optional Signed Release)
         env:
-          SECRET_KEYSTORE_B64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
-          SECRET_STORE_PASS: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
-          SECRET_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
-          SECRET_KEY_PASS: ${{ secrets.ANDROID_KEY_PASSWORD }}
-        run: |
-          KEYSTORE_FILE="${RUNNER_TEMP}/github-agent-release.jks"
-          if [ -n "${SECRET_KEYSTORE_B64}" ] && [ -n "${SECRET_STORE_PASS}" ] && [ -n "${SECRET_KEY_ALIAS}" ] && [ -n "${SECRET_KEY_PASS}" ]; then
-            echo "Using repository secret Android keystore"
-            echo "${SECRET_KEYSTORE_B64}" | base64 --decode > "${KEYSTORE_FILE}"
-            echo "ANDROID_KEYSTORE_PATH=${KEYSTORE_FILE}" >> "${GITHUB_ENV}"
-            echo "ANDROID_KEYSTORE_PASSWORD=${SECRET_STORE_PASS}" >> "${GITHUB_ENV}"
-            echo "ANDROID_KEY_ALIAS=${SECRET_KEY_ALIAS}" >> "${GITHUB_ENV}"
-            echo "ANDROID_KEY_PASSWORD=${SECRET_KEY_PASS}" >> "${GITHUB_ENV}"
-          else
-            echo "Generating self-signed CI release keystore so release APK is directly installable on Android devices"
-            keytool -genkeypair -v \
-              -keystore "${KEYSTORE_FILE}" \
-              -alias githubagent \
-              -keyalg RSA \
-              -keysize 2048 \
-              -validity 10000 \
-              -storepass githubagent123 \
-              -keypass githubagent123 \
-              -dname "CN=GitHub Agent, OU=Mobile, O=gase99, L=Tehran, S=Tehran, C=IR"
-            echo "ANDROID_KEYSTORE_PATH=${KEYSTORE_FILE}" >> "${GITHUB_ENV}"
-            echo "ANDROID_KEYSTORE_PASSWORD=githubagent123" >> "${GITHUB_ENV}"
-            echo "ANDROID_KEY_ALIAS=githubagent" >> "${GITHUB_ENV}"
-            echo "ANDROID_KEY_PASSWORD=githubagent123" >> "${GITHUB_ENV}"
-          fi
-
-      - name: Compile Debug & Signed Release APKs with Gradle
-        working-directory: android
-        run: |
-          chmod +x ./gradlew
-          ./gradlew assembleDebug assembleRelease --no-daemon
-
-      - name: Collect APK Outputs
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: |
           mkdir -p apk-artifacts
-          cp android/app/build/outputs/apk/debug/app-debug.apk apk-artifacts/github-agent-v2.4.0-debug.apk
-          if [ -f android/app/build/outputs/apk/release/app-release.apk ]; then
+          chmod +x android/gradlew
+          if [ -n "${KEYSTORE_BASE64}" ] && [ -n "${KEYSTORE_PASSWORD}" ] && [ -n "${KEY_ALIAS}" ] && [ -n "${KEY_PASSWORD}" ]; then
+            echo "Release signing secrets detected — building Debug and Signed Release APKs"
+            export KEYSTORE_PATH="${RUNNER_TEMP}/release-keystore.jks"
+            printf '%s' "${KEYSTORE_BASE64}" | base64 --decode > "${KEYSTORE_PATH}"
+            cd android && ./gradlew assembleDebug assembleRelease --no-daemon
+            cd ..
+            rm -f "${KEYSTORE_PATH}"
+            cp android/app/build/outputs/apk/debug/app-debug.apk apk-artifacts/github-agent-v2.4.0-debug.apk
             cp android/app/build/outputs/apk/release/app-release.apk apk-artifacts/github-agent-v2.4.0-release-signed.apk
-          elif [ -f android/app/build/outputs/apk/release/app-release-unsigned.apk ]; then
-            cp android/app/build/outputs/apk/release/app-release-unsigned.apk apk-artifacts/github-agent-v2.4.0-release-unsigned.apk
+          else
+            echo "Signing secrets (KEYSTORE_BASE64 / KEYSTORE_PASSWORD / KEY_ALIAS / KEY_PASSWORD) not set — building Debug APK only"
+            cd android && ./gradlew assembleDebug --no-daemon
+            cd ..
+            cp android/app/build/outputs/apk/debug/app-debug.apk apk-artifacts/github-agent-v2.4.0-debug.apk
           fi
           ls -lh apk-artifacts/
 
-      - name: Upload Installable Android APKs Artifact
+      - name: Upload Android APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: github-agent-android-apk
           path: apk-artifacts/*.apk
           if-no-files-found: error
           retention-days: 30
-
-      - name: Publish APKs to GitHub Release (on Tag Push)
-        if: startsWith(github.ref, 'refs/tags/v')
-        uses: softprops/action-gh-release@v2
-        with:
-          files: apk-artifacts/*.apk
-          generate_release_notes: true
