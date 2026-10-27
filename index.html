@@ -1,56 +1,21 @@
 <!doctype html>
-<html lang="fa" dir="rtl">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0b1118">
-  <title>GitHub Agent | دستیار توسعه</title>
-  <style>
-    :root { color-scheme: dark; --bg: #0b1118; --panel: #111c26; --line: #243541; --text: #e8f1f5; --muted: #9aabb5; --cyan: #4de1c1; --violet: #c4a5ff; }
-    * { box-sizing: border-box; }
-    body { margin: 0; min-height: 100vh; background: radial-gradient(ellipse at 82% 0%, #16312e 0, transparent 34rem), var(--bg); color: var(--text); font: 16px/1.65 system-ui, sans-serif; }
-    main { width: min(1120px, calc(100% - 40px)); margin: 0 auto; padding: 64px 0 48px; }
-    .eyebrow { color: var(--cyan); font: 600 12px/1.4 ui-monospace, monospace; letter-spacing: .12em; text-transform: uppercase; }
-    h1 { margin: 12px 0 10px; font-size: clamp(2.2rem, 7vw, 4.2rem); line-height: 1.08; letter-spacing: -.04em; }
-    h1 span { color: var(--cyan); }
-    .intro { max-width: 680px; color: var(--muted); font-size: 1.05rem; }
-    .notice { display: flex; gap: 12px; align-items: flex-start; margin: 28px 0 36px; padding: 16px 18px; border: 1px solid #6d572a; border-radius: 14px; background: #2a2418; color: #f1d99a; }
-    .notice strong { display: block; color: #ffe7a9; }
-    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
-    .card { display: block; min-height: 126px; padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: linear-gradient(145deg, #13212a, #101923); color: inherit; text-decoration: none; transition: border-color .18s, transform .18s, background .18s; }
-    .card:hover, .card:focus-visible { transform: translateY(-2px); border-color: var(--cyan); background: #14252d; outline: none; }
-    .card small { color: var(--violet); font: 600 11px ui-monospace, monospace; }
-    .card h2 { margin: 8px 0 4px; font-size: 1.05rem; }
-    .card p { margin: 0; color: var(--muted); font-size: .88rem; }
-    footer { margin-top: 30px; color: #748894; font-size: .82rem; }
-    @media (max-width: 760px) { main { padding-top: 42px; } .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-    @media (max-width: 500px) { main { width: min(100% - 28px, 1120px); } .grid { grid-template-columns: 1fr; } .card { min-height: 0; } }
-  </style>
-</head>
-<body>
-  <main>
-    <div class="eyebrow" dir="ltr">GITHUB AGENT / STATIC PROTOTYPE</div>
-    <h1>دستیار <span>توسعه</span></h1>
-    <p class="intro">نمونهٔ رابط کاربری دستیار کدنویسی. از کارت‌ها برای دیدن صفحه‌های طراحی‌شده استفاده کنید.</p>
-    <aside class="notice" role="note">
-      <span aria-hidden="true">!</span>
-      <div><strong>نسخهٔ نمایشی</strong>اتصال واقعی به هوش مصنوعی یا GitHub در این نسخه فعال نیست؛ بعضی دکمه‌ها فقط بازخورد نمایشی دارند.</div>
-    </aside>
-    <section class="grid" aria-label="صفحه‌های برنامه">
-      <a class="card" href="./stitch_myassistant_ai_coding_companion/ai_chat/code.html"><small>01 / CHAT</small><h2>دستیار AI</h2><p>گفت‌وگو و کمک کدنویسی</p></a>
-      <a class="card" href="./stitch_myassistant_ai_coding_companion/repositories/code.html"><small>02 / REPOS</small><h2>مخازن</h2><p>نمای فهرست مخازن</p></a>
-      <a class="card" href="./stitch_myassistant_ai_coding_companion/code_snippets/code.html"><small>03 / SNIPPETS</small><h2>تکه‌کدها</h2><p>جست‌وجو و نمونه‌کدها</p></a>
-      <a class="card" href="./stitch_myassistant_ai_coding_companion/api_settings/code.html"><small>04 / API SETTINGS</small><h2>تنظیمات API</h2><p>صفحهٔ تنظیمات سرویس‌ها</p></a>
-      <a class="card" href="./stitch_myassistant_ai_coding_companion/repository_details/code.html"><small>05 / REPOSITORY</small><h2>جزئیات مخزن</h2><p>کد، بررسی و بینش‌های مخزن</p></a>
-      <a class="card" href="./stitch_myassistant_ai_coding_companion/pr_pull_request_review/code.html"><small>06 / PULL REQUEST</small><h2>بازبینی PR</h2><p>نمای تحلیل درخواست ادغام</p></a>
-      <a class="card" href="./stitch_myassistant_ai_coding_companion/security_audit/code.html"><small>07 / SECURITY</small><h2>ممیزی امنیتی</h2><p>نمای یافته‌ها و اصلاح‌ها</p></a>
-      <a class="card" href="./stitch_myassistant_ai_coding_companion/token_analytics/code.html"><small>08 / ANALYTICS</small><h2>تحلیل توکن</h2><p>نمای هزینه و مصرف</p></a>
-      <a class="card" href="./stitch_myassistant_ai_coding_companion/context_caching_details/code.html"><small>09 / CACHE</small><h2>حافظهٔ موقت</h2><p>جزئیات تنظیمات cache</p></a>
-      <a class="card" href="./stitch_myassistant_ai_coding_companion/api_ttl_settings/code.html"><small>10 / API TTL</small><h2>تنظیم TTL</h2><p>تنظیم زمان نگهداری داده</p></a>
-      <a class="card" href="./stitch_myassistant_ai_coding_companion/settings_1/code.html"><small>11 / SETTINGS A</small><h2>تنظیمات - طرح اول</h2><p>نسخهٔ جایگزین صفحهٔ تنظیمات</p></a>
-      <a class="card" href="./stitch_myassistant_ai_coding_companion/settings_2/code.html"><small>12 / SETTINGS B</small><h2>تنظیمات - طرح دوم</h2><p>نسخهٔ جایگزین صفحهٔ تنظیمات</p></a>
-    </section>
-    <footer>رابط‌های این پروژه از HTML و CSS ساخته شده‌اند و برای نمایش به اینترنت نیاز دارند.</footer>
-  </main>
-</body>
+<html lang="fa" dir="rtl" class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#11131c" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <link rel="icon" type="image/svg+xml" href="./app-icon.svg" />
+    <link rel="manifest" href="./manifest.json" />
+    <title>GitHub Agent | دستیار هوشمند توسعه</title>
+  </head>
+  <body class="bg-[#11131c] text-[#e1e1ef] antialiased selection:bg-[#00f5d4] selection:text-[#00382f]">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>

@@ -1,1 +1,50 @@
+# Stitch screen exports
 **/screen.png
+
+# Node & Vite build artifacts
+node_modules/
+dist/
+dist-ssr/
+*.local
+*.tsbuildinfo
+
+# Jekyll / Pages build output
+_site/
+.jekyll-cache/
+.sass-cache/
+
+# Android & Gradle build artifacts
+android/.gradle/
+android/build/
+android/app/build/
+android/app/release/
+android/app/debug/
+android/capacitor-cordova-android-plugins/build/
+android/local.properties
+android/.idea/
+android/*.iml
+android/captures/
+android/.externalNativeBuild/
+android/.cxx/
+android/app/src/main/assets/public/
+android/app/src/main/assets/capacitor.config.json
+android/app/src/main/assets/capacitor.plugins.json
+
+# Keystores & compiled packages
+*.jks
+*.keystore
+*.apk
+*.aab
+*.ap_
+*.dex
+
+# Editor & OS files
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

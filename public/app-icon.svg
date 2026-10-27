@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#171B2E" />
+      <stop offset="100%" stop-color="#0A0C14" />
+    </linearGradient>
+    <linearGradient id="cyberGrad" x1="96" y1="96" x2="416" y2="416" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#00F5D4" />
+      <stop offset="100%" stop-color="#9D4EDD" />
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="116" fill="url(#bgGrad)" />
+  <rect x="28" y="28" width="456" height="456" rx="92" stroke="url(#cyberGrad)" stroke-opacity="0.35" stroke-width="6" />
+  <path d="M192 178L118 256L192 334" stroke="#00F5D4" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M320 178L394 256L320 334" stroke="#E0B6FF" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M276 154L236 358" stroke="url(#cyberGrad)" stroke-width="26" stroke-linecap="round" />
+  <circle cx="256" cy="108" r="14" fill="#00F5D4" />
+  <circle cx="256" cy="404" r="14" fill="#E0B6FF" />
+</svg>

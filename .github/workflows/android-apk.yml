@@ -1,0 +1,86 @@
+name: Android APK Build
+
+on:
+  push:
+    branches:
+      - main
+      - 'arena/**'
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-android-apk:
+    name: Build Android APK (Debug & Signed Release)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Setup Java JDK 21 & Gradle Cache
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'gradle'
+
+      - name: Setup Android SDK 36
+        run: |
+          SDKMANAGER="${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager"
+          yes | "${SDKMANAGER}" --licenses > /dev/null || true
+          "${SDKMANAGER}" "platforms;android-36" "build-tools;36.0.0"
+
+      - name: Install Dependencies & Run Unit Tests
+        run: |
+          npm ci
+          npm test
+
+      - name: Build Android Web Bundle & Sync Capacitor
+        run: |
+          npm run build:android
+          npx cap sync android
+
+      - name: Build APK with Gradle (Debug + Optional Signed Release)
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: |
+          mkdir -p apk-artifacts
+          chmod +x android/gradlew
+          if [ -n "${KEYSTORE_BASE64}" ] && [ -n "${KEYSTORE_PASSWORD}" ] && [ -n "${KEY_ALIAS}" ] && [ -n "${KEY_PASSWORD}" ]; then
+            echo "Release signing secrets detected — building Debug and Signed Release APKs"
+            export KEYSTORE_PATH="${RUNNER_TEMP}/release-keystore.jks"
+            printf '%s' "${KEYSTORE_BASE64}" | base64 --decode > "${KEYSTORE_PATH}"
+            cd android && ./gradlew assembleDebug assembleRelease --no-daemon
+            cd ..
+            rm -f "${KEYSTORE_PATH}"
+            cp android/app/build/outputs/apk/debug/app-debug.apk apk-artifacts/github-agent-v2.4.0-debug.apk
+            cp android/app/build/outputs/apk/release/app-release.apk apk-artifacts/github-agent-v2.4.0-release-signed.apk
+          else
+            echo "Signing secrets (KEYSTORE_BASE64 / KEYSTORE_PASSWORD / KEY_ALIAS / KEY_PASSWORD) not set — building Debug APK only"
+            cd android && ./gradlew assembleDebug --no-daemon
+            cd ..
+            cp android/app/build/outputs/apk/debug/app-debug.apk apk-artifacts/github-agent-v2.4.0-debug.apk
+          fi
+          ls -lh apk-artifacts/
+
+      - name: Upload Android APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: github-agent-android-apk
+          path: apk-artifacts/*.apk
+          if-no-files-found: error
+          retention-days: 30
