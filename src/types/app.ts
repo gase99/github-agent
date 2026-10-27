@@ -14,8 +14,28 @@ export type LanguageMode = 'fa' | 'en';
 export type GeminiModelId =
   | 'gemini-2.5-flash'
   | 'gemini-2.5-pro'
-  | 'gemini-1.5-pro'
-  | 'gemini-1.5-flash';
+  | 'gemini-2.5-flash-lite'
+  | 'gemini-2.0-flash'
+  | (string & {});
+
+export interface GeminiModelInfo {
+  id: string;
+  displayName: string;
+  inputTokenLimit?: number;
+  outputTokenLimit?: number;
+}
+
+export interface GeminiConnectionState {
+  status: 'no_key' | 'unverified' | 'verifying' | 'connected' | 'error';
+  latencyMs?: number;
+  displayName?: string;
+  resolvedModel?: string;
+  inputTokenLimit?: number;
+  sampleReply?: string;
+  error?: string;
+  availableModels: GeminiModelInfo[];
+  lastCheckedAt?: string;
+}
 
 export type CacheTtlPreset = '1h' | '6h' | '12h' | '24h';
 
@@ -40,6 +60,7 @@ export interface AppSettings {
   language: LanguageMode;
   geminiApiKey: string;
   geminiModel: GeminiModelId;
+  temperature: number;
   githubToken: string;
   githubUsername: string;
   autoCopyCode: boolean;

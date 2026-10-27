@@ -211,6 +211,9 @@ export const RepoDetailsScreen: React.FC = () => {
         440
       );
       showToast(t('تحلیل جامع مخزن تکمیل شد ✓', 'Full repository scan completed ✓'), 'cyan');
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Scan error';
+      showToast(msg, 'error');
     } finally {
       setRunningAiTask(null);
     }
@@ -235,6 +238,9 @@ export const RepoDetailsScreen: React.FC = () => {
         res.tokensUsed,
         360
       );
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'AI task error';
+      showToast(msg, 'error');
     } finally {
       setRunningAiTask(null);
     }

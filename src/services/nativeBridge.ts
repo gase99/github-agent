@@ -82,6 +82,21 @@ export async function copyText(text: string): Promise<boolean> {
   }
 }
 
+export async function readClipboardText(): Promise<string> {
+  try {
+    if (isNativePlatform()) {
+      const { value } = await Clipboard.read();
+      return value || '';
+    }
+    if (navigator.clipboard?.readText) {
+      return await navigator.clipboard.readText();
+    }
+    return '';
+  } catch {
+    return '';
+  }
+}
+
 export async function shareText(title: string, text: string, url?: string): Promise<boolean> {
   try {
     if (isNativePlatform()) {

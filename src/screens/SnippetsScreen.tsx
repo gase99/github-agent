@@ -92,6 +92,9 @@ export const SnippetsScreen: React.FC = () => {
       );
       recordTokenUsage(`Optimize: ${snip.title}`, settings.geminiModel, res.tokensUsed, 380);
       showToast(t('کد توسط Gemini بهینه‌سازی شد ✨', 'Snippet optimized by Gemini ✨'), 'cyan');
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Optimization error';
+      showToast(msg, 'error');
     } finally {
       setOptimizingId(null);
     }

@@ -17,6 +17,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
+import { runLiveGeminiPrAudit } from '../services/geminiApi';
 import { publishPrCommentToGithub } from '../services/githubApi';
 import { copyText } from '../services/nativeBridge';
 
@@ -26,6 +27,8 @@ export const PrReviewScreen: React.FC = () => {
     setActivePr,
     navigate,
     settings,
+    setKeyModalOpen,
+    recordTokenUsage,
     showToast,
     t,
   } = useApp();
@@ -33,6 +36,44 @@ export const PrReviewScreen: React.FC = () => {
   const [selectedFileIdx, setSelectedFileIdx] = useState(0);
   const [commentText, setCommentText] = useState('');
   const [publishing, setPublishing] = useState(false);
+  const [auditingPr, setAuditingPr] = useState(false);
+
+  const handleLivePrAudit = async () => {
+    if (!settings.geminiApiKey.trim()) {
+      setKeyModalOpen(true);
+      return;
+    }
+    setAuditingPr(true);
+    try {
+      const res = await runLiveGeminiPrAudit({ pr: activePr, settings });
+      setActivePr((prev) => ({
+        ...prev,
+        securityScore: res.securityScore,
+        architectureGrade: res.architectureGrade,
+        verdictFa: res.verdictFa,
+        verdictEn: res.verdictEn,
+        findings: res.findings,
+      }));
+      recordTokenUsage(
+        `Live PR Audit #${activePr.number}`,
+        settings.geminiModel,
+        res.tokensUsed,
+        res.latencyMs
+      );
+      showToast(
+        t(
+          `بازبینی زنده PR #${activePr.number} با Gemini کامل شد (${res.latencyMs}ms) ✓`,
+          `Live Gemini PR #${activePr.number} audit complete (${res.latencyMs}ms) ✓`
+        ),
+        'cyan'
+      );
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'PR audit failed';
+      showToast(msg, 'error');
+    } finally {
+      setAuditingPr(false);
+    }
+  };
 
   const currentDiffFile = activePr.files[selectedFileIdx] || activePr.files[0];
 
@@ -222,6 +263,23 @@ export const PrReviewScreen: React.FC = () => {
             {activePr.targetBranch}
           </span>
         </div>
+
+        {/* Live Gemini PR Diff Audit Trigger */}
+        <button
+          type="button"
+          disabled={auditingPr}
+          onClick={handleLivePrAudit}
+          className="w-full py-2.5 px-3 rounded-xl bg-primary-container/15 hover:bg-primary-container/25 text-primary-container font-display text-xs font-bold flex items-center justify-center gap-2 cyber-border active:scale-98 transition-all"
+        >
+          <Sparkles className={`w-4 h-4 ${auditingPr ? 'animate-spin' : ''}`} />
+          <span>
+            {auditingPr
+              ? t('در حال تحلیل زنده تغییرات کد در سرور گوگل...', 'Auditing PR Diff Live with Google Gemini...')
+              : settings.geminiApiKey.trim()
+                ? t('بازبینی زنده تغییرات این PR با کلید Gemini شما ✨', 'Run Live Gemini Audit on This PR Diff ✨')
+                : t('فعال‌سازی کلید Gemini برای بازبینی زنده PR', 'Activate Gemini API Key for Live PR Review')}
+          </span>
+        </button>
 
         {/* Author & Diff Metrics */}
         <div className="flex items-center justify-between pt-1">

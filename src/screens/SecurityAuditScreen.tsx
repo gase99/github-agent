@@ -13,12 +13,16 @@ import {
   Zap,
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
+import { runLiveGeminiSecurityAudit } from '../services/geminiApi';
 import { copyText } from '../services/nativeBridge';
 import type { VulnCategory } from '../types/app';
 
 export const SecurityAuditScreen: React.FC = () => {
   const {
     selectedRepo,
+    settings,
+    setKeyModalOpen,
+    recordTokenUsage,
     vulnerabilities,
     setVulnerabilities,
     navigate,
@@ -55,18 +59,52 @@ export const SecurityAuditScreen: React.FC = () => {
     return activeVulns.filter((v) => v.category === filter);
   }, [activeVulns, filter]);
 
-  const handleRescan = () => {
+  const handleRescan = async () => {
     setRescanning(true);
-    setTimeout(() => {
-      setVulnerabilities((prev) =>
-        prev.map((v) => ({ ...v, ignored: false }))
-      );
+    try {
+      if (settings.geminiApiKey.trim()) {
+        const contextPayload = `Repository: ${selectedRepo.fullName} (${selectedRepo.language}, branch: ${selectedRepo.defaultBranch})\nDescription: ${selectedRepo.descriptionEn}\nExisting Sample Findings:\n${vulnerabilities
+          .slice(0, 3)
+          .map((v) => `${v.filePath}: ${v.codeSnippet}`)
+          .join('\n---\n')}`;
+        const liveRes = await runLiveGeminiSecurityAudit({
+          repoFullName: selectedRepo.fullName,
+          filesSummary: contextPayload,
+          settings,
+        });
+        if (liveRes.vulnerabilities.length > 0) {
+          setVulnerabilities(liveRes.vulnerabilities);
+        }
+        recordTokenUsage(
+          `Live SAST Audit: ${selectedRepo.name}`,
+          settings.geminiModel,
+          liveRes.tokensUsed,
+          liveRes.latencyMs
+        );
+        showToast(
+          t(
+            `ممیزی زنده امنیتی توسط Google Gemini انجام شد (${liveRes.latencyMs}ms) ✓`,
+            `Live Gemini SAST & CVE audit completed (${liveRes.latencyMs}ms) ✓`
+          ),
+          'cyan'
+        );
+      } else {
+        await new Promise((r) => setTimeout(r, 650));
+        setVulnerabilities((prev) => prev.map((v) => ({ ...v, ignored: false })));
+        showToast(
+          t(
+            'اسکن نمونه به‌روز شد (برای اسکن واقعی، کلید Gemini را فعال کنید)',
+            'Demo SAST refreshed (activate Gemini Key for live repository audit)'
+          ),
+          'purple'
+        );
+      }
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Audit error';
+      showToast(t(`خطا در اسکن زنده Gemini: ${msg}`, `Live audit error: ${msg}`), 'error');
+    } finally {
       setRescanning(false);
-      showToast(
-        t('اسکن امنیتی SAST و بررسی وابستگی‌ها به‌روز شد ✓', 'SAST & CVE security scan refreshed ✓'),
-        'cyan'
-      );
-    }, 850);
+    }
   };
 
   const handleAutoFix = (vulnId: string) => {
@@ -176,8 +214,21 @@ export const SecurityAuditScreen: React.FC = () => {
               className="h-9 px-3 rounded-xl bg-surface-container-high hover:bg-surface-bright text-primary-container font-mono text-xs flex items-center gap-1.5 active:scale-95 transition-all"
             >
               <RefreshCw className={`w-3.5 h-3.5 ${rescanning ? 'animate-spin' : ''}`} />
-              <span>{t('اسکن مجدد', 'Rescan')}</span>
+              <span>
+                {settings.geminiApiKey.trim()
+                  ? t('اسکن زنده با Gemini', 'Live AI Scan')
+                  : t('اسکن مجدد', 'Rescan')}
+              </span>
             </button>
+            {!settings.geminiApiKey.trim() && (
+              <button
+                type="button"
+                onClick={() => setKeyModalOpen(true)}
+                className="h-9 px-2.5 rounded-xl bg-primary-container/15 text-primary-container font-mono text-[11px] font-bold active:scale-95"
+              >
+                {t('اتصال کلید', 'Set Key')}
+              </button>
+            )}
           </div>
         </div>
       </section>
