@@ -55,7 +55,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
       phone: '+98 935 *** 1104',
     },
   ],
-  discordWebhookUrl: 'https://discord.com/api/webhooks/1298400/cyber-alerts',
+  discordWebhookUrl: '',
   defaultCacheTtl: '6h',
   autoRenewCacheOnPush: true,
 };
@@ -346,12 +346,12 @@ func RegisterRoutes(r *gin.RouterGroup, svc Service) {
       dateLabel: 'هم‌اکنون',
     },
     architectureSummaryFa: [
-      'معماری هیبریدی یکپارچه با React 19 + TypeScript + Tailwind v4 و پوسته نیتیو Capacitor Android.',
+      'معماری هیبریدی یکپارچه با React 18 + TypeScript + Tailwind v4 و پوسته نیتیو Capacitor 8 Android.',
       'اتصال مستقیم و امن به Gemini API و GitHub REST API با ذخیره‌سازی محلی کلیدها روی دستگاه.',
       'پشتیبانی کامل آفلاین/دمو به همراه بیلد خودکار APK در GitHub Actions.',
     ],
     architectureSummaryEn: [
-      'Unified React 19 + TypeScript + Tailwind v4 architecture wrapped with Capacitor Android.',
+      'Unified React 18 + TypeScript + Tailwind v4 architecture wrapped with Capacitor 8 Android.',
       'Direct client-side Gemini & GitHub REST integration with on-device Preferences storage.',
       'Zero-config Demo fallback plus automated APK CI pipeline via GitHub Actions.',
     ],
@@ -606,7 +606,7 @@ export const INITIAL_VULNERABILITIES: VulnerabilityItem[] = [
     filePath: 'app/build.gradle.kts:24',
     languageLabel: 'Kotlin DSL',
     codeSnippet: `23 | buildConfigField("String", "GEMINI_KEY",
-24 |   "\\"AIzaSyDemo_REDACTED_EXAMPLE\\"") // <- Leaked!`,
+24 |   "\\"<HARDCODED_CREDENTIAL_EXAMPLE>\\"") // <- Leaked!`,
     fixedSnippet: `23 | val geminiKey = providers.gradleProperty("GEMINI_KEY").getOrElse("")
 24 | buildConfigField("String", "GEMINI_KEY", "\\"\\$geminiKey\\"") // ✓ Secured`,
     remediationFa:

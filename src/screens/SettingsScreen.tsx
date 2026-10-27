@@ -243,7 +243,7 @@ export const SettingsScreen: React.FC = () => {
               type={showGeminiKey ? 'text' : 'password'}
               value={settings.geminiApiKey}
               onChange={(e) => updateSettings({ geminiApiKey: e.target.value })}
-              placeholder="AIzaSy..."
+              placeholder="Enter Google Gemini API Key"
               className="w-full bg-surface-container-lowest text-on-surface font-mono text-xs px-3 py-2.5 pr-10 rounded-xl outline-none cyber-border-subtle"
             />
             <button
@@ -330,7 +330,7 @@ export const SettingsScreen: React.FC = () => {
                 type={showGithubToken ? 'text' : 'password'}
                 value={settings.githubToken}
                 onChange={(e) => updateSettings({ githubToken: e.target.value })}
-                placeholder="ghp_... or github_pat_..."
+                placeholder="Enter GitHub Personal Access Token"
                 className="w-full bg-surface-container-lowest text-on-surface font-mono text-xs px-3 py-2.5 pr-9 rounded-xl outline-none cyber-border-subtle"
               />
               <button
@@ -672,6 +672,7 @@ export const SettingsScreen: React.FC = () => {
                 type="text"
                 value={settings.discordWebhookUrl}
                 onChange={(e) => updateSettings({ discordWebhookUrl: e.target.value })}
+                placeholder="https://discord.com/api/webhooks/..."
                 className="flex-1 bg-surface-container font-mono text-[11px] px-2.5 py-1.5 rounded-lg outline-none text-on-surface"
               />
               <button

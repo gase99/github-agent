@@ -74,7 +74,7 @@ export const TopAppBar: React.FC = () => {
               title={t('منوی صفحات برنامه', 'All App Screens')}
             >
               <img
-                src="./app-icon.svg"
+                src={`${import.meta.env.BASE_URL}app-icon.svg`}
                 alt="GitHub Agent"
                 className="w-7 h-7 object-contain"
               />

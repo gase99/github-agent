@@ -7,6 +7,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {
   DEMO_REPOSITORIES,
   DEFAULT_SETTINGS,
@@ -18,6 +19,7 @@ import {
   INITIAL_VULNERABILITIES,
 } from '../data/demoData';
 import { hapticTap, initNativeAndroid, storageGet, storageSet } from '../services/nativeBridge';
+import { pathToScreen, SCREEN_TO_PATH } from '../utils/routes';
 import type {
   AppScreen,
   AppSettings,
@@ -95,8 +97,11 @@ const STORAGE_KEYS = {
 };
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [currentScreen, setCurrentScreen] = useState<AppScreen>('chat');
-  const [historyStack, setHistoryStack] = useState<AppScreen[]>([]);
+  const location = useLocation();
+  const routerNavigate = useNavigate();
+  const currentScreen = useMemo(() => pathToScreen(location.pathname), [location.pathname]);
+
+  const [historyDepth, setHistoryDepth] = useState<number>(0);
   const [isLauncherOpen, setLauncherOpen] = useState(false);
 
   const [settings, setSettings] = useState<AppSettings>(DEFAULT_SETTINGS);
@@ -115,13 +120,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [totalTokensUsed, setTotalTokensUsed] = useState<number>(1420000);
 
   const [cacheEnabled, setCacheEnabled] = useState<boolean>(true);
-  const [cacheRemainingMinutes, setCacheRemainingMinutes] = useState<number>(252); // 4h 12m
+  const [cacheRemainingMinutes, setCacheRemainingMinutes] = useState<number>(252);
   const [cacheArtifacts] = useState<CacheArtifact[]>(INITIAL_CACHE_ARTIFACTS);
 
   const [toast, setToast] = useState<ToastState | null>(null);
   const toastTimerRef = useRef<number | null>(null);
 
-  // Hydrate persisted state on launch
   useEffect(() => {
     let active = true;
     (async () => {
@@ -151,7 +155,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     };
   }, []);
 
-  // Persist changes
   useEffect(() => {
     if (!hydrated) return;
     storageSet(STORAGE_KEYS.settings, settings);
@@ -172,7 +175,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     storageSet(STORAGE_KEYS.tokens, totalTokensUsed);
   }, [totalTokensUsed, hydrated]);
 
-  // Sync HTML dir & lang attributes
   useEffect(() => {
     const dir = settings.language === 'fa' ? 'rtl' : 'ltr';
     document.documentElement.setAttribute('dir', dir);
@@ -196,14 +198,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     (screen: AppScreen) => {
       hapticTap();
       setLauncherOpen(false);
-      setCurrentScreen((prev) => {
-        if (prev === screen) return prev;
-        setHistoryStack((stk) => [...stk.slice(-12), prev]);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        return screen;
-      });
+      if (screen === currentScreen) return;
+      setHistoryDepth((d) => d + 1);
+      routerNavigate(SCREEN_TO_PATH[screen]);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     },
-    []
+    [currentScreen, routerNavigate]
   );
 
   const goBack = useCallback((): boolean => {
@@ -211,21 +211,20 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       setLauncherOpen(false);
       return true;
     }
-    if (historyStack.length > 0) {
-      const next = historyStack[historyStack.length - 1];
-      setHistoryStack((stk) => stk.slice(0, -1));
-      setCurrentScreen(next);
+    if (historyDepth > 0) {
+      setHistoryDepth((d) => Math.max(0, d - 1));
+      routerNavigate(-1);
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return true;
     }
     if (currentScreen !== 'chat') {
-      setCurrentScreen('chat');
+      routerNavigate('/');
       return true;
     }
     return false;
-  }, [currentScreen, historyStack, isLauncherOpen]);
+  }, [currentScreen, historyDepth, isLauncherOpen, routerNavigate]);
 
-  // Bind Android hardware Back button
+  // Bind Android hardware Back button via @capacitor/app
   const goBackRef = useRef(goBack);
   goBackRef.current = goBack;
   useEffect(() => {
@@ -262,7 +261,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   }, [showToast]);
 
   const selectedRepo = useMemo(() => {
-    return repositories.find((r) => r.id === selectedRepoId) || repositories[0] || DEMO_REPOSITORIES[0];
+    return (
+      repositories.find((r) => r.id === selectedRepoId) ||
+      repositories[0] ||
+      DEMO_REPOSITORIES[0]
+    );
   }, [repositories, selectedRepoId]);
 
   const selectRepo = useCallback(
@@ -279,15 +282,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     [navigate]
   );
 
-  const toggleRepoStar = useCallback(
-    (repoId: string) => {
-      hapticTap();
-      setRepositories((prev) =>
-        prev.map((r) => (r.id === repoId ? { ...r, starred: !r.starred } : r))
-      );
-    },
-    []
-  );
+  const toggleRepoStar = useCallback((repoId: string) => {
+    hapticTap();
+    setRepositories((prev) =>
+      prev.map((r) => (r.id === repoId ? { ...r, starred: !r.starred } : r))
+    );
+  }, []);
 
   const addSnippet = useCallback(
     (snippet: Omit<CodeSnippet, 'id'>) => {
@@ -346,7 +346,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const value: AppContextValue = {
     currentScreen,
-    canGoBack: historyStack.length > 0 || currentScreen !== 'chat',
+    canGoBack: historyDepth > 0 || currentScreen !== 'chat',
     navigate,
     goBack,
     isLauncherOpen,

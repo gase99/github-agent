@@ -18,6 +18,7 @@ import { useApp } from '../context/AppContext';
 import { CodeBlockCard, parseMessageSegments } from '../components/CodeBlockCard';
 import { generateAssistantReply } from '../services/geminiApi';
 import { shareText } from '../services/nativeBridge';
+import { detectTextDirection } from '../utils/direction';
 import type { ChatMessage } from '../types/app';
 
 export const ChatScreen: React.FC = () => {
@@ -52,8 +53,7 @@ export const ChatScreen: React.FC = () => {
       setInputDir('auto');
       return;
     }
-    const isFa = /[\u0600-\u06FF\u0750-\u077F]/.test(trimmed.charAt(0));
-    setInputDir(isFa ? 'rtl' : 'ltr');
+    setInputDir(detectTextDirection(trimmed));
   };
 
   const handleSend = async (overridePrompt?: string) => {

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { CheckCircle2, AlertCircle, Sparkles } from 'lucide-react';
 import { AppProvider, useApp } from './context/AppContext';
 import { TopAppBar } from './components/TopAppBar';
@@ -15,32 +16,7 @@ import { ContextCacheScreen } from './screens/ContextCacheScreen';
 import { SettingsScreen } from './screens/SettingsScreen';
 
 const AppShell: React.FC = () => {
-  const { currentScreen, toast } = useApp();
-
-  const renderScreen = () => {
-    switch (currentScreen) {
-      case 'chat':
-        return <ChatScreen />;
-      case 'repos':
-        return <RepositoriesScreen />;
-      case 'repo-details':
-        return <RepoDetailsScreen />;
-      case 'pr-review':
-        return <PrReviewScreen />;
-      case 'security':
-        return <SecurityAuditScreen />;
-      case 'snippets':
-        return <SnippetsScreen />;
-      case 'analytics':
-        return <TokenAnalyticsScreen />;
-      case 'cache-details':
-        return <ContextCacheScreen />;
-      case 'settings':
-        return <SettingsScreen />;
-      default:
-        return <ChatScreen />;
-    }
-  };
+  const { toast } = useApp();
 
   return (
     <div className="min-h-dvh flex flex-col bg-background text-on-surface relative overflow-x-hidden">
@@ -53,7 +29,18 @@ const AppShell: React.FC = () => {
       <TopAppBar />
 
       <main className="flex-1 flex flex-col relative z-10 pt-16 pb-20">
-        {renderScreen()}
+        <Routes>
+          <Route path="/" element={<ChatScreen />} />
+          <Route path="/repos" element={<RepositoriesScreen />} />
+          <Route path="/repo-details" element={<RepoDetailsScreen />} />
+          <Route path="/pr-review" element={<PrReviewScreen />} />
+          <Route path="/security" element={<SecurityAuditScreen />} />
+          <Route path="/snippets" element={<SnippetsScreen />} />
+          <Route path="/analytics" element={<TokenAnalyticsScreen />} />
+          <Route path="/cache-details" element={<ContextCacheScreen />} />
+          <Route path="/settings" element={<SettingsScreen />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
       </main>
 
       <BottomNavBar />
