@@ -1,70 +1,71 @@
-# دستیار من | GitHub Agent (Android & Web Hybrid App)
+# دستیار من | GitHub Agent (v2.4.0 — Hybrid Android & Web)
 
-اپلیکیشن هوشمند اندروید و وب **GitHub Agent** بر پایه سیستم طراحی **Cybernetic Developer Assistant (`DESIGN.md`)** و یکپارچه‌سازی کامل ۱۲ صفحه پروتوتایپ مخزن ساخته شده است. این پروژه با استفاده از **React 19 + TypeScript + Tailwind CSS v4 + Capacitor 8 Android** هم به‌صورت **فایل نصبی اندروید (`.apk`)** و هم به‌عنوان **وب‌اپلیکیشن تعاملی (PWA / GitHub Pages)** اجرا می‌شود.
-
----
-
-## قابلیت‌ها و ماژول‌های برنامه (۹ ماژول یکپارچه)
-
-1. **دستیار هوشمند کدنویسی (`ChatScreen`)**: چت دوزبانه (فارسی RTL / انگلیسی LTR) با اتصال واقعی به **Google Gemini REST & SSE Streaming**، بلوک‌های کد LTR با قابلیت کپی، اشتراک‌گذاری بومی و ذخیره مستقیم در کتابخانه تکه‌کدها.
-2. **مدیریت مخازن گیت‌هاب (`RepositoriesScreen`)**: همگام‌سازی زنده مخازن واقعی از **GitHub REST API** (با نام کاربری یا PAT)، افزودن مخزن جدید (`owner/repo`)، جستجو، فیلتر و تحلیل سریع معماری با هوش مصنوعی.
-3. **مرورگر کد و جزئیات مخزن (`RepoDetailsScreen`)**: پیمایش درختی پوشه‌ها و فایل‌های مخزن گیت‌هاب، نمایش کد با شماره‌گذاری خطوط، تاریخچه کامیت‌ها و ابزارهای هوشمند توضیح کد، اسکن امنیتی فایل و تولید تست واحد (Unit Test).
-4. **بازبینی Pull Request و Diff Viewer (`PrReviewScreen`)**: نمایش تفاوت خطوط کد (`+` / `-`)، پیشنهاد اصلاح درجای کد توسط Gemini با دکمه **Apply Patch**، چک‌لیست CI/CD و انتشار نظر روی GitHub PR.
-5. **ممیزی امنیتی SAST و آسیب‌پذیری‌ها (`SecurityAuditScreen`)**: سنجش امتیاز سلامت امنیتی، دسته‌بندی یافته‌های `Secrets`، `Dependencies (CVE)` و `SAST`، اصلاح خودکار آسیب‌پذیری‌ها (**Auto-Fix with AI**) و خروجی استاندارد `SARIF JSON`.
-6. **کتابخانه تکه‌کدها (`SnippetsScreen`)**: ذخیره ماندگار تکه‌کدها روی حافظه دستگاه، دسته‌بندی بر اساس زبان (`Kotlin`, `Python`, `JS/TS`, `Bash`, `SQL`)، بهینه‌سازی کد با Gemini و اشتراک‌گذاری بومی اندروید.
-7. **تحلیل مصرف توکن و سهمیه (`TokenAnalyticsScreen`)**: نمودار هفتگی توکن‌های ورودی/خروجی، گیج مصرف بودجه دلاری، و استعلام زنده سهمیه **GitHub Rate Limit**.
-8. **کش هوشمند کانتکست (`ContextCacheScreen`)**: مدیریت حافظه کش زمینه پروژه، تمدید طول عمر (`+1h` / `+24h`)، پیش‌نمایش بسته‌های کش‌شده و شبیه‌ساز تعاملی کاهش هزینه ماهانه.
-9. **تنظیمات API، بودجه و هشدارهای چندکاناله (`SettingsScreen`)**: ثبت امن کلیدهای **Google Gemini API** و **GitHub PAT** در حافظه محلی دستگاه (`@capacitor/preferences`)، تست زنده اتصال (Ping)، تعیین سقف بودجه، TTL کش و مدیریت گیرنده‌های هشدار **تلگرام، پیامک اضطراری و وب‌هوک Discord/Slack**.
-
-> **حالت دوگانه (Real API + Smart Demo Mode):** بدون وارد کردن کلید API، تمام بخش‌های برنامه با داده‌های نمایشی واقع‌گرایانه کار می‌کنند؛ به محض ثبت کلید Gemini یا توکن GitHub در بخش **تنظیمات**، برنامه مستقیماً به سرورهای واقعی متصل می‌شود و هیچ کلیدی در سورس‌کد ذخیره نمی‌شود.
+اپلیکیشن هیبریدی اندروید و وب **GitHub Agent** بر پایه سیستم طراحی **Cybernetic Developer Assistant (`DESIGN.md`)** و یکپارچه‌سازی ۱۲ صفحه پروتوتایپ اولیه مخزن ساخته شده است. این پروژه هم به‌صورت **اپلیکیشن بومی اندروید (`.apk`)** با **Capacitor 8** و هم به‌عنوان **وب‌اپلیکیشن تعاملی (PWA / GitHub Pages)** اجرا می‌شود.
 
 ---
 
-## دریافت و ساخت فایل نصبی اندروید (`.apk`)
+## پشته فناوری (Tech Stack)
 
-### روش اول: ساخت خودکار با GitHub Actions (پیشنهادی)
-فایل گردش‌کار [`.github/workflows/android-apk.yml`](.github/workflows/android-apk.yml) با هر Push یا اجرای دستی (`Run workflow` در تب **Actions** گیت‌هاب)، به‌صورت خودکار با **Node 22 + JDK 21 + Android SDK 36 + Gradle 8.14** هر دو نسخه زیر را کامپایل و در بخش **Artifacts** (`github-agent-android-apk`) منتشر می‌کند:
-- `github-agent-v2.4.0-debug.apk` (نسخه دیباگ آماده نصب)
-- `github-agent-v2.4.0-release-signed.apk` (نسخه Release امضاشده و آماده نصب مستقیم روی گوشی اندروید)
+- **Frontend:** React 18 + TypeScript (Strict Mode) + Vite 8 + Tailwind CSS v4 + `lucide-react`
+- **Routing & State:** `react-router-dom` (`HashRouter`) + React Context با ماندگاری محلی
+- **Self-Hosted Typography:** فونت‌های `Vazirmatn` (فارسی RTL)، `JetBrains Mono` و `Space Grotesk` به‌صورت کاملاً آفلاین و باندل‌شده بدون وابستگی به CDN خارجی
+- **Android Platform:** Capacitor 8 (`io.github.gase99.githubagent`، `versionName: 2.4.0`، `versionCode: 20400`، `minSdk 24`، `targetSdk 36`، `compileSdk 36`، `JDK 21`، `Gradle 8.14`)
+- **Native Plugins:** `@capacitor/preferences`، `@capacitor/app`، `@capacitor/status-bar`، `@capacitor/haptics`، `@capacitor/clipboard`، `@capacitor/share`
+- **AI & GitHub APIs:** Google Gemini Official `generateContent` / `streamGenerateContent?alt=sse` + GitHub REST API v3 (`2022-11-28`)
+- **Testing:** `vitest` + `@testing-library/react` (`jsdom`)
 
-### روش دوم: ساخت محلی با Android Studio / Gradle
-پیش‌نیازها: **Node.js 22+**، **JDK 21** و **Android SDK (API 36)**.
+---
 
+## ۹ ماژول عملیاتی برنامه
+
+1. **`ChatScreen` (`/`)**: چت دوزبانه با استریم زنده SSE از **Google Gemini API**، تشخیص خودکار جهت متن (RTL/LTR) و کارت‌های کد LTR با قابلیت کپی، اشتراک‌گذاری و ذخیره اسنیپت.
+2. **`RepositoriesScreen` (`/repos`)**: همگام‌سازی زنده مخازن از **GitHub REST API**، افزودن مخزن جدید (`owner/repo`)، جستجو، فیلتر و تحلیل سریع معماری با هوش مصنوعی.
+3. **`RepoDetailsScreen` (`/repo-details`)**: پیمایش درختی پوشه‌ها و فایل‌های مخزن، نمایش کد شماره‌گذاری‌شده، تاریخچه کامیت‌ها، توضیح کد با AI، اسکن امنیتی فایل و تولید Unit Test.
+4. **`PrReviewScreen` (`/pr-review`)**: نمایشگر تعاملی Diff (`+` / `-`)، اعمال پیشنهاد اصلاح کد توسط هوش مصنوعی (**Apply Patch**) و ثبت نظر روی PR در گیت‌هاب.
+5. **`SecurityAuditScreen` (`/security`)**: ممیزی امنیتی SAST، اسکن نشت کلید (`Secrets`) و آسیب‌پذیری‌های وابستگی (`CVE`)، اصلاح خودکار (**Auto-Fix**) و خروجی استاندارد `SARIF JSON`.
+6. **`SnippetsScreen` (`/snippets`)**: ذخیره ماندگار، جستجو و فیلتر تکه‌کدها بر اساس زبان و بهینه‌سازی کد با Gemini.
+7. **`TokenAnalyticsScreen` (`/analytics`)**: نمودار هفتگی مصرف توکن‌های ورودی/خروجی، بودجه مصرفی و استعلام زنده **GitHub Rate Limit**.
+8. **`ContextCacheScreen` (`/cache-details`)**: مدیریت TTL کش کانتکست (`+1h` / `+24h`)، پاک‌سازی کش و شبیه‌ساز تعاملی هزینه ماهانه.
+9. **`SettingsScreen` (`/settings`)**: ثبت امن کلیدهای **Gemini API** و **GitHub PAT** در `@capacitor/preferences` همراه با دکمه تست اتصال زنده، تنظیم سقف بودجه، TTL و گیرنده‌های هشدار (**Telegram / SMS / Discord Webhook**).
+
+> **حالت دوگانه (Dual Mode):** بدون ثبت کلید API، برنامه در **Demo Mode** با داده‌های نمونه کار می‌کند؛ با وارد کردن کلید در بخش **Settings**، اتصال زنده به سرورهای واقعی برقرار می‌شود. هیچ کلیدی در سورس‌کد ذخیره نشده است.
+
+---
+
+## ساخت و دریافت فایل نصبی اندروید (`.apk`)
+
+### ۱. ساخت خودکار در GitHub Actions
+گردش‌کار [`.github/workflows/android-apk.yml`](.github/workflows/android-apk.yml) پس از اجرای تست‌های واحد، فایل APK را با **JDK 21 + Android SDK 36 + Gradle 8.14** کامپایل و در بخش **Artifacts (`github-agent-android-apk`)** منتشر می‌کند:
+- `github-agent-v2.4.0-debug.apk`
+- `github-agent-v2.4.0-release-signed.apk` (در صورت تنظیم سکرت‌های امضا در GitHub Secrets: `KEYSTORE_BASE64`، `KEYSTORE_PASSWORD`، `KEY_ALIAS` و `KEY_PASSWORD`)
+
+### ۲. ساخت محلی
 ```bash
-# ۱. نصب وابستگی‌ها
 npm install
-
-# ۲. بیلد نسخه وب و همگام‌سازی پروژه بومی اندروید
+npm test
 npm run android:sync
-
-# ۳. کامپایل فایل APK با Gradle
-cd android
-./gradlew assembleDebug
-# مسیر خروجی: android/app/build/outputs/apk/debug/app-debug.apk
-```
-
-برای باز کردن مستقیم پروژه در **Android Studio**:
-```bash
-npx cap open android
+cd android && ./gradlew assembleDebug
 ```
 
 ---
 
-## اجرای نسخه وب در محیط توسعه
+## دستورات توسعه و تست
 
 ```bash
-npm install
+# اجرای سرور توسعه وب
 npm run dev
+
+# اجرای تست‌های واحد با Vitest
+npm test
+
+# بررسی سخت‌گیرانه تایپ‌اسکریپت
+npm run typecheck
+
+# بیلد نسخه وب (GitHub Pages با base=/github-agent/)
+npm run build
 ```
 
 ---
 
-## ساختار پروژه
-
-- `src/` — کدهای اپلیکیشن React + TypeScript + Tailwind v4 و بریج بومی Capacitor
-  - `src/screens/` — ۹ صفحه کامل و تعاملی اپلیکیشن
-  - `src/services/` — کلاینت‌های زنده `geminiApi.ts`، `githubApi.ts` و پل بومی اندروید `nativeBridge.ts`
-  - `src/context/AppContext.tsx` — مدیریت وضعیت سراسری، ذخیره‌سازی ماندگار، تاریخچه صفحات و دکمه Back سخت‌افزاری اندروید
-- `android/` — پروژه بومی اندروید (Gradle + Capacitor 8، شناسه بسته `io.github.gase99.githubagent`)
-- `.github/workflows/android-apk.yml` — خط لوله CI برای کامپایل و انتشار خودکار `.apk`
-- `stitch_myassistant_ai_coding_companion/` — آرشیو ۱۲ طرح اولیه رابط کاربری و سند سیستم طراحی `DESIGN.md`
+## آرشیو طرح‌های اولیه
+تمامی ۱۲ فایل پروتوتایپ HTML اولیه به همراه سند سیستم طراحی `DESIGN.md` بدون هیچ‌گونه حذفی در مسیر [`stitch_myassistant_ai_coding_companion/`](stitch_myassistant_ai_coding_companion/) حفظ و آرشیو شده‌اند.
