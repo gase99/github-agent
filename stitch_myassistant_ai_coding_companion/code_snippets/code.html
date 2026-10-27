@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Space+Grotesk:wght@600;700&amp;family=Vazirmatn:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#11131c;}body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "tertiary": "#f5f6ff", "surface-dim": "#11131c", "on-secondary-fixed": "#2e004e", "surface-variant": "#32343e", "surface-bright": "#373943", "secondary-fixed": "#f2daff", "on-error-container": "#ffdad6", "primary": "#d7fff3", "on-background": "#e1e1ef", "on-tertiary": "#002e69", "outline": "#83948f", "outline-variant": "#3a4a46", "on-secondary-container": "#d7a4ff", "surface": "#11131c", "on-secondary-fixed-variant": "#6a0baa", "surface-container-highest": "#32343e", "on-primary-container": "#006c5c", "on-error": "#690005", "tertiary-fixed-dim": "#adc6ff", "error": "#ffb4ab", "inverse-on-surface": "#2e303a", "secondary-fixed-dim": "#e0b6ff", "primary-fixed-dim": "#00dfc1", "error-container": "#93000a", "on-tertiary-fixed-variant": "#004494", "surface-container-lowest": "#0c0e17", "secondary-container": "#6d11ad", "tertiary-container": "#cbdaff", "on-primary": "#00382f", "on-secondary": "#4c007d", "surface-container-high": "#282933", "secondary": "#e0b6ff", "surface-container-low": "#191b24", "background": "#11131c", "surface-container": "#1d1f29", "on-tertiary-container": "#005bc3", "primary-container": "#00f5d4", "on-primary-fixed-variant": "#005144", "inverse-primary": "#006b5b", "on-tertiary-fixed": "#001a41", "inverse-surface": "#e1e1ef", "primary-fixed": "#26fedc", "surface-tint": "#00dfc1", "on-surface": "#e1e1ef", "tertiary-fixed": "#d8e2ff", "on-surface-variant": "#b9cac4", "on-primary-fixed": "#00201a" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-sm": "0.5rem", "gutter-tablet": "1.5rem", "margin": "1rem", "space-md": "1rem", "margin-desktop": "3rem", "margin-tablet": "2rem", "space-xl": "2rem", "space-xs": "0.25rem", "gutter": "1rem", "space-lg": "1.5rem" }, fontFamily: { "body-md": ["Inter"], "label-sm": ["JetBrains Mono"], "body-sm": ["Inter"], "label-md": ["JetBrains Mono"], "code-inline": ["JetBrains Mono"], "headline-lg": ["Space Grotesk"], "headline-sm": ["Space Grotesk"], "headline-xl-mobile": ["Space Grotesk"], "headline-xl": ["Space Grotesk"], "body-lg": ["Inter"], "headline-md": ["Space Grotesk"], "code-block": ["JetBrains Mono"] }, fontSize: { "body-md": ["14px", { "lineHeight": "22px", "fontWeight": "400" }], "label-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.06em", "fontWeight": "600" }], "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500" }], "code-inline": ["13px", { "lineHeight": "18px", "fontWeight": "500" }], "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "headline-sm": ["16px", { "lineHeight": "24px", "fontWeight": "600" }], "headline-xl-mobile": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "headline-xl": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "body-lg": ["16px", { "lineHeight": "26px", "fontWeight": "400" }], "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }], "code-block": ["12px", { "lineHeight": "20px", "fontWeight": "400" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface text-on-surface font-body-md text-body-md min-h-screen flex flex-col antialiased selection:bg-primary-container selection:text-on-primary-container"><header class="fixed top-0 inset-x-0 z-50 bg-surface/85 backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.35)] pt-safe"><div class="h-20 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0 flex-1"><img alt="My Assistant App Logo" class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1UFNDLP7gpX166jDhKHXjITVilhMJ99ZIw7ioNuB1AvhCjmJ7aFZnPm8k9BMFDcl5_p6x6vWsZ74YG5kObEB0Ki1SthxOE0CIicmavFCpa_vJ8kVPW0EoWS5wgkXQMmeAXJo3A79UZzX-026MiCo6GjhmxtmyKw-8Z-UWvPxcEOWfm33X-7wh5McM6rZGRQi2HkAcAH4aefy9aiPK3eCj_F1O6hs7zflJIRdq5s6XAtNGEa9GEkxMp_3w"/><div class="flex flex-col min-w-0"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight truncate">دستیار من</span><span class="text-outline-variant font-body-sm text-body-sm">|</span><span class="font-headline-sm text-headline-sm text-primary-fixed-dim font-bold tracking-tight truncate">My Assistant</span></div><div class="flex items-center gap-space-xs mt-0.5"><span class="font-label-sm text-label-sm text-on-surface-variant truncate uppercase">Code Snippets</span><span class="inline-block w-1.5 h-1.5 rounded-full bg-primary-fixed-dim animate-pulse"></span></div></div></div><div class="flex items-center gap-space-xs flex-shrink-0"><div class="hidden sm:flex items-center gap-space-xs px-2 py-1 rounded-full bg-surface-container-high"><span class="material-symbols-outlined text-[14px] text-primary-container">auto_awesome</span><span class="font-label-sm text-label-sm text-on-surface-variant">Gemini</span><span class="w-1 h-1 rounded-full bg-outline-variant"></span><span class="material-symbols-outlined text-[14px] text-secondary">terminal</span><span class="font-label-sm text-label-sm text-on-surface-variant">Git</span></div><button class="min-w-[44px] min-h-[44px] px-2 py-1 rounded-lg bg-surface-container flex items-center justify-center gap-1 active:scale-95 transition-all text-on-surface-variant hover:text-primary" title="Toggle Language / تغییر زبان" type="button"><span class="material-symbols-outlined text-[16px]">translate</span><span class="font-label-sm text-label-sm font-semibold text-primary-container">FA/EN</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-20 pb-24 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<div class="px-margin pt-space-md pb-space-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-surface-container-high text-primary-container">
+<span class="material-symbols-outlined text-[18px]">terminal</span>
+</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">کتابخانه اسنیپت‌ها</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Snippets</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="px-2 py-0.5 rounded-full bg-surface-container-highest text-primary-fixed-dim font-label-sm text-label-sm">
+          32 فعال
+        </span>
+</div>
+</div>
+<!-- Search & Language Filter Controls -->
+<div class="flex items-center gap-space-xs">
+<div class="relative flex-1 bg-surface-container-high rounded-xl flex items-center px-space-sm shadow-sm focus-within:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-outline text-[20px]">search</span>
+<input class="w-full bg-transparent px-2 py-2.5 text-on-surface font-body-sm text-body-sm placeholder:text-outline focus:outline-none" id="code-search-input" placeholder="جستجو در کدها و پرامپت‌ها (Search snippets)..." type="text"/>
+<button class="hidden text-outline hover:text-on-surface p-1" id="clear-search-btn" type="button">
+<span class="material-symbols-outlined text-[16px]">close</span>
+</button>
+</div>
+<!-- Language Selector Pill -->
+<div class="relative">
+<button class="min-h-[42px] px-3 bg-surface-container-high hover:bg-surface-variant text-on-surface font-label-md text-label-md rounded-xl flex items-center gap-1 shadow-sm transition-all" id="lang-selector-btn" type="button">
+<span class="material-symbols-outlined text-[16px] text-primary-fixed-dim">code_blocks</span>
+<span id="current-lang-label">همه</span>
+<span class="material-symbols-outlined text-[16px] text-outline">expand_more</span>
+</button>
+<!-- Dropdown Menu -->
+<div class="hidden absolute right-0 top-12 z-40 w-36 bg-surface-container-highest rounded-xl shadow-xl py-1.5 flex flex-col" id="lang-dropdown-menu">
+<button class="lang-option text-right px-3 py-1.5 font-label-md text-label-md text-primary-fixed-dim hover:bg-surface-variant flex items-center justify-between" data-lang="all" type="button">
+<span>همه زبان‌ها</span>
+<span class="material-symbols-outlined text-[14px]">check</span>
+</button>
+<button class="lang-option text-right px-3 py-1.5 font-label-md text-label-md text-on-surface hover:bg-surface-variant flex items-center justify-between" data-lang="kotlin" type="button">
+<span>Kotlin</span>
+<span class="font-label-sm text-label-sm text-outline">KT</span>
+</button>
+<button class="lang-option text-right px-3 py-1.5 font-label-md text-label-md text-on-surface hover:bg-surface-variant flex items-center justify-between" data-lang="python" type="button">
+<span>Python</span>
+<span class="font-label-sm text-label-sm text-outline">PY</span>
+</button>
+<button class="lang-option text-right px-3 py-1.5 font-label-md text-label-md text-on-surface hover:bg-surface-variant flex items-center justify-between" data-lang="javascript" type="button">
+<span>JavaScript</span>
+<span class="font-label-sm text-label-sm text-outline">JS</span>
+</button>
+<button class="lang-option text-right px-3 py-1.5 font-label-md text-label-md text-on-surface hover:bg-surface-variant flex items-center justify-between" data-lang="sql" type="button">
+<span>SQL</span>
+<span class="font-label-sm text-label-sm text-outline">DB</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Segmented Filter Tabs -->
+<div class="flex items-center gap-space-xs overflow-x-auto pb-1 -mx-margin px-margin">
+<button class="filter-tab-btn flex-shrink-0 px-3.5 py-1.5 rounded-full bg-primary text-on-primary font-headline-sm text-headline-sm transition-all shadow-sm flex items-center gap-1.5" data-filter="saved" type="button">
+<span class="material-symbols-outlined text-[16px]">bookmark</span>
+<span>ذخیره‌شده‌ها</span>
+<span class="font-label-sm text-label-sm opacity-80">(Saved)</span>
+</button>
+<button class="filter-tab-btn flex-shrink-0 px-3.5 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant hover:text-on-surface font-body-sm text-body-sm transition-all flex items-center gap-1.5" data-filter="ai" type="button">
+<span class="material-symbols-outlined text-[16px] text-secondary">psychology</span>
+<span>تولید هوش مصنوعی</span>
+<span class="font-label-sm text-label-sm opacity-70">(AI Generated)</span>
+</button>
+<button class="filter-tab-btn flex-shrink-0 px-3.5 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant hover:text-on-surface font-body-sm text-body-sm transition-all flex items-center gap-1.5" data-filter="utilities" type="button">
+<span class="material-symbols-outlined text-[16px] text-primary-fixed-dim">build_circle</span>
+<span>اسکریپت‌های مفید</span>
+<span class="font-label-sm text-label-sm opacity-70">(Utilities)</span>
+</button>
+</div>
+</div>
+<!-- Snippet Feed -->
+<div class="px-margin flex flex-col gap-space-md pb-28">
+<!-- Card 1: Kotlin -->
+<div class="snippet-card bg-surface-container rounded-xl overflow-hidden shadow-lg transition-transform" data-category="saved" data-lang="kotlin">
+<!-- Card Header -->
+<div class="p-space-sm bg-surface-container-high flex flex-col gap-1.5">
+<div class="flex items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs min-w-0">
+<span class="px-2 py-0.5 rounded bg-primary-container text-on-primary-container font-label-sm text-label-sm font-semibold">
+              KT
+            </span>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-sm text-headline-sm text-on-surface truncate">GitHub Auth Interceptor</span>
+<span class="font-body-sm text-body-sm text-outline truncate" dir="rtl">کد احراز هویت توکن گیت‌هاب</span>
+</div>
+</div>
+<button class="favorite-toggle p-1.5 rounded-lg bg-surface-container hover:bg-surface-variant text-secondary transition-colors" title="نشان کردن" type="button">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</button>
+</div>
+<!-- Meta tags & AI badge -->
+<div class="flex flex-wrap items-center justify-between gap-1 pt-0.5">
+<div class="flex items-center gap-1 flex-wrap">
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-primary-fixed-dim font-label-sm text-label-sm">#Android</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-primary-fixed-dim font-label-sm text-label-sm">#Security</span>
+</div>
+<div class="flex items-center gap-1 px-2 py-0.5 rounded-full bg-secondary-container text-secondary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[12px]">magic_button</span>
+<span>Prompt: Gemini Fix</span>
+</div>
+</div>
+</div>
+<!-- Monospace Code Box (Strict LTR) -->
+<div class="relative bg-surface-container-lowest p-space-sm overflow-x-auto text-left" dir="ltr">
+<button class="copy-code-btn absolute top-2 right-2 px-2.5 py-1 rounded bg-surface-container-high hover:bg-surface-variant text-on-surface font-label-sm text-label-sm flex items-center gap-1 transition-all active:scale-95 shadow-sm" data-copy='class AuthInterceptor(private val token: String) : Interceptor {
+    override fun intercept(chain: Interceptor.Chain): Response {
+        val req = chain.request().newBuilder()
+            .addHeader("Authorization", "Bearer $token")
+            .addHeader("X-GitHub-Api-Version", "2022-11-28")
+            .build()
+        return chain.proceed(req)
+    }
+}' type="button">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+<span>Copy</span>
+</button>
+<pre class="font-code-block text-code-block leading-relaxed pr-16"><span class="text-secondary">class</span> <span class="text-primary-container">AuthInterceptor</span>(<span class="text-on-surface-variant">private val</span> token: <span class="text-primary">String</span>) : <span class="text-primary">Interceptor</span> {
+    <span class="text-secondary">override fun</span> <span class="text-primary-container">intercept</span>(chain: <span class="text-primary">Interceptor.Chain</span>): <span class="text-primary">Response</span> {
+        <span class="text-on-surface-variant">val</span> req = chain.request().newBuilder()
+            .addHeader(<span class="text-tertiary">"Authorization"</span>, <span class="text-tertiary">"Bearer $token"</span>)
+            .addHeader(<span class="text-tertiary">"X-GitHub-Api-Version"</span>, <span class="text-tertiary">"2022-11-28"</span>)
+            .build()
+        <span class="text-secondary">return</span> chain.proceed(req)
+    }
+}</pre>
+</div>
+<!-- Action Panel -->
+<div class="p-space-sm bg-surface-container-low flex items-center justify-between gap-1 flex-wrap">
+<div class="flex items-center gap-1">
+<button class="snippet-action-copy px-2.5 py-1.5 rounded-lg bg-surface-container-high hover:bg-surface-variant text-on-surface font-body-sm text-body-sm flex items-center gap-1 active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[16px] text-primary-fixed-dim">copy_all</span>
+<span>کپی (Copy)</span>
+</button>
+<button class="snippet-action-share px-2.5 py-1.5 rounded-lg bg-surface-container-high hover:bg-surface-variant text-on-surface font-body-sm text-body-sm flex items-center gap-1 active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[16px] text-secondary">share</span>
+<span>اشتراک‌گذاری</span>
+</button>
+</div>
+<button class="ai-reoptimize-btn px-2.5 py-1.5 rounded-lg bg-secondary-container text-secondary hover:bg-opacity-90 font-label-md text-label-md flex items-center gap-1 active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[16px] animate-spin-slow">auto_fix_high</span>
+<span>بهینه‌سازی AI</span>
+</button>
+</div>
+</div>
+<!-- Card 2: Python Async Google API -->
+<div class="snippet-card bg-surface-container rounded-xl overflow-hidden shadow-lg transition-transform" data-category="ai" data-lang="python">
+<div class="p-space-sm bg-surface-container-high flex flex-col gap-1.5">
+<div class="flex items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs min-w-0">
+<span class="px-2 py-0.5 rounded bg-secondary-container text-secondary font-label-sm text-label-sm font-semibold">
+              PY
+            </span>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-sm text-headline-sm text-on-surface truncate">Async Google API Stream</span>
+<span class="font-body-sm text-body-sm text-outline truncate" dir="rtl">دریافت استریم زنده پاسخ‌ها از جمینای</span>
+</div>
+</div>
+<button class="favorite-toggle p-1.5 rounded-lg bg-surface-container hover:bg-surface-variant text-outline hover:text-secondary transition-colors" title="نشان کردن" type="button">
+<span class="material-symbols-outlined text-[18px]">star</span>
+</button>
+</div>
+<div class="flex flex-wrap items-center justify-between gap-1 pt-0.5">
+<div class="flex items-center gap-1 flex-wrap">
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-secondary font-label-sm text-label-sm">#Gemini</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-secondary font-label-sm text-label-sm">#FastAPI</span>
+</div>
+<div class="flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container text-primary-fixed-dim font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[12px]">speed</span>
+<span>Latency: 48ms</span>
+</div>
+</div>
+</div>
+<!-- Monospace Code Box -->
+<div class="relative bg-surface-container-lowest p-space-sm overflow-x-auto text-left" dir="ltr">
+<button class="copy-code-btn absolute top-2 right-2 px-2.5 py-1 rounded bg-surface-container-high hover:bg-surface-variant text-on-surface font-label-sm text-label-sm flex items-center gap-1 transition-all active:scale-95 shadow-sm" data-copy="async def stream_gemini_reply(prompt: str):
+    client = genai.Client()
+    response = await client.aio.models.generate_content_stream(
+        model='gemini-2.5-flash',
+        contents=prompt
+    )
+    async for chunk in response:
+        yield chunk.text" type="button">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+<span>Copy</span>
+</button>
+<pre class="font-code-block text-code-block leading-relaxed pr-16"><span class="text-secondary">async def</span> <span class="text-primary-container">stream_gemini_reply</span>(prompt: <span class="text-primary">str</span>):
+    client = genai.Client()
+    response = <span class="text-secondary">await</span> client.aio.models.generate_content_stream(
+        model=<span class="text-tertiary">'gemini-2.5-flash'</span>,
+        contents=prompt
+    )
+    <span class="text-secondary">async for</span> chunk <span class="text-secondary">in</span> response:
+        <span class="text-secondary">yield</span> chunk.text</pre>
+</div>
+<!-- Action Panel -->
+<div class="p-space-sm bg-surface-container-low flex items-center justify-between gap-1 flex-wrap">
+<div class="flex items-center gap-1">
+<button class="snippet-action-copy px-2.5 py-1.5 rounded-lg bg-surface-container-high hover:bg-surface-variant text-on-surface font-body-sm text-body-sm flex items-center gap-1 active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[16px] text-primary-fixed-dim">copy_all</span>
+<span>کپی (Copy)</span>
+</button>
+<button class="snippet-action-share px-2.5 py-1.5 rounded-lg bg-surface-container-high hover:bg-surface-variant text-on-surface font-body-sm text-body-sm flex items-center gap-1 active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[16px] text-secondary">share</span>
+<span>اشتراک‌گذاری</span>
+</button>
+</div>
+<button class="ai-reoptimize-btn px-2.5 py-1.5 rounded-lg bg-secondary-container text-secondary hover:bg-opacity-90 font-label-md text-label-md flex items-center gap-1 active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">auto_fix_high</span>
+<span>بهینه‌سازی AI</span>
+</button>
+</div>
+</div>
+<!-- Card 3: Git Hook Pre-commit Linter -->
+<div class="snippet-card bg-surface-container rounded-xl overflow-hidden shadow-lg transition-transform" data-category="utilities" data-lang="bash">
+<div class="p-space-sm bg-surface-container-high flex flex-col gap-1.5">
+<div class="flex items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs min-w-0">
+<span class="px-2 py-0.5 rounded bg-surface-container-highest text-primary-fixed font-label-sm text-label-sm font-semibold">
+              SH
+            </span>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-sm text-headline-sm text-on-surface truncate">Git Hook Pre-commit Linter</span>
+<span class="font-body-sm text-body-sm text-outline truncate" dir="rtl">بررسی خودکار استایل پیش از کامیت</span>
+</div>
+</div>
+<button class="favorite-toggle p-1.5 rounded-lg bg-surface-container hover:bg-surface-variant text-outline hover:text-secondary transition-colors" title="نشان کردن" type="button">
+<span class="material-symbols-outlined text-[18px]">star</span>
+</button>
+</div>
+<div class="flex flex-wrap items-center justify-between gap-1 pt-0.5">
+<div class="flex items-center gap-1 flex-wrap">
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-primary-container font-label-sm text-label-sm">#GitHooks</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-primary-container font-label-sm text-label-sm">#Ktlint</span>
+</div>
+<div class="flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[12px]">verified</span>
+<span>Verified Hook</span>
+</div>
+</div>
+</div>
+<!-- Monospace Code Box -->
+<div class="relative bg-surface-container-lowest p-space-sm overflow-x-auto text-left" dir="ltr">
+<button class="copy-code-btn absolute top-2 right-2 px-2.5 py-1 rounded bg-surface-container-high hover:bg-surface-variant text-on-surface font-label-sm text-label-sm flex items-center gap-1 transition-all active:scale-95 shadow-sm" data-copy='#!/usr/bin/env bash
+echo "[!] Running ktlint pre-commit checks..."
+./gradlew ktlintCheck --daemon
+STATUS=$?
+if [ $STATUS -ne 0 ]; then
+    echo "[ERROR] Lint errors found. Aborting commit."
+    exit 1
+fi' type="button">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+<span>Copy</span>
+</button>
+<pre class="font-code-block text-code-block leading-relaxed pr-16"><span class="text-outline">#!/usr/bin/env bash</span>
+<span class="text-secondary">echo</span> <span class="text-tertiary">"[!] Running ktlint pre-commit checks..."</span>
+./gradlew ktlintCheck --daemon
+STATUS=$?
+<span class="text-secondary">if</span> [ $STATUS -ne 0 ]; <span class="text-secondary">then</span>
+    <span class="text-error">echo "[ERROR] Lint errors found. Aborting commit."</span>
+    <span class="text-secondary">exit</span> 1
+<span class="text-secondary">fi</span></pre>
+</div>
+<!-- Action Panel -->
+<div class="p-space-sm bg-surface-container-low flex items-center justify-between gap-1 flex-wrap">
+<div class="flex items-center gap-1">
+<button class="snippet-action-copy px-2.5 py-1.5 rounded-lg bg-surface-container-high hover:bg-surface-variant text-on-surface font-body-sm text-body-sm flex items-center gap-1 active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[16px] text-primary-fixed-dim">copy_all</span>
+<span>کپی (Copy)</span>
+</button>
+<button class="snippet-action-share px-2.5 py-1.5 rounded-lg bg-surface-container-high hover:bg-surface-variant text-on-surface font-body-sm text-body-sm flex items-center gap-1 active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[16px] text-secondary">share</span>
+<span>اشتراک‌گذاری</span>
+</button>
+</div>
+<button class="ai-reoptimize-btn px-2.5 py-1.5 rounded-lg bg-secondary-container text-secondary hover:bg-opacity-90 font-label-md text-label-md flex items-center gap-1 active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">auto_fix_high</span>
+<span>بهینه‌سازی AI</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Toast Notification Overlay (Micro-interaction) -->
+<div class="fixed top-24 left-1/2 -translate-x-1/2 z-50 px-4 py-2 rounded-xl bg-surface-container-highest text-primary-fixed-dim font-headline-sm text-headline-sm shadow-xl flex items-center gap-2 opacity-0 pointer-events-none transition-all duration-300" id="toast-notify">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+<span id="toast-text">کد با موفقیت کپی شد!</span>
+</div>
+<!-- Quick Floating Action Button: + اسنیپت جدید -->
+<div class="fixed bottom-20 right-4 z-40">
+<button class="px-4 py-3 rounded-full bg-primary-container text-on-primary-container font-headline-sm text-headline-sm shadow-2xl flex items-center gap-2 active:scale-95 hover:shadow-[0_0_24px_rgba(0,245,212,0.4)] transition-all" id="add-snippet-fab" type="button">
+<span class="material-symbols-outlined text-[22px]">keyboard_arrow_left</span>
+<span class="font-bold">+ اسنیپت جدید</span>
+<span class="font-label-sm text-label-sm opacity-80">(Add Snippet)</span>
+</button>
+</div>
+</div>
+<script>
+  (function () {
+    // Toast Helper
+    const toast = document.getElementById('toast-notify');
+    const toastText = document.getElementById('toast-text');
+    let toastTimeout;
+
+    function showToast(msg) {
+      if (!toast || !toastText) return;
+      toastText.textContent = msg;
+      toast.classList.remove('opacity-0', 'pointer-events-none', '-translate-y-2');
+      toast.classList.add('opacity-100', 'translate-y-0');
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.add('opacity-0', 'pointer-events-none');
+        toast.classList.remove('opacity-100', 'translate-y-0');
+      }, 2200);
+    }
+
+    // Copy Buttons Micro-interaction
+    document.querySelectorAll('.copy-code-btn, .snippet-action-copy').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const parentCard = btn.closest('.snippet-card');
+        const codeCopyTarget = parentCard ? parentCard.querySelector('.copy-code-btn') : null;
+        const textToCopy = codeCopyTarget ? codeCopyTarget.getAttribute('data-copy') : '';
+
+        if (textToCopy && navigator.clipboard) {
+          navigator.clipboard.writeText(textToCopy).catch(() => {});
+        }
+        showToast('کد کپی شد (Copied to clipboard)');
+      });
+    });
+
+    // Share Button Micro-interaction
+    document.querySelectorAll('.snippet-action-share').forEach(btn => {
+      btn.addEventListener('click', () => {
+        showToast('پیوند اسنیپت آماده اشتراک است (Link ready)');
+      });
+    });
+
+    // AI Re-optimize Micro-interaction
+    document.querySelectorAll('.ai-reoptimize-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const originalContent = btn.innerHTML;
+        btn.innerHTML = `<span class="material-symbols-outlined text-[16px] animate-spin">refresh</span><span>در حال تحلیل...</span>`;
+        btn.classList.add('opacity-80', 'pointer-events-none');
+        setTimeout(() => {
+          btn.innerHTML = originalContent;
+          btn.classList.remove('opacity-80', 'pointer-events-none');
+          showToast('کد توسط Gemini بهینه‌سازی شد ✨');
+        }, 1400);
+      });
+    });
+
+    // Favorite Star Toggles
+    document.querySelectorAll('.favorite-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const star = btn.querySelector('.material-symbols-outlined');
+        if (!star) return;
+        const isFilled = star.style.fontVariationSettings?.includes('1');
+        if (isFilled) {
+          star.style.fontVariationSettings = "'FILL' 0";
+          btn.classList.remove('text-secondary');
+          btn.classList.add('text-outline');
+          showToast('از نشان‌شده‌ها حذف شد');
+        } else {
+          star.style.fontVariationSettings = "'FILL' 1";
+          btn.classList.add('text-secondary');
+          btn.classList.remove('text-outline');
+          showToast('به علاقه‌مندی‌ها اضافه شد ★');
+        }
+      });
+    });
+
+    // Tab Filtering
+    const tabs = document.querySelectorAll('.filter-tab-btn');
+    const cards = document.querySelectorAll('.snippet-card');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => {
+          t.className = 'filter-tab-btn flex-shrink-0 px-3.5 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant hover:text-on-surface font-body-sm text-body-sm transition-all flex items-center gap-1.5';
+        });
+        tab.className = 'filter-tab-btn flex-shrink-0 px-3.5 py-1.5 rounded-full bg-primary text-on-primary font-headline-sm text-headline-sm transition-all shadow-sm flex items-center gap-1.5';
+
+        const filter = tab.getAttribute('data-filter');
+        cards.forEach(card => {
+          const category = card.getAttribute('data-category');
+          if (filter === 'saved' || category === filter) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+      });
+    });
+
+    // Language Dropdown Logic
+    const langBtn = document.getElementById('lang-selector-btn');
+    const langMenu = document.getElementById('lang-dropdown-menu');
+    const langLabel = document.getElementById('current-lang-label');
+
+    if (langBtn && langMenu) {
+      langBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        langMenu.classList.toggle('hidden');
+      });
+
+      document.addEventListener('click', () => {
+        langMenu.classList.add('hidden');
+      });
+
+      document.querySelectorAll('.lang-option').forEach(opt => {
+        opt.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const selected = opt.getAttribute('data-lang');
+          if (langLabel) {
+            langLabel.textContent = opt.querySelector('span').textContent;
+          }
+          langMenu.classList.add('hidden');
+
+          // Filter by selected language
+          cards.forEach(card => {
+            const cardLang = card.getAttribute('data-lang');
+            if (selected === 'all' || cardLang === selected) {
+              card.classList.remove('hidden');
+            } else {
+              card.classList.add('hidden');
+            }
+          });
+          showToast(`فیلتر زبان: ${selected.toUpperCase()}`);
+        });
+      });
+    }
+
+    // Search Input Realtime Filter
+    const searchInput = document.getElementById('code-search-input');
+    const clearBtn = document.getElementById('clear-search-btn');
+
+    if (searchInput) {
+      searchInput.addEventListener('input', () => {
+        const val = searchInput.value.toLowerCase().trim();
+        if (clearBtn) {
+          clearBtn.classList.toggle('hidden', val.length === 0);
+        }
+        cards.forEach(card => {
+          const content = card.textContent.toLowerCase();
+          card.classList.toggle('hidden', val.length > 0 && !content.includes(val));
+        });
+      });
+
+      if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+          searchInput.value = '';
+          clearBtn.classList.add('hidden');
+          cards.forEach(card => card.classList.remove('hidden'));
+        });
+      }
+    }
+
+    // Add Snippet FAB Trigger
+    const addFab = document.getElementById('add-snippet-fab');
+    if (addFab) {
+      addFab.addEventListener('click', () => {
+        showToast('فرم اسنیپت جدید باز شد 📝');
+      });
+    }
+  })();
+</script></main><nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-surface-container-lowest/85 backdrop-blur-2xl shadow-[0_-8px_32px_rgba(0,0,0,0.45)]" data-active-classes="text-primary-container font-semibold"><div class="flex justify-around items-center h-16 px-space-xs max-w-md mx-auto"><a class="min-w-[44px] min-h-[44px] flex-1 flex flex-col items-center justify-center gap-0.5 text-on-surface-variant hover:text-on-surface active:scale-95 transition-all" data-path="chat-assistant" href="../ai_chat/code.html"><span class="material-symbols-outlined text-[22px]">smart_toy</span><span class="font-label-sm text-label-sm tracking-tight">دستیار AI</span></a><a class="min-w-[44px] min-h-[44px] flex-1 flex flex-col items-center justify-center gap-0.5 text-on-surface-variant hover:text-on-surface active:scale-95 transition-all" data-path="repositories" href="../repositories/code.html"><span class="material-symbols-outlined text-[22px]">folder_code</span><span class="font-label-sm text-label-sm tracking-tight">مخازن</span></a><a aria-current="page" class="min-w-[44px] min-h-[44px] flex-1 flex flex-col items-center justify-center gap-0.5 active:scale-95 transition-all text-primary-container font-semibold" data-path="code-snippets" href="code.html"><span class="material-symbols-outlined text-[22px]">data_object</span><span class="font-label-sm text-label-sm tracking-tight">تکه‌کدها</span></a><a class="min-w-[44px] min-h-[44px] flex-1 flex flex-col items-center justify-center gap-0.5 text-on-surface-variant hover:text-on-surface active:scale-95 transition-all" data-path="settings-and-api" href="../api_settings/code.html"><span class="material-symbols-outlined text-[22px]">tune</span><span class="font-label-sm text-label-sm tracking-tight">تنظیمات</span></a></div></nav></body></html>
