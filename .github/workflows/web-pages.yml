@@ -39,6 +39,10 @@ jobs:
           npm run build
           cp -r stitch_myassistant_ai_coding_companion dist/stitch_myassistant_ai_coding_companion
 
+      - name: Configure GitHub Pages Workflow Mode
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        uses: actions/configure-pages@v5
+
       - name: Upload Pages Artifact
         if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3
