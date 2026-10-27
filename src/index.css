@@ -1,0 +1,113 @@
+@import "tailwindcss";
+
+@theme {
+  --color-surface: #11131c;
+  --color-surface-dim: #11131c;
+  --color-surface-bright: #373943;
+  --color-surface-container-lowest: #0c0e17;
+  --color-surface-container-low: #191b24;
+  --color-surface-container: #1d1f29;
+  --color-surface-container-high: #282933;
+  --color-surface-container-highest: #32343e;
+  --color-surface-variant: #32343e;
+
+  --color-on-surface: #e1e1ef;
+  --color-on-surface-variant: #b9cac4;
+  --color-outline: #83948f;
+  --color-outline-variant: #3a4a46;
+
+  --color-primary: #d7fff3;
+  --color-on-primary: #00382f;
+  --color-primary-container: #00f5d4;
+  --color-on-primary-container: #00201a;
+  --color-primary-fixed: #26fedc;
+  --color-primary-fixed-dim: #00dfc1;
+
+  --color-secondary: #e0b6ff;
+  --color-on-secondary: #4c007d;
+  --color-secondary-container: #6d11ad;
+  --color-on-secondary-container: #f2daff;
+  --color-secondary-fixed: #f2daff;
+  --color-secondary-fixed-dim: #e0b6ff;
+
+  --color-tertiary: #f5f6ff;
+  --color-tertiary-fixed-dim: #adc6ff;
+  --color-tertiary-container: #cbdaff;
+  --color-on-tertiary-container: #005bc3;
+
+  --color-error: #ffb4ab;
+  --color-error-container: #93000a;
+  --color-on-error: #690005;
+  --color-on-error-container: #ffdad6;
+
+  --font-display: "Space Grotesk", "Vazirmatn", system-ui, -apple-system, sans-serif;
+  --font-sans: "Vazirmatn", "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+@layer base {
+  html,
+  body {
+    width: 100%;
+    min-height: 100dvh;
+    margin: 0;
+    padding: 0;
+    background-color: #11131c;
+    color: #e1e1ef;
+    font-family: var(--font-sans);
+    overscroll-behavior-y: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button,
+  [role="button"] {
+    cursor: pointer;
+    user-select: none;
+  }
+}
+
+.pt-safe {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.cyber-glow-cyan {
+  box-shadow: 0 0 20px -2px rgba(0, 245, 212, 0.25), inset 0 0 0 1px rgba(0, 245, 212, 0.35);
+}
+
+.cyber-glow-purple {
+  box-shadow: 0 0 20px -2px rgba(157, 78, 221, 0.28), inset 0 0 0 1px rgba(224, 182, 255, 0.25);
+}
+
+.cyber-border {
+  border: 1px solid rgba(0, 245, 212, 0.14);
+}
+
+.cyber-border-subtle {
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+@keyframes spinSlow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spinSlow 4s linear infinite;
+}

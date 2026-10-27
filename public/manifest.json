@@ -1,0 +1,20 @@
+{
+  "name": "GitHub Agent | دستیار من",
+  "short_name": "GitHub Agent",
+  "description": "دستیار هوشمند کدنویسی و مدیریت مخازن گیت‌هاب با هوش مصنوعی Gemini",
+  "start_url": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#11131c",
+  "theme_color": "#11131c",
+  "lang": "fa",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "./app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
