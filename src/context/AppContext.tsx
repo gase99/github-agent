@@ -18,6 +18,11 @@ import {
   INITIAL_TOKEN_EVENTS,
   INITIAL_VULNERABILITIES,
 } from '../data/demoData';
+import {
+  DEFAULT_GEMINI_MODELS,
+  pingGeminiApi,
+  sanitizeGeminiKey,
+} from '../services/geminiApi';
 import { hapticTap, initNativeAndroid, storageGet, storageSet } from '../services/nativeBridge';
 import { pathToScreen, SCREEN_TO_PATH } from '../utils/routes';
 import type {
@@ -26,6 +31,8 @@ import type {
   CacheArtifact,
   ChatMessage,
   CodeSnippet,
+  GeminiConnectionState,
+  GeminiModelId,
   PullRequestItem,
   RepoItem,
   TokenEventLog,
@@ -51,6 +58,15 @@ interface AppContextValue {
   toggleLanguage: () => void;
   isRtl: boolean;
   t: (fa: string, en: string) => string;
+
+  geminiConnection: GeminiConnectionState;
+  activateGeminiKey: (
+    rawKey?: string,
+    preferredModel?: GeminiModelId
+  ) => Promise<boolean>;
+  disconnectGeminiKey: () => void;
+  isKeyModalOpen: boolean;
+  setKeyModalOpen: (open: boolean) => void;
 
   toast: ToastState | null;
   showToast: (message: string, tone?: 'cyan' | 'purple' | 'error') => void;
@@ -103,9 +119,15 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const [historyDepth, setHistoryDepth] = useState<number>(0);
   const [isLauncherOpen, setLauncherOpen] = useState(false);
+  const [isKeyModalOpen, setKeyModalOpen] = useState(false);
 
   const [settings, setSettings] = useState<AppSettings>(DEFAULT_SETTINGS);
   const [hydrated, setHydrated] = useState(false);
+
+  const [geminiConnection, setGeminiConnection] = useState<GeminiConnectionState>({
+    status: 'no_key',
+    availableModels: DEFAULT_GEMINI_MODELS,
+  });
 
   const [messages, setMessages] = useState<ChatMessage[]>(INITIAL_CHAT_MESSAGES);
   const [repositories, setRepositories] = useState<RepoItem[]>(DEMO_REPOSITORIES);
@@ -126,6 +148,103 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [toast, setToast] = useState<ToastState | null>(null);
   const toastTimerRef = useRef<number | null>(null);
 
+  const showToast = useCallback(
+    (message: string, tone: 'cyan' | 'purple' | 'error' = 'cyan') => {
+      if (toastTimerRef.current) {
+        window.clearTimeout(toastTimerRef.current);
+      }
+      setToast({ id: Date.now(), message, tone });
+      toastTimerRef.current = window.setTimeout(() => {
+        setToast(null);
+      }, 3200);
+    },
+    []
+  );
+
+  const runGeminiVerification = useCallback(
+    async (
+      rawKey: string,
+      preferredModel: GeminiModelId,
+      silent = false,
+      lang: 'fa' | 'en' = 'fa'
+    ): Promise<boolean> => {
+      const cleaned = sanitizeGeminiKey(rawKey);
+      if (!cleaned) {
+        setGeminiConnection({
+          status: 'no_key',
+          availableModels: DEFAULT_GEMINI_MODELS,
+        });
+        if (!silent) {
+          showToast(
+            lang === 'fa'
+              ? 'لطفاً ابتدا کلید Google Gemini API را وارد کنید'
+              : 'Please enter a Google Gemini API Key first',
+            'purple'
+          );
+        }
+        return false;
+      }
+
+      setGeminiConnection((prev) => ({
+        ...prev,
+        status: 'verifying',
+        error: undefined,
+      }));
+
+      const res = await pingGeminiApi(cleaned, preferredModel);
+      const checkedAt = new Date().toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit',
+      });
+
+      if (res.ok) {
+        const nextModel = res.resolvedModel || preferredModel;
+        setSettings((prev) => ({
+          ...prev,
+          geminiApiKey: cleaned,
+          geminiModel: nextModel,
+        }));
+        setGeminiConnection({
+          status: 'connected',
+          latencyMs: res.latencyMs,
+          displayName: res.displayName,
+          resolvedModel: nextModel,
+          inputTokenLimit: res.inputTokenLimit,
+          sampleReply: res.sampleReply,
+          availableModels: res.availableModels || DEFAULT_GEMINI_MODELS,
+          lastCheckedAt: checkedAt,
+        });
+        if (!silent) {
+          showToast(
+            lang === 'fa'
+              ? `کلید Gemini فعال و تایید شد (${nextModel} • ${res.latencyMs}ms) ✓`
+              : `Gemini API Key activated (${nextModel} • ${res.latencyMs}ms) ✓`,
+            'cyan'
+          );
+        }
+        return true;
+      }
+
+      setGeminiConnection((prev) => ({
+        ...prev,
+        status: 'error',
+        latencyMs: res.latencyMs,
+        error: res.error,
+        lastCheckedAt: checkedAt,
+      }));
+      if (!silent) {
+        showToast(
+          lang === 'fa'
+            ? `خطا در فعال‌سازی کلید Gemini: ${res.error}`
+            : `Gemini activation error: ${res.error}`,
+          'error'
+        );
+      }
+      return false;
+    },
+    [showToast]
+  );
+
   useEffect(() => {
     let active = true;
     (async () => {
@@ -136,8 +255,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         storageGet<number | null>(STORAGE_KEYS.tokens, null),
       ]);
       if (!active) return;
+      const mergedSettings = savedSettings
+        ? { ...DEFAULT_SETTINGS, ...savedSettings }
+        : DEFAULT_SETTINGS;
       if (savedSettings) {
-        setSettings({ ...DEFAULT_SETTINGS, ...savedSettings });
+        setSettings(mergedSettings);
       }
       if (savedSnippets && Array.isArray(savedSnippets) && savedSnippets.length > 0) {
         setSnippets(savedSnippets);
@@ -149,11 +271,21 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setTotalTokensUsed(savedTokens);
       }
       setHydrated(true);
+
+      // Auto-verify saved Gemini key on launch so LIVE state is genuine
+      if (mergedSettings.geminiApiKey.trim()) {
+        runGeminiVerification(
+          mergedSettings.geminiApiKey,
+          mergedSettings.geminiModel,
+          true,
+          mergedSettings.language
+        );
+      }
     })();
     return () => {
       active = false;
     };
-  }, []);
+  }, [runGeminiVerification]);
 
   useEffect(() => {
     if (!hydrated) return;
@@ -181,23 +313,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     document.documentElement.setAttribute('lang', settings.language);
   }, [settings.language]);
 
-  const showToast = useCallback(
-    (message: string, tone: 'cyan' | 'purple' | 'error' = 'cyan') => {
-      if (toastTimerRef.current) {
-        window.clearTimeout(toastTimerRef.current);
-      }
-      setToast({ id: Date.now(), message, tone });
-      toastTimerRef.current = window.setTimeout(() => {
-        setToast(null);
-      }, 2800);
-    },
-    []
-  );
-
   const navigate = useCallback(
     (screen: AppScreen) => {
       hapticTap();
       setLauncherOpen(false);
+      setKeyModalOpen(false);
       if (screen === currentScreen) return;
       setHistoryDepth((d) => d + 1);
       routerNavigate(SCREEN_TO_PATH[screen]);
@@ -207,6 +327,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   );
 
   const goBack = useCallback((): boolean => {
+    if (isKeyModalOpen) {
+      setKeyModalOpen(false);
+      return true;
+    }
     if (isLauncherOpen) {
       setLauncherOpen(false);
       return true;
@@ -222,7 +346,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       return true;
     }
     return false;
-  }, [currentScreen, historyDepth, isLauncherOpen, routerNavigate]);
+  }, [currentScreen, historyDepth, isKeyModalOpen, isLauncherOpen, routerNavigate]);
 
   // Bind Android hardware Back button via @capacitor/app
   const goBackRef = useRef(goBack);
@@ -238,8 +362,49 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   }, []);
 
   const updateSettings = useCallback((patch: Partial<AppSettings>) => {
-    setSettings((prev) => ({ ...prev, ...patch }));
+    setSettings((prev) => {
+      const next = { ...prev, ...patch };
+      if (patch.geminiApiKey !== undefined) {
+        const cleaned = sanitizeGeminiKey(patch.geminiApiKey);
+        next.geminiApiKey = cleaned;
+        setGeminiConnection((conn) => ({
+          ...conn,
+          status: cleaned ? 'unverified' : 'no_key',
+          error: undefined,
+        }));
+      }
+      return next;
+    });
   }, []);
+
+  const activateGeminiKey = useCallback(
+    async (rawKey?: string, preferredModel?: GeminiModelId): Promise<boolean> => {
+      const targetKey = rawKey !== undefined ? rawKey : settings.geminiApiKey;
+      const targetModel = preferredModel ?? settings.geminiModel;
+      const cleaned = sanitizeGeminiKey(targetKey);
+      setSettings((prev) => ({
+        ...prev,
+        geminiApiKey: cleaned,
+        geminiModel: targetModel,
+      }));
+      return runGeminiVerification(cleaned, targetModel, false, settings.language);
+    },
+    [runGeminiVerification, settings.geminiApiKey, settings.geminiModel, settings.language]
+  );
+
+  const disconnectGeminiKey = useCallback(() => {
+    setSettings((prev) => ({ ...prev, geminiApiKey: '' }));
+    setGeminiConnection({
+      status: 'no_key',
+      availableModels: DEFAULT_GEMINI_MODELS,
+    });
+    showToast(
+      settings.language === 'fa'
+        ? 'کلید Gemini از حافظه دستگاه پاک شد'
+        : 'Removed Gemini API Key from device',
+      'purple'
+    );
+  }, [settings.language, showToast]);
 
   const t = useCallback(
     (fa: string, en: string) => (settings.language === 'fa' ? fa : en),
@@ -337,12 +502,16 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   }, []);
 
   const clearChat = useCallback(() => {
-    setMessages(INITIAL_CHAT_MESSAGES);
+    setMessages(
+      settings.geminiApiKey.trim()
+        ? []
+        : INITIAL_CHAT_MESSAGES
+    );
     showToast(
       settings.language === 'fa' ? 'تاریخچه گفتگو بازنشانی شد' : 'Chat conversation reset',
       'purple'
     );
-  }, [settings.language, showToast]);
+  }, [settings.geminiApiKey, settings.language, showToast]);
 
   const value: AppContextValue = {
     currentScreen,
@@ -356,6 +525,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     toggleLanguage,
     isRtl: settings.language === 'fa',
     t,
+    geminiConnection,
+    activateGeminiKey,
+    disconnectGeminiKey,
+    isKeyModalOpen,
+    setKeyModalOpen,
     toast,
     showToast,
     messages,

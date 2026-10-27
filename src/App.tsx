@@ -5,6 +5,7 @@ import { AppProvider, useApp } from './context/AppContext';
 import { TopAppBar } from './components/TopAppBar';
 import { BottomNavBar } from './components/BottomNavBar';
 import { ScreenLauncherSheet } from './components/ScreenLauncherSheet';
+import { GeminiKeyModal } from './components/GeminiKeyModal';
 import { ChatScreen } from './screens/ChatScreen';
 import { RepositoriesScreen } from './screens/RepositoriesScreen';
 import { RepoDetailsScreen } from './screens/RepoDetailsScreen';
@@ -46,6 +47,7 @@ const AppShell: React.FC = () => {
       <BottomNavBar />
 
       <ScreenLauncherSheet />
+      <GeminiKeyModal />
 
       {/* Toast Notification Pill */}
       {toast && (

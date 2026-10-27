@@ -7,6 +7,7 @@ import {
   Coins,
   FolderGit2,
   Gauge,
+  KeyRound,
   RotateCcw,
   Send,
   Share2,
@@ -27,6 +28,9 @@ export const ChatScreen: React.FC = () => {
     setMessages,
     clearChat,
     settings,
+    updateSettings,
+    geminiConnection,
+    setKeyModalOpen,
     selectedRepo,
     navigate,
     recordTokenUsage,
@@ -104,6 +108,9 @@ export const ChatScreen: React.FC = () => {
         liked: null,
       };
 
+      if (reply.isLiveApi && reply.modelUsed && reply.modelUsed !== settings.geminiModel) {
+        updateSettings({ geminiModel: reply.modelUsed });
+      }
       setMessages((prev) => [...prev, assistantMsg]);
       recordTokenUsage('AI Chat Inference', reply.modelUsed, reply.tokensUsed, reply.latencyMs);
     } catch (err) {
@@ -168,37 +175,67 @@ export const ChatScreen: React.FC = () => {
       {/* Telemetry & Active Model Strip */}
       <div className="bg-surface-container/90 backdrop-blur-md rounded-2xl p-3 shadow-md cyber-border-subtle flex items-center justify-between gap-2">
         <div className="flex items-center gap-2.5 min-w-0">
-          <div className="relative flex items-center justify-center w-9 h-9 rounded-xl bg-surface-container-high text-primary-container shrink-0">
+          <button
+            type="button"
+            onClick={() => setKeyModalOpen(true)}
+            title={t('مدیریت کلید Gemini API', 'Manage Gemini API Key')}
+            className="relative flex items-center justify-center w-9 h-9 rounded-xl bg-surface-container-high text-primary-container shrink-0 active:scale-95 transition-all"
+          >
             <BrainCircuit className="w-5 h-5" />
             <span className="absolute -top-0.5 -right-0.5 flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-fixed opacity-75" />
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary-container" />
+              {geminiConnection.status === 'connected' && (
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-fixed opacity-75" />
+              )}
+              <span
+                className={`relative inline-flex rounded-full h-2.5 w-2.5 ${
+                  geminiConnection.status === 'connected'
+                    ? 'bg-primary-container'
+                    : geminiConnection.status === 'error'
+                      ? 'bg-error'
+                      : 'bg-secondary'
+                }`}
+              />
             </span>
-          </div>
+          </button>
           <div className="flex flex-col min-w-0">
             <div className="flex items-center gap-1.5 flex-wrap">
               <span className="font-display text-sm font-bold text-on-surface truncate" dir="ltr">
-                {settings.geminiModel}
+                {geminiConnection.resolvedModel || settings.geminiModel}
               </span>
               <span
                 className={`px-1.5 py-0.5 rounded-full text-[9px] font-mono uppercase font-bold ${
-                  isLiveKey
+                  geminiConnection.status === 'connected'
                     ? 'bg-primary-container/20 text-primary-container'
-                    : 'bg-secondary-container/60 text-secondary'
+                    : geminiConnection.status === 'error'
+                      ? 'bg-error-container/40 text-error'
+                      : isLiveKey
+                        ? 'bg-surface-container-high text-primary-fixed-dim'
+                        : 'bg-secondary-container/60 text-secondary'
                 }`}
               >
-                {isLiveKey ? 'LIVE API' : 'DEMO READY'}
+                {geminiConnection.status === 'connected'
+                  ? `LIVE • ${geminiConnection.latencyMs}ms`
+                  : geminiConnection.status === 'verifying'
+                    ? 'VERIFYING...'
+                    : geminiConnection.status === 'error'
+                      ? 'KEY ERROR'
+                      : isLiveKey
+                        ? 'SAVED KEY'
+                        : 'DEMO MODE'}
               </span>
             </div>
             <button
               type="button"
-              onClick={() => !isLiveKey && navigate('settings')}
+              onClick={() => setKeyModalOpen(true)}
               className="text-[11px] font-mono text-on-surface-variant flex items-center gap-1 text-start hover:text-primary-container transition-colors truncate"
             >
-              <span>
-                {isLiveKey
-                  ? t('متصل به سرورهای گوگل', 'Connected to Google AI')
-                  : t('کلید API تنظیم نشده (کلیک برای اتصال)', 'Tap to add live Gemini key')}
+              {!isLiveKey && <KeyRound className="w-3 h-3 text-primary-container shrink-0" />}
+              <span className="truncate">
+                {geminiConnection.status === 'connected'
+                  ? t('متصل به سرورهای رسمی گوگل (تغییر کلید/مدل)', 'Live Google AI (tap to manage key/model)')
+                  : geminiConnection.status === 'error'
+                    ? t('خطا در کلید — برای اصلاح کلیک کنید', 'Key error — tap to fix')
+                    : t('فعال‌سازی کلید واقعی Gemini API ←', 'Tap to activate live Gemini API Key →')}
               </span>
             </button>
           </div>
@@ -255,6 +292,20 @@ export const ChatScreen: React.FC = () => {
 
       {/* Conversation Stream */}
       <div className="flex flex-col gap-4 py-1">
+        {messages.length === 0 && (
+          <div className="p-5 rounded-2xl bg-surface-container-low text-center space-y-2 cyber-border">
+            <Sparkles className="w-6 h-6 text-primary-container mx-auto" />
+            <p className="font-display text-sm font-bold text-on-surface">
+              {t('گفتگوی زنده با Google Gemini آماده است', 'Live Google Gemini Session Ready')}
+            </p>
+            <p className="text-xs text-on-surface-variant">
+              {t(
+                'سوال برنامه‌نویسی، بررسی مخزن یا کد خود را در پایین بنویسید تا مستقیماً از سرور گوگل پاسخ بگیرید.',
+                'Send any coding question, repository query, or snippet below for real-time Gemini inference.'
+              )}
+            </p>
+          </div>
+        )}
         {messages.map((msg) => {
           if (msg.role === 'user') {
             return (

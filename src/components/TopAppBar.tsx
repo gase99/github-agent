@@ -4,10 +4,10 @@ import {
   ArrowRight,
   BarChart3,
   Database,
+  KeyRound,
   LayoutGrid,
   Languages,
   Sparkles,
-  Terminal,
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import type { AppScreen } from '../types/app';
@@ -31,6 +31,8 @@ export const TopAppBar: React.FC = () => {
     goBack,
     navigate,
     setLauncherOpen,
+    setKeyModalOpen,
+    geminiConnection,
     settings,
     toggleLanguage,
     isRtl,
@@ -111,18 +113,36 @@ export const TopAppBar: React.FC = () => {
 
         {/* Trailing Controls */}
         <div className="flex items-center gap-1.5 shrink-0">
-          {/* Live/Demo Pill on wider mobile */}
-          <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-high text-[10px] font-mono">
-            <Sparkles className="w-3.5 h-3.5 text-primary-container" />
-            <span className="text-on-surface-variant">
-              {settings.geminiApiKey.trim() ? 'Gemini Live' : 'Gemini Demo'}
+          {/* Interactive Gemini API Activation Pill (visible on all mobile & desktop sizes) */}
+          <button
+            type="button"
+            onClick={() => setKeyModalOpen(true)}
+            title={t('تنظیم و فعال‌سازی کلید Gemini API', 'Configure & Activate Gemini API Key')}
+            className={`h-9 px-2.5 rounded-xl flex items-center gap-1.5 text-[10px] font-mono font-semibold active:scale-95 transition-all ${
+              geminiConnection.status === 'connected'
+                ? 'bg-primary-container/20 text-primary-container cyber-border'
+                : geminiConnection.status === 'error'
+                  ? 'bg-error-container/40 text-error'
+                  : settings.geminiApiKey.trim()
+                    ? 'bg-surface-container-high text-primary-fixed-dim cyber-border'
+                    : 'bg-secondary-container/45 text-secondary hover:bg-secondary-container/70'
+            }`}
+          >
+            {settings.geminiApiKey.trim() ? (
+              <Sparkles className="w-3.5 h-3.5 shrink-0" />
+            ) : (
+              <KeyRound className="w-3.5 h-3.5 shrink-0" />
+            )}
+            <span dir="ltr">
+              {geminiConnection.status === 'connected'
+                ? 'Gemini LIVE'
+                : geminiConnection.status === 'verifying'
+                  ? 'Verifying...'
+                  : settings.geminiApiKey.trim()
+                    ? 'Verify Key'
+                    : t('اتصال کلید AI', 'Connect AI')}
             </span>
-            <span className="w-1 h-1 rounded-full bg-outline-variant" />
-            <Terminal className="w-3.5 h-3.5 text-secondary" />
-            <span className="text-on-surface-variant">
-              {settings.githubToken.trim() ? 'PAT' : 'Git'}
-            </span>
-          </div>
+          </button>
 
           {/* Context Cache Shortcut */}
           <button

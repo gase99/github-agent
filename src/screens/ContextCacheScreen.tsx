@@ -14,6 +14,7 @@ import {
   Zap,
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
+import { createLiveGeminiContextCache } from '../services/geminiApi';
 import { copyText } from '../services/nativeBridge';
 import type { CacheArtifact } from '../types/app';
 
@@ -21,6 +22,7 @@ export const ContextCacheScreen: React.FC = () => {
   const {
     selectedRepo,
     settings,
+    setKeyModalOpen,
     cacheEnabled,
     setCacheEnabled,
     cacheRemainingMinutes,
@@ -33,8 +35,38 @@ export const ContextCacheScreen: React.FC = () => {
 
   const [dailyQueries, setDailyQueries] = useState(120);
   const [previewArtifact, setPreviewArtifact] = useState<CacheArtifact | null>(null);
+  const [cacheId, setCacheId] = useState('cache_gemini_ctx_984f1a');
+  const [syncingLiveCache, setSyncingLiveCache] = useState(false);
+  const [liveCacheNote, setLiveCacheNote] = useState<string>('');
 
-  const cacheId = 'cache_gemini_ctx_984f1a';
+  const handleSyncLiveCache = async () => {
+    if (!settings.geminiApiKey.trim()) {
+      setKeyModalOpen(true);
+      return;
+    }
+    setSyncingLiveCache(true);
+    try {
+      const combinedContext = cacheArtifacts
+        .map((a) => `### ${a.titleEn}\n${a.previewContent}`)
+        .join('\n\n');
+      const res = await createLiveGeminiContextCache({
+        apiKey: settings.geminiApiKey,
+        model: settings.geminiModel,
+        displayName: `repo-${selectedRepo.name}`,
+        contextText: `Repository: ${selectedRepo.fullName}\n${combinedContext}`,
+        ttlPreset: settings.defaultCacheTtl,
+      });
+      setCacheId(res.cacheName);
+      setCacheEnabled(true);
+      setLiveCacheNote(t(res.noteFa, res.noteEn));
+      showToast(t(res.noteFa, res.noteEn), 'cyan');
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Cache sync failed';
+      showToast(msg, 'error');
+    } finally {
+      setSyncingLiveCache(false);
+    }
+  };
   const hours = Math.floor(cacheRemainingMinutes / 60);
   const mins = cacheRemainingMinutes % 60;
   const ttlPct = Math.min(100, Math.round((cacheRemainingMinutes / 360) * 100));
@@ -84,6 +116,28 @@ export const ContextCacheScreen: React.FC = () => {
             <Copy className="w-3.5 h-3.5" />
           </button>
         </div>
+
+        <button
+          type="button"
+          disabled={syncingLiveCache}
+          onClick={handleSyncLiveCache}
+          className="w-full py-2.5 px-3 rounded-xl bg-primary-container/15 hover:bg-primary-container/25 text-primary-container font-display text-xs font-bold flex items-center justify-center gap-2 cyber-border active:scale-98 transition-all"
+        >
+          <RefreshCw className={`w-3.5 h-3.5 ${syncingLiveCache ? 'animate-spin' : ''}`} />
+          <span>
+            {syncingLiveCache
+              ? t('در حال ثبت کش در سرور Google Gemini...', 'Registering Context with Google Gemini...')
+              : settings.geminiApiKey.trim()
+                ? t('ثبت و همگام‌سازی زنده کش با Google Gemini API', 'Sync Live Context Cache with Google Gemini API')
+                : t('فعال‌سازی کلید Gemini برای ثبت کش زنده', 'Activate Gemini API Key to Sync Live Cache')}
+          </span>
+        </button>
+
+        {liveCacheNote && (
+          <p className="text-[11px] text-primary-fixed-dim bg-surface-container-lowest/70 p-2.5 rounded-xl">
+            {liveCacheNote}
+          </p>
+        )}
       </section>
 
       {/* 4-Card KPI Bento Grid */}

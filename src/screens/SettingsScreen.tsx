@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
+  AlertCircle,
   BellRing,
   CheckCircle2,
+  ClipboardPaste,
   Copy,
   Database,
+  ExternalLink,
   Eye,
   EyeOff,
+  KeyRound,
   Languages,
+  Loader2,
   MessageSquare,
   Phone,
   PlusCircle,
@@ -20,48 +25,119 @@ import {
   Webhook,
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
-import { pingGeminiApi } from '../services/geminiApi';
+import { generateAssistantReply } from '../services/geminiApi';
 import { pingGithubApi } from '../services/githubApi';
-import { copyText } from '../services/nativeBridge';
+import { copyText, readClipboardText } from '../services/nativeBridge';
 import type { CacheTtlPreset, GeminiModelId } from '../types/app';
 
 export const SettingsScreen: React.FC = () => {
-  const { settings, updateSettings, navigate, showToast, t } = useApp();
+  const {
+    settings,
+    updateSettings,
+    geminiConnection,
+    activateGeminiKey,
+    disconnectGeminiKey,
+    recordTokenUsage,
+    navigate,
+    showToast,
+    t,
+  } = useApp();
 
+  const [draftGeminiKey, setDraftGeminiKey] = useState(settings.geminiApiKey);
   const [showGeminiKey, setShowGeminiKey] = useState(false);
   const [showGithubToken, setShowGithubToken] = useState(false);
-  const [testingGemini, setTestingGemini] = useState(false);
   const [testingGithub, setTestingGithub] = useState(false);
-  const [geminiLatency, setGeminiLatency] = useState<string>('142ms');
   const [githubStatusText, setGithubStatusText] = useState<string>('');
+
+  const [liveTestPrompt, setLiveTestPrompt] = useState(
+    'سلام! در یک جمله کوتاه فارسی بگو کدام مدل Gemini هستی و تایید کن کلید API فعال است.'
+  );
+  const [liveTestingPrompt, setLiveTestingPrompt] = useState(false);
+  const [liveTestOutput, setLiveTestOutput] = useState<{
+    reply: string;
+    latencyMs: number;
+    tokens: number;
+    error?: string;
+  } | null>(null);
+
+  useEffect(() => {
+    setDraftGeminiKey(settings.geminiApiKey);
+  }, [settings.geminiApiKey]);
 
   const [newTgChatId, setNewTgChatId] = useState('');
   const [newTgLabel, setNewTgLabel] = useState('');
   const [newPhone, setNewPhone] = useState('');
 
-  const handlePingGemini = async () => {
-    setTestingGemini(true);
-    const res = await pingGeminiApi(settings.geminiApiKey, settings.geminiModel);
-    setTestingGemini(false);
-    setGeminiLatency(`${res.latencyMs}ms`);
-    if (res.ok) {
+  const isVerifyingGemini = geminiConnection.status === 'verifying';
+  const hasUnsavedKeyChange = draftGeminiKey.trim() !== settings.geminiApiKey.trim();
+
+  const handleActivateGemini = async () => {
+    await activateGeminiKey(draftGeminiKey, settings.geminiModel);
+  };
+
+  const handlePasteGeminiKey = async () => {
+    const clip = await readClipboardText();
+    if (clip.trim()) {
+      setDraftGeminiKey(clip.trim());
       showToast(
-        t(
-          `اتصال Gemini تایید شد (${res.displayName} • ${res.latencyMs}ms) ✓`,
-          `Gemini Connected (${res.displayName} • ${res.latencyMs}ms) ✓`
-        ),
+        t('کلید از کلیپ‌بورد خوانده شد — دکمه فعال‌سازی را بزنید ✓', 'Pasted key from clipboard — click Activate ✓'),
         'cyan'
       );
-    } else if (res.error === 'DEMO_MODE_NO_KEY') {
+    } else {
       showToast(
-        t(
-          'کلید Gemini خالی است (برنامه در حالت نمایشی کار می‌کند)',
-          'No Gemini API key entered (running in Demo Mode)'
-        ),
+        t('متنی در کلیپ‌بورد یافت نشد؛ کلید را مستقیماً در کادر بچسبانید', 'Clipboard unavailable — paste directly into the field'),
         'purple'
       );
-    } else {
-      showToast(t(`خطا در تست کلید: ${res.error}`, `Key test failed: ${res.error}`), 'error');
+    }
+  };
+
+  const handleRunInlinePromptTest = async () => {
+    const keyToUse = draftGeminiKey.trim() || settings.geminiApiKey.trim();
+    if (!keyToUse) {
+      showToast(
+        t('ابتدا کلید Gemini API را وارد و فعال کنید', 'Please enter and activate your Gemini API Key first'),
+        'purple'
+      );
+      return;
+    }
+    setLiveTestingPrompt(true);
+    setLiveTestOutput(null);
+    try {
+      if (hasUnsavedKeyChange || geminiConnection.status !== 'connected') {
+        const ok = await activateGeminiKey(keyToUse, settings.geminiModel);
+        if (!ok) {
+          setLiveTestingPrompt(false);
+          return;
+        }
+      }
+      const started = performance.now();
+      const res = await generateAssistantReply({
+        prompt: liveTestPrompt.trim() || 'Confirm live connection in one sentence.',
+        history: [],
+        settings: { ...settings, geminiApiKey: keyToUse, tokenStreaming: false },
+      });
+      const elapsed = res.latencyMs || Math.round(performance.now() - started);
+      setLiveTestOutput({
+        reply: res.text,
+        latencyMs: elapsed,
+        tokens: res.tokensUsed,
+      });
+      recordTokenUsage('Settings Live API Prompt Test', res.modelUsed, res.tokensUsed, elapsed);
+      showToast(
+        t(`پاسخ زنده از گوگل دریافت شد (${elapsed}ms) ✓`, `Received live reply from Google (${elapsed}ms) ✓`),
+        'cyan'
+      );
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Request failed';
+      setLiveTestOutput({
+        reply: '',
+        latencyMs: 0,
+        tokens: 0,
+        error: msg,
+      });
+      showToast(msg, 'error');
+    } finally {
+      setLiveTestingPrompt(false);
     }
   };
 
@@ -210,82 +286,313 @@ export const SettingsScreen: React.FC = () => {
         </div>
       </section>
 
-      {/* 2. Google Gemini API Configuration */}
-      <section className="rounded-2xl bg-surface-container-low p-4 shadow-md cyber-border-subtle space-y-3">
-        <div className="flex items-center justify-between">
+      {/* 2. Google Gemini API Configuration (Fully Live & Interactive) */}
+      <section className="rounded-2xl bg-surface-container-low p-4 shadow-md cyber-border space-y-3.5">
+        <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-surface-container flex items-center justify-center text-primary-container">
+            <div className="w-9 h-9 rounded-xl bg-primary-container/15 flex items-center justify-center text-primary-container">
               <Sparkles className="w-4 h-4" />
             </div>
             <div>
               <h2 className="font-display text-sm font-bold text-on-surface">
-                {t('پیکربندی هوش مصنوعی گوگل (Gemini)', 'Google Gemini AI Configuration')}
+                {t('پیکربندی و فعال‌سازی کلید Google Gemini API', 'Google Gemini API Key Activation')}
               </h2>
-              <p className="font-mono text-[10px] text-on-surface-variant">
-                {t(
-                  'کلید فقط در حافظه امن دستگاه شما ذخیره می‌شود',
-                  'Stored locally on device via Capacitor Preferences'
-                )}
+              <p className="font-mono text-[10px] text-on-surface-variant" dir="ltr">
+                generativelanguage.googleapis.com/v1beta
               </p>
             </div>
           </div>
-          <span className="font-mono text-[10px] px-2.5 py-1 rounded-full bg-surface-container text-primary-container">
-            {settings.geminiApiKey.trim() ? `LIVE • ${geminiLatency}` : 'DEMO'}
-          </span>
-        </div>
 
-        <div className="space-y-1.5">
-          <label className="block text-xs text-on-surface-variant">
-            {t('کلید دسترسی سرویس (Google Gemini API Key):', 'Google Gemini API Key:')}
-          </label>
-          <div className="relative flex items-center" dir="ltr">
-            <input
-              type={showGeminiKey ? 'text' : 'password'}
-              value={settings.geminiApiKey}
-              onChange={(e) => updateSettings({ geminiApiKey: e.target.value })}
-              placeholder="Enter Google Gemini API Key"
-              className="w-full bg-surface-container-lowest text-on-surface font-mono text-xs px-3 py-2.5 pr-10 rounded-xl outline-none cyber-border-subtle"
-            />
-            <button
-              type="button"
-              onClick={() => setShowGeminiKey((v) => !v)}
-              className="absolute right-2.5 text-outline hover:text-on-surface"
+          <div className="flex items-center gap-1.5 shrink-0">
+            <span
+              className={`font-mono text-[10px] px-2.5 py-1 rounded-full font-bold ${
+                geminiConnection.status === 'connected'
+                  ? 'bg-primary-container/20 text-primary-container cyber-border'
+                  : geminiConnection.status === 'error'
+                    ? 'bg-error-container/40 text-error'
+                    : geminiConnection.status === 'verifying'
+                      ? 'bg-surface-container-high text-primary-fixed-dim'
+                      : 'bg-surface-container text-secondary'
+              }`}
+              dir="ltr"
             >
-              {showGeminiKey ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-            </button>
+              {geminiConnection.status === 'connected'
+                ? `VERIFIED • ${geminiConnection.latencyMs}ms`
+                : geminiConnection.status === 'verifying'
+                  ? 'CHECKING...'
+                  : geminiConnection.status === 'error'
+                    ? 'AUTH ERROR'
+                    : settings.geminiApiKey.trim()
+                      ? 'SAVED'
+                      : 'DEMO'}
+            </span>
           </div>
         </div>
 
+        {/* Live Connection Diagnostic Banner */}
+        {geminiConnection.status === 'connected' ? (
+          <div className="p-3 rounded-xl bg-primary-container/12 cyber-border space-y-1">
+            <div className="flex items-center justify-between gap-2">
+              <span className="text-xs font-bold text-primary-container flex items-center gap-1.5">
+                <CheckCircle2 className="w-4 h-4 shrink-0" />
+                {t('کلید شما فعال و متصل به سرور گوگل است', 'Your Gemini API Key is Verified & Live')}
+              </span>
+              <span className="font-mono text-[10px] text-primary-fixed-dim" dir="ltr">
+                {geminiConnection.lastCheckedAt || 'Active'}
+              </span>
+            </div>
+            <p className="font-mono text-[11px] text-on-surface-variant" dir="ltr">
+              Model: {geminiConnection.resolvedModel}
+              {geminiConnection.inputTokenLimit
+                ? ` • Context: ${(geminiConnection.inputTokenLimit / 1000).toFixed(0)}k tokens`
+                : ''}
+            </p>
+            {geminiConnection.sampleReply && (
+              <p className="font-mono text-[10px] text-outline" dir="ltr">
+                Google Handshake: "{geminiConnection.sampleReply}"
+              </p>
+            )}
+          </div>
+        ) : geminiConnection.status === 'error' ? (
+          <div className="p-3 rounded-xl bg-error-container/30 border border-error/30 space-y-1">
+            <div className="flex items-center gap-1.5 text-xs font-bold text-error">
+              <AlertCircle className="w-4 h-4 shrink-0" />
+              <span>{t('کلید تایید نشد — پاسخ سرور گوگل:', 'Verification Failed — Google API Response:')}</span>
+            </div>
+            <p className="font-mono text-[11px] text-on-error-container break-words" dir="ltr">
+              {geminiConnection.error}
+            </p>
+          </div>
+        ) : (
+          <div className="p-3 rounded-xl bg-surface-container flex items-center justify-between gap-2 text-xs">
+            <span className="text-on-surface-variant leading-5">
+              {draftGeminiKey.trim()
+                ? t(
+                    'کلید وارد شده است — برای فعال‌سازی روی دکمه «ذخیره، فعال‌سازی و اتصال زنده» بزنید.',
+                    'Key entered — click "Save, Verify & Activate Live Gemini API" below to go live.'
+                  )
+                : t(
+                    'در حال حاضر کلیدی ثبت نشده و برنامه در حالت پیش‌نمایش (Demo) است. کلید Google AI Studio خود را وارد کنید تا هوش مصنوعی واقعی فعال شود.',
+                    'Currently in Demo Mode because no API key is saved. Enter your Google AI Studio key below to activate real Gemini AI.'
+                  )}
+            </span>
+          </div>
+        )}
+
+        {/* API Key Input + Paste / Show / Clear + AI Studio Link */}
         <div className="space-y-1.5">
-          <label className="block text-xs text-on-surface-variant">
-            {t('مدل پیش‌فرض پردازش (Engine Model):', 'Default Gemini Model:')}
-          </label>
-          <select
-            value={settings.geminiModel}
-            onChange={(e) => updateSettings({ geminiModel: e.target.value as GeminiModelId })}
-            dir="ltr"
-            className="w-full bg-surface-container-lowest text-on-surface font-mono text-xs py-2.5 px-3 rounded-xl outline-none cyber-border-subtle"
-          >
-            <option value="gemini-2.5-flash">gemini-2.5-flash (Fastest & Multimodal)</option>
-            <option value="gemini-2.5-pro">gemini-2.5-pro (Deep Code & PR Reasoning)</option>
-            <option value="gemini-1.5-pro">gemini-1.5-pro (2M Context Window)</option>
-            <option value="gemini-1.5-flash">gemini-1.5-flash (Lightweight)</option>
-          </select>
+          <div className="flex items-center justify-between gap-2">
+            <label className="block text-xs text-on-surface-variant">
+              {t('کلید دسترسی سرویس (Google Gemini API Key):', 'Google Gemini API Key:')}
+            </label>
+            <a
+              href="https://aistudio.google.com/apikey"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[11px] font-mono text-primary-container hover:underline inline-flex items-center gap-1 shrink-0"
+            >
+              <span>{t('دریافت کلید رایگان از گوگل', 'Get Free Key (AI Studio)')}</span>
+              <ExternalLink className="w-3 h-3" />
+            </a>
+          </div>
+
+          <div className="flex items-center gap-1.5" dir="ltr">
+            <div className="relative flex-1 flex items-center">
+              <KeyRound className="w-4 h-4 text-primary-container absolute left-3 pointer-events-none" />
+              <input
+                type={showGeminiKey ? 'text' : 'password'}
+                autoComplete="off"
+                autoCorrect="off"
+                autoCapitalize="off"
+                spellCheck={false}
+                value={draftGeminiKey}
+                onChange={(e) => setDraftGeminiKey(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    handleActivateGemini();
+                  }
+                }}
+                placeholder="Enter Google Gemini API Key"
+                className="w-full bg-surface-container-lowest text-on-surface font-mono text-xs pl-9 pr-10 py-3 rounded-xl outline-none cyber-border focus:border-primary-container"
+              />
+              <button
+                type="button"
+                onClick={() => setShowGeminiKey((v) => !v)}
+                className="absolute right-2.5 text-outline hover:text-on-surface"
+                title={showGeminiKey ? 'Hide Key' : 'Show Key'}
+              >
+                {showGeminiKey ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              </button>
+            </div>
+
+            <button
+              type="button"
+              onClick={handlePasteGeminiKey}
+              className="h-[42px] px-3 rounded-xl bg-surface-container-high hover:bg-surface-bright text-primary-container text-xs font-semibold flex items-center gap-1.5 shrink-0 active:scale-95 transition-all"
+              title={t('چسباندن از کلیپ‌بورد', 'Paste from Clipboard')}
+            >
+              <ClipboardPaste className="w-4 h-4" />
+              <span>{t('چسباندن', 'Paste')}</span>
+            </button>
+
+            {(draftGeminiKey.trim() || settings.geminiApiKey.trim()) && (
+              <button
+                type="button"
+                onClick={() => {
+                  setDraftGeminiKey('');
+                  setLiveTestOutput(null);
+                  disconnectGeminiKey();
+                }}
+                className="h-[42px] px-2.5 rounded-xl bg-error-container/30 hover:bg-error-container/50 text-error text-xs flex items-center justify-center shrink-0 active:scale-95 transition-all"
+                title={t('پاک کردن کلید', 'Clear API Key')}
+              >
+                <Trash2 className="w-4 h-4" />
+              </button>
+            )}
+          </div>
         </div>
 
+        {/* Model Selection (Dynamically populated from Google API when verified) & Temperature */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+          <div className="space-y-1.5">
+            <label className="block text-xs text-on-surface-variant">
+              {t('مدل پیش‌فرض پردازش (لیست رسمی گوگل):', 'Default Gemini Model:')}
+            </label>
+            <select
+              value={settings.geminiModel}
+              onChange={(e) => {
+                const chosen = e.target.value as GeminiModelId;
+                updateSettings({ geminiModel: chosen });
+                if (draftGeminiKey.trim()) {
+                  activateGeminiKey(draftGeminiKey, chosen);
+                }
+              }}
+              dir="ltr"
+              className="w-full bg-surface-container-lowest text-on-surface font-mono text-xs py-2.5 px-3 rounded-xl outline-none cyber-border-subtle"
+            >
+              {geminiConnection.availableModels.map((m) => (
+                <option key={m.id} value={m.id}>
+                  {m.displayName}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="space-y-1.5">
+            <div className="flex items-center justify-between text-xs">
+              <span className="text-on-surface-variant">
+                {t('دمای خلاقیت (Temperature):', 'Temperature:')}
+              </span>
+              <span className="font-mono text-primary-container font-bold" dir="ltr">
+                {settings.temperature.toFixed(1)}
+              </span>
+            </div>
+            <input
+              type="range"
+              min={0}
+              max={1}
+              step={0.1}
+              value={settings.temperature}
+              onChange={(e) => updateSettings({ temperature: parseFloat(e.target.value) })}
+              className="w-full accent-[#00f5d4] cursor-pointer mt-2"
+            />
+          </div>
+        </div>
+
+        {/* Primary Activate & Verify CTA */}
         <button
           type="button"
-          disabled={testingGemini}
-          onClick={handlePingGemini}
-          className="w-full py-2.5 px-3 rounded-xl bg-surface-container-high hover:bg-surface-bright text-primary-container font-display text-xs font-bold flex items-center justify-center gap-2 active:scale-98 transition-all"
+          disabled={isVerifyingGemini || !draftGeminiKey.trim()}
+          onClick={handleActivateGemini}
+          className="w-full py-3 px-4 rounded-xl bg-primary-container disabled:opacity-45 text-on-primary-container font-display text-xs font-bold flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(0,245,212,0.3)] active:scale-98 transition-all"
         >
-          <Radio className={`w-4 h-4 ${testingGemini ? 'animate-ping' : ''}`} />
-          <span>
-            {testingGemini
-              ? t('در حال بررسی اتصال با سرورهای گوگل...', 'Testing Gemini handshake...')
-              : t('تست زنده اتصال Gemini API (Ping)', 'Test Live Gemini Connection')}
-          </span>
+          {isVerifyingGemini ? (
+            <>
+              <Loader2 className="w-4 h-4 animate-spin" />
+              <span>
+                {t(
+                  'در حال احراز هویت کلید و دریافت لیست مدل‌ها از گوگل...',
+                  'Authenticating Key & Fetching Models from Google...'
+                )}
+              </span>
+            </>
+          ) : (
+            <>
+              <Radio className="w-4 h-4" />
+              <span>
+                {geminiConnection.status === 'connected' && !hasUnsavedKeyChange
+                  ? t('تست مجدد و همگام‌سازی مدل‌های کلید ✓', 'Re-verify Key & Sync Models ✓')
+                  : t('ذخیره، فعال‌سازی و اتصال زنده به Gemini', 'Save, Verify & Activate Live Gemini API')}
+              </span>
+            </>
+          )}
         </button>
+
+        {/* Inline Live Prompt Sandbox */}
+        <div className="p-3 rounded-xl bg-surface-container space-y-2.5">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-bold text-on-surface flex items-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5 text-primary-container" />
+              {t('تست زنده پاسخ‌گویی کلید در همین صفحه', 'Live Gemini Prompt Sandbox')}
+            </span>
+            <span className="font-mono text-[10px] text-outline" dir="ltr">
+              POST :generateContent
+            </span>
+          </div>
+
+          <div className="flex items-center gap-1.5">
+            <input
+              type="text"
+              value={liveTestPrompt}
+              onChange={(e) => setLiveTestPrompt(e.target.value)}
+              placeholder={t('یک پیام آزمایشی برای جمینای بنویسید...', 'Type a live test prompt for Gemini...')}
+              className="flex-1 bg-surface-container-lowest text-on-surface text-xs px-3 py-2 rounded-xl outline-none cyber-border-subtle"
+            />
+            <button
+              type="button"
+              disabled={liveTestingPrompt || (!draftGeminiKey.trim() && !settings.geminiApiKey.trim())}
+              onClick={handleRunInlinePromptTest}
+              className="h-9 px-3 rounded-xl bg-surface-container-high hover:bg-surface-bright disabled:opacity-45 text-primary-container font-display text-xs font-bold flex items-center gap-1.5 shrink-0 active:scale-95 transition-all"
+            >
+              {liveTestingPrompt ? (
+                <Loader2 className="w-3.5 h-3.5 animate-spin" />
+              ) : (
+                <Send className="w-3.5 h-3.5" />
+              )}
+              <span>{t('ارسال تست زنده', 'Run Live')}</span>
+            </button>
+          </div>
+
+          {liveTestOutput && (
+            <div
+              className={`p-2.5 rounded-xl text-xs leading-6 ${
+                liveTestOutput.error
+                  ? 'bg-error-container/30 text-on-error-container'
+                  : 'bg-surface-container-lowest text-on-surface cyber-border-subtle'
+              }`}
+            >
+              {liveTestOutput.error ? (
+                <p className="font-mono text-[11px]" dir="ltr">
+                  Error: {liveTestOutput.error}
+                </p>
+              ) : (
+                <>
+                  <p>{liveTestOutput.reply}</p>
+                  <div
+                    className="mt-1.5 pt-1.5 border-t border-white/[0.06] flex items-center justify-between font-mono text-[10px] text-primary-fixed-dim"
+                    dir="ltr"
+                  >
+                    <span>Model: {settings.geminiModel}</span>
+                    <span>
+                      {liveTestOutput.tokens} tokens • {liveTestOutput.latencyMs}ms
+                    </span>
+                  </div>
+                </>
+              )}
+            </div>
+          )}
+        </div>
       </section>
 
       {/* 3. GitHub Personal Access Token & Sync */}
@@ -730,20 +1037,24 @@ export const SettingsScreen: React.FC = () => {
       {/* Save Confirmation CTA */}
       <button
         type="button"
-        onClick={() =>
+        onClick={async () => {
+          if (draftGeminiKey.trim() && (hasUnsavedKeyChange || geminiConnection.status !== 'connected')) {
+            await activateGeminiKey(draftGeminiKey, settings.geminiModel);
+            return;
+          }
           showToast(
             t(
               'تمام تنظیمات و کلیدها در حافظه دستگاه ذخیره شدند ✓',
               'All settings & credentials persisted on device ✓'
             ),
             'cyan'
-          )
-        }
+          );
+        }}
         className="w-full py-3.5 px-4 rounded-2xl bg-primary-container text-on-primary-container font-display text-sm font-bold flex items-center justify-center gap-2 shadow-[0_0_24px_rgba(0,245,212,0.4)] active:scale-98 transition-all"
       >
         <Save className="w-4 h-4" />
         <CheckCircle2 className="w-4 h-4" />
-        <span>{t('ذخیره و تایید تنظیمات (Saved)', 'Save & Persist Configuration')}</span>
+        <span>{t('ذخیره و فعال‌سازی تنظیمات (Save & Activate)', 'Save & Activate Configuration')}</span>
       </button>
 
       {/* Android APK Build Metadata */}

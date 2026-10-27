@@ -145,6 +145,9 @@ export const RepositoriesScreen: React.FC = () => {
         true
       );
       showToast(t('تحلیل هوشمند مخزن آماده شد ✨', 'AI repository analysis ready ✨'), 'cyan');
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Analysis error';
+      showToast(msg, 'error');
     } finally {
       setAnalyzingRepoId(null);
     }
